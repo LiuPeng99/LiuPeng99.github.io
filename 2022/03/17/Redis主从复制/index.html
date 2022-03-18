@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://example.com/2022/03/17/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/image-6.png">
 <meta property="og:image" content="http://example.com/2022/03/17/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/image-7.png">
 <meta property="article:published_time" content="2022-03-17T15:15:49.362Z">
-<meta property="article:modified_time" content="2022-03-18T01:27:53.171Z">
+<meta property="article:modified_time" content="2022-03-18T01:45:29.165Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2022/03/17/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/image-1.png">
@@ -39,22 +39,22 @@
   
   <title>Redis主从复制 - Hexo</title>
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+  <link  rel="stylesheet" href="https://unpkg.com/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://unpkg.com/hint.css@2/hint.min.css" />
 
   
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+      <link  rel="stylesheet" href="https://unpkg.com/highlight.js@10/styles/github-gist.min.css" />
     
   
 
   
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+    <link  rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
   
 
 
@@ -309,7 +309,7 @@
 <li>服务器的运行ID</li>
 </ol>
 <p>接下来我们一一讲解。</p>
-<h3 id="5-1-复制偏移量"><a href="#5-1-复制偏移量" class="headerlink" title="5.1 复制偏移量"></a>5.1 复制偏移量</h3><p>执行复制的主服务器和从服务器会分别维护一个复制偏移量：</p>
+<h3 id="1、复制偏移量"><a href="#1、复制偏移量" class="headerlink" title="1、复制偏移量"></a>1、复制偏移量</h3><p>执行复制的主服务器和从服务器会分别维护一个复制偏移量：</p>
 <ol>
 <li>主服务器每次向从服务器传播N个字节的数据时，就将自己的复制偏移量的值加上N。</li>
 <li>从服务器每次收到主服务器传播来的N个字节的数据时，就将自己的复制偏移量的值加上N。</li>
@@ -328,7 +328,7 @@
 <li>如果执行部分重同步，主服务器从哪里获取到断线期间从服务器A丢失的数据？</li>
 </ol>
 <p>带着这2个问题，我们看下复制积压缓冲区。</p>
-<h3 id="5-2-复制积压缓冲区"><a href="#5-2-复制积压缓冲区" class="headerlink" title="5.2 复制积压缓冲区"></a>5.2 复制积压缓冲区</h3><p>复制积压缓冲区是主服务器维护的一个<strong>固定长度先进先出队列</strong>，默认大小为1MB。</p>
+<h3 id="2、复制积压缓冲区"><a href="#2、复制积压缓冲区" class="headerlink" title="2、复制积压缓冲区"></a>2、复制积压缓冲区</h3><p>复制积压缓冲区是主服务器维护的一个<strong>固定长度先进先出队列</strong>，默认大小为1MB。</p>
 <p>当主服务器进行命令传播时，它不仅会将写命令发送给所有从服务器，还会将写命令入队到复制积压缓冲区，如下图所示：</p>
 <p><img src="/2022/03/17/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/image-4.png" srcset="/img/loading.gif" lazyload alt="image-4"></p>
 <p>所以，主服务器的复制积压缓冲区会保存着一部分最近传播的写命令，并且为队列中的每个字节记录相应的复制偏移量，如下所示：</p>
@@ -373,7 +373,7 @@
 <li>从服务器A接收这33字节的缺失数据，就回到与主服务器一致的状态。</li>
 </ol>
 <p><img src="/2022/03/17/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/image-5.png" srcset="/img/loading.gif" lazyload alt="image-5"></p>
-<h3 id="5-3-服务器运行ID"><a href="#5-3-服务器运行ID" class="headerlink" title="5.3 服务器运行ID"></a>5.3 服务器运行ID</h3><p>每个Redis服务器，不论主服务器还是从服务器，都会有自己的运行ID，运行ID在服务器启动时自动生成，由40个十六进制字符组成，如下图所示：</p>
+<h3 id="3、服务器运行ID"><a href="#3、服务器运行ID" class="headerlink" title="3、服务器运行ID"></a>3、服务器运行ID</h3><p>每个Redis服务器，不论主服务器还是从服务器，都会有自己的运行ID，运行ID在服务器启动时自动生成，由40个十六进制字符组成，如下图所示：</p>
 <p><img src="/2022/03/17/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/image-6.png" srcset="/img/loading.gif" lazyload alt="image-6"></p>
 <p>当从服务器对主服务器进行<strong>初次复制</strong>时，主服务器会将自己的运行ID传送给从服务器，从服务器会将这个运行ID保存起来。</p>
 <p>当从服务器断线并重新连接上主服务器时，从服务器会把之前保存的运行ID发送给当前连接的主服务器：</p>
@@ -381,7 +381,7 @@
 <li>如果从服务器之前保存的运行ID和当前连接的主服务器的运行ID相同，说明从服务器断线前后复制的是同一台主服务器，主服务器可以继续尝试执行部分重同步操作。</li>
 <li>如果从服务器之前保存的运行ID和当前连接的主服务器的运行ID不相同，说明从服务器断线前后复制的不是同一台主服务器，主服务器将对从服务器执行完整重同步操作。</li>
 </ul>
-<h3 id="5-4-PSYNC命令执行细节"><a href="#5-4-PSYNC命令执行细节" class="headerlink" title="5.4 PSYNC命令执行细节"></a>5.4 PSYNC命令执行细节</h3><p>对于从服务器来说，调用<code>PSYNC</code>命令有以下2种情况：</p>
+<h3 id="4、PSYNC命令执行细节"><a href="#4、PSYNC命令执行细节" class="headerlink" title="4、PSYNC命令执行细节"></a>4、PSYNC命令执行细节</h3><p>对于从服务器来说，调用<code>PSYNC</code>命令有以下2种情况：</p>
 <ol>
 <li><p>如果从服务器以前没有复制过任何主服务器，或者之前执行过<code>SLAVEOF on one</code>命令，那么从服务器在开始一次新的复制时将向主服务器发送<code>PSYNC ? -1</code>命令，主动请求主服务器进行完整重同步。</p>
 </li>
@@ -526,8 +526,8 @@
 
   <!-- SCRIPTS -->
   
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+  <script  src="https://unpkg.com/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://unpkg.com/nprogress@0/nprogress.min.css" />
 
   <script>
     NProgress.configure({"showSpinner":false,"trickleSpeed":100})
@@ -538,8 +538,8 @@
   </script>
 
 
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="https://unpkg.com/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
@@ -561,16 +561,16 @@
 
 
   
-    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+    <script  src="https://unpkg.com/tocbot@4/dist/tocbot.min.js" ></script>
   
   
-    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+    <script  src="https://unpkg.com/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
   
   
-    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+    <script  src="https://unpkg.com/anchor-js@4/anchor.min.js" ></script>
   
   
-    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+    <script defer src="https://unpkg.com/clipboard@2/dist/clipboard.min.js" ></script>
   
 
 
@@ -580,7 +580,7 @@
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script  src="https://unpkg.com/typed.js@2/lib/typed.min.js" ></script>
   <script>
     (function (window, document) {
       var typing = Fluid.plugins.typing;
@@ -633,7 +633,7 @@
       };
     </script>
 
-    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+    <script async src="https://unpkg.com/mathjax@3/es5/tex-svg.js" ></script>
 
   
 
