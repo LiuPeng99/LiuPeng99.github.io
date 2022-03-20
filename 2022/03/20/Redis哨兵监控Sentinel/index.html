@@ -16,20 +16,26 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一、Redis过期键的删除策略是什么？ Redis过期删除策略介绍：​    Redis是key-value数据库，可以设置Redis中缓存的key的过期时间。Redis过期键的删除策略就是指当Redis中缓存的key过期了，Redis如何处理。  Redis过期删除策略方式： 定期删除 惰性删除    二、定期删除 每隔一段时间，会扫描一定数量的数据库的expires字典中一定数量的key，并清">
+    <meta name="description" content="在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费事费力，还会造成一段时间内服务不可用。 一、什么是Sentinel哨兵模式 Sentinel哨兵模式介绍：  哨兵是Redis的一种运行模式，它专注于对Redis实例（主节点、从节点）运行状态的监控，并能够在主节点发生故障时通过一系列的机制实现选主及主从切换，实现故障转移，确保整个Redis系统的可用性。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis过期键的删除策略">
-<meta property="og:url" content="http://example.com/2022/03/14/Redis%E8%BF%87%E6%9C%9F%E9%94%AE%E7%9A%84%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5/index.html">
+<meta property="og:title" content="Redis哨兵监控Sentinel">
+<meta property="og:url" content="http://example.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="一、Redis过期键的删除策略是什么？ Redis过期删除策略介绍：​    Redis是key-value数据库，可以设置Redis中缓存的key的过期时间。Redis过期键的删除策略就是指当Redis中缓存的key过期了，Redis如何处理。  Redis过期删除策略方式： 定期删除 惰性删除    二、定期删除 每隔一段时间，会扫描一定数量的数据库的expires字典中一定数量的key，并清">
+<meta property="og:description" content="在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费事费力，还会造成一段时间内服务不可用。 一、什么是Sentinel哨兵模式 Sentinel哨兵模式介绍：  哨兵是Redis的一种运行模式，它专注于对Redis实例（主节点、从节点）运行状态的监控，并能够在主节点发生故障时通过一系列的机制实现选主及主从切换，实现故障转移，确保整个Redis系统的可用性。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-03-14T15:08:24.361Z">
-<meta property="article:modified_time" content="2022-03-14T15:08:24.444Z">
+<meta property="og:image" content="http://example.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-1.png">
+<meta property="og:image" content="http://example.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-2.png">
+<meta property="og:image" content="http://example.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-3.png">
+<meta property="og:image" content="http://example.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-4.png">
+<meta property="og:image" content="http://example.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-5.png">
+<meta property="article:published_time" content="2022-03-20T05:29:49.335Z">
+<meta property="article:modified_time" content="2022-03-20T06:53:49.157Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-1.png">
   
   
-  <title>Redis过期键的删除策略 - Hexo</title>
+  <title>Redis哨兵监控Sentinel - Hexo</title>
 
   <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -175,7 +181,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Redis过期键的删除策略">
+            <span class="h2" id="subtitle" title="Redis哨兵监控Sentinel">
               
             </span>
 
@@ -185,8 +191,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-03-14 23:08" pubdate>
-        March 14, 2022 pm
+      <time datetime="2022-03-20 13:29" pubdate>
+        March 20, 2022 pm
       </time>
     </span>
   
@@ -196,7 +202,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      511 字
+      1.5k 字
     </span>
   
 
@@ -205,7 +211,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5 分钟
+      13 分钟
     </span>
   
 
@@ -242,37 +248,74 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Redis过期键的删除策略</h1>
+            <h1 style="display: none">Redis哨兵监控Sentinel</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：6 days ago
+                  本文最后更新于：2 hours ago
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="一、Redis过期键的删除策略是什么？"><a href="#一、Redis过期键的删除策略是什么？" class="headerlink" title="一、Redis过期键的删除策略是什么？"></a>一、Redis过期键的删除策略是什么？</h1><ul>
-<li><h2 id="Redis过期删除策略介绍："><a href="#Redis过期删除策略介绍：" class="headerlink" title="Redis过期删除策略介绍："></a>Redis过期删除策略介绍：</h2><p>​    Redis是key-value数据库，可以设置Redis中缓存的key的过期时间。Redis过期键的删除策略就是指当Redis中缓存的key过期了，Redis如何处理。</p>
-</li>
-<li><h2 id="Redis过期删除策略方式："><a href="#Redis过期删除策略方式：" class="headerlink" title="Redis过期删除策略方式："></a>Redis过期删除策略方式：</h2><ul>
-<li>定期删除</li>
-<li>惰性删除</li>
-</ul>
-</li>
-</ul>
-<h1 id="二、定期删除"><a href="#二、定期删除" class="headerlink" title="二、定期删除"></a>二、定期删除</h1><ul>
-<li>每隔一段时间，会扫描一定数量的数据库的expires字典中一定数量的key，并清除其中已过期的key。具体检查多少个数据库以及删除多少过期的key，则由算法决定。</li>
-<li>定期删除可能会导致很多过期的key并没有被删除掉。</li>
-</ul>
-<h1 id="三、惰性删除"><a href="#三、惰性删除" class="headerlink" title="三、惰性删除"></a>三、惰性删除</h1><ul>
-<li>当访问一个key的时候，先检查该key是否过期，过期则删除。</li>
-<li>节省CPU时间，但对内存不友好，极端情况可能出现大量的过期key没有被再次访问，从而不会被删除，占用大量内存。</li>
-</ul>
-<h1 id="四、思考"><a href="#四、思考" class="headerlink" title="四、思考"></a>四、思考</h1><p>​    Redis服务器实际是同时使用定期删除和惰性删除两种策略，通过结合使用这两种删除策略，服务器可以很好地在<code>合理使用CPU时间</code>和<code>避免浪费内存空间</code>之间取得平衡。</p>
+              <p>在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费事费力，还会造成一段时间内服务不可用。</p>
+<h2 id="一、什么是Sentinel哨兵模式"><a href="#一、什么是Sentinel哨兵模式" class="headerlink" title="一、什么是Sentinel哨兵模式"></a>一、什么是Sentinel哨兵模式</h2><ul>
+<li><p>Sentinel哨兵模式介绍：</p>
 <ul>
-<li>如果定期删除遗漏掉了很多过期key，并且你没有及时查到，也就没有进行惰性删除，此时会怎样？</li>
-<li>如果大量过期key堆积在内存里，导致Redis内存耗尽了，就需要进行<strong>内存淘汰机制</strong>。</li>
+<li>哨兵是Redis的一种运行模式，它专注于对Redis实例（主节点、从节点）运行状态的监控，并能够在主节点发生故障时通过一系列的机制实现选主及主从切换，实现故障转移，确保整个Redis系统的可用性。</li>
+<li>哨兵通过发送命令给多个节点，等待Redis服务器响应，从而监控运行的多个Redis实例的运行情况。</li>
+<li>当哨兵监测到master宕机，会自动将slave切换成master，并通知其他的从服务器，修改配置文件切换主机。</li>
 </ul>
+</li>
+<li><p>Sentinel哨兵的能力：</p>
+<ul>
+<li><strong>监控（Monitoring）</strong>：持续监控Redis主节点、从节点是否处于预期的工作状态。</li>
+<li><strong>通知（Notification）</strong>：哨兵可以把Redis实例的运行故障信息通过API通知监控系统或者其他应用程序。</li>
+<li><strong>自动故障恢复（Automatic failover）</strong>：当主节点运行故障时，哨兵会启动自动故障恢复流程：某个从节点会升级为主节点，其他从节点会使用新的主节点进行主从复制，通知客户端使用新的主节点进行。</li>
+<li><strong>配置中心（Configuration provider）</strong>：哨兵可以作为客户端服务发现的授权源，客户端连接到哨兵请求给定服务的Redis主节点地址。如果发生故障转移，哨兵会通知新的地址。这里要注意：哨兵并不是Redis代理，只是为客户端提供了Redis主从节点的地址信息。</li>
+</ul>
+</li>
+</ul>
+<p>一般是使用多个哨兵进行监控，各个哨兵之间还会进行监控，形成多哨兵模式</p>
+<p><img src="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
+<h2 id="二、多哨兵模式介绍："><a href="#二、多哨兵模式介绍：" class="headerlink" title="二、多哨兵模式介绍："></a>二、多哨兵模式介绍：</h2><ul>
+<li>主观下线（Subjectively Down， 简称 SDOWN）<ul>
+<li>是单个 Sentinel 实例对服务器做出的下线判断，比如网络问题接收不到通知等</li>
+<li>如果一个服务器<strong>没有</strong>在 down-after-milliseconds 选项所指定的时间内，对向它发送 PING 命令的 Sentinel 返回一个有效回复（valid reply）， 那么 Sentinel 就会将这个服务器标记为主观下线。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-2.png" srcset="/img/loading.gif" lazyload alt="image-2"></p>
+<ul>
+<li>客观下线（Objectively Down， 简称 ODOWN）<ul>
+<li>指的是多个 Sentinel 实例在对同一个服务器做出 SDOWN 判断， 并且通过 SENTINEL is-master-down-by-addr 命令互相交流之后， 得出的服务器下线判断</li>
+<li>一个 Sentinel 可以通过向另一个 Sentinel 发送 SENTINEL is-master-down-by-addr 命令来询问对方是否认为给定的服务器已下线</li>
+<li>客观下线条件只适用于<strong>主服务器</strong></li>
+</ul>
+</li>
+</ul>
+<p><img src="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-3.png" srcset="/img/loading.gif" lazyload alt="image-3"></p>
+<ul>
+<li>仲裁 quorum<ul>
+<li>Sentinel 在给定的时间范围内， 从其他 Sentinel 那里接收到了【足够数量】的主服务器下线报告， 那么 Sentinel 就会将<strong>主服务器</strong>的状态从主观下线改变为客观下线</li>
+<li>这个【足够数量】就是配置文件里面的值，一般是Sentinel个数的一半加1，比如3个Sentinel则就设置为2</li>
+<li>down-after-milliseconds 是一个哨兵在超过规定时间依旧没有得到响应后，会自己认为主机不可用</li>
+<li>当拥有认为主观下线的哨兵达到sentinel monitor所配置的数量时，就会发起一次投票，进行故障转移failover</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>故障转移 failover<ul>
+<li>在已下线的Master主机下面挑选一个Slave将其转换为主服务器。</li>
+<li>让其余所有Slave服务器复制新的Master服务器。</li>
+<li>让已下线的Master服务器变成新的Master服务器的Slave。当已下线的服务器在此上线后将复新的Master的数据。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-4.png" srcset="/img/loading.gif" lazyload alt="image-4"></p>
+<ul>
+<li><strong>那么sentinel是如何选择到底让哪一个从节点成为新的主节点呢？</strong></li>
+</ul>
+<p><img src="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-5.png" srcset="/img/loading.gif" lazyload alt="image-5"></p>
 
             </div>
             <hr>
@@ -293,18 +336,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/15/Redis%E7%9A%84%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Redis的内存淘汰策略</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/10/Redis%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6%E4%B9%8BRDB%E5%92%8CAOF/">
-                        <span class="hidden-mobile">Redis持久化机制之RDB和AOF</span>
+                      <a href="/2022/03/17/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
+                        <span class="hidden-mobile">Redis主从复制</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
