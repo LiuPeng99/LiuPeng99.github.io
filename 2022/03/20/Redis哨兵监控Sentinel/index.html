@@ -16,12 +16,12 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费事费力，还会造成一段时间内服务不可用。 一、什么是Sentinel哨兵模式 Sentinel哨兵模式介绍：  哨兵是Redis的一种运行模式，它专注于对Redis实例（主节点、从节点）运行状态的监控，并能够在主节点发生故障时通过一系列的机制实现选主及主从切换，实现故障转移，确保整个Redis系统的可用性。">
+    <meta name="description" content="在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费时费力，还会造成一段时间内服务不可用。 一、什么是Sentinel哨兵模式 Sentinel哨兵模式介绍：  哨兵是Redis的一种运行模式，它专注于对Redis实例（主节点、从节点）运行状态的监控，并能够在主节点发生故障时通过一系列的机制实现选主及主从切换，实现故障转移，确保整个Redis系统的可用性。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis哨兵监控Sentinel">
 <meta property="og:url" content="http://example.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费事费力，还会造成一段时间内服务不可用。 一、什么是Sentinel哨兵模式 Sentinel哨兵模式介绍：  哨兵是Redis的一种运行模式，它专注于对Redis实例（主节点、从节点）运行状态的监控，并能够在主节点发生故障时通过一系列的机制实现选主及主从切换，实现故障转移，确保整个Redis系统的可用性。">
+<meta property="og:description" content="在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费时费力，还会造成一段时间内服务不可用。 一、什么是Sentinel哨兵模式 Sentinel哨兵模式介绍：  哨兵是Redis的一种运行模式，它专注于对Redis实例（主节点、从节点）运行状态的监控，并能够在主节点发生故障时通过一系列的机制实现选主及主从切换，实现故障转移，确保整个Redis系统的可用性。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-1.png">
 <meta property="og:image" content="http://example.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-2.png">
@@ -29,7 +29,7 @@
 <meta property="og:image" content="http://example.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-4.png">
 <meta property="og:image" content="http://example.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-5.png">
 <meta property="article:published_time" content="2022-03-20T05:29:49.335Z">
-<meta property="article:modified_time" content="2022-03-20T06:53:49.157Z">
+<meta property="article:modified_time" content="2022-03-20T12:39:16.701Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-1.png">
@@ -252,12 +252,12 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2 hours ago
+                  本文最后更新于：a minute ago
                 
               </p>
             
             <div class="markdown-body">
-              <p>在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费事费力，还会造成一段时间内服务不可用。</p>
+              <p>在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费时费力，还会造成一段时间内服务不可用。</p>
 <h2 id="一、什么是Sentinel哨兵模式"><a href="#一、什么是Sentinel哨兵模式" class="headerlink" title="一、什么是Sentinel哨兵模式"></a>一、什么是Sentinel哨兵模式</h2><ul>
 <li><p>Sentinel哨兵模式介绍：</p>
 <ul>
