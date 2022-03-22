@@ -16,20 +16,22 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Redis的内存淘汰策略介绍：​    redis在占用的内存超过指定的maxmemory之后，通过maxmemory_policy确定redis是否释放内存以及如何释放内存，提供了多种策略。  淘汰策略： volatile-lru(least recently used) 最近最少使用算法，从设置了过期时间的键中选择空转时间最长的键值对清除掉；   volatile-lfu(least fre">
+    <meta name="description" content="​    Sentinel解决了主从架构故障自动迁移的问题，但是Master主节点的写能力和存储能力依旧受限。 使用Redis的集群cluster就是为了解决单机Redis容量有限的问题，将数据按一定的规则分配到多台机器 一、什么是集群Cluster 集群Cluster介绍： 是一组相互独立的、通过高速网络互联的计算机，它们构成了一个组，并以单一系统的模式加以管理 采用无中心结构，每个节点保存数据">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis的内存淘汰策略">
-<meta property="og:url" content="http://example.com/2022/03/15/Redis%E7%9A%84%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/index.html">
+<meta property="og:title" content="Redis集群Cluster">
+<meta property="og:url" content="http://example.com/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Redis的内存淘汰策略介绍：​    redis在占用的内存超过指定的maxmemory之后，通过maxmemory_policy确定redis是否释放内存以及如何释放内存，提供了多种策略。  淘汰策略： volatile-lru(least recently used) 最近最少使用算法，从设置了过期时间的键中选择空转时间最长的键值对清除掉；   volatile-lfu(least fre">
+<meta property="og:description" content="​    Sentinel解决了主从架构故障自动迁移的问题，但是Master主节点的写能力和存储能力依旧受限。 使用Redis的集群cluster就是为了解决单机Redis容量有限的问题，将数据按一定的规则分配到多台机器 一、什么是集群Cluster 集群Cluster介绍： 是一组相互独立的、通过高速网络互联的计算机，它们构成了一个组，并以单一系统的模式加以管理 采用无中心结构，每个节点保存数据">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-03-15T11:46:40.982Z">
-<meta property="article:modified_time" content="2022-03-15T11:47:00.068Z">
+<meta property="og:image" content="http://example.com/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/image-1.png">
+<meta property="article:published_time" content="2022-03-22T10:17:27.896Z">
+<meta property="article:modified_time" content="2022-03-22T10:51:53.867Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/image-1.png">
   
   
-  <title>Redis的内存淘汰策略 - Hexo</title>
+  <title>Redis集群Cluster - Hexo</title>
 
   <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -175,7 +177,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Redis的内存淘汰策略">
+            <span class="h2" id="subtitle" title="Redis集群Cluster">
               
             </span>
 
@@ -185,8 +187,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-03-15 19:46" pubdate>
-        March 15, 2022 pm
+      <time datetime="2022-03-22 18:17" pubdate>
+        March 22, 2022 pm
       </time>
     </span>
   
@@ -196,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      958 字
+      852 字
     </span>
   
 
@@ -242,60 +244,67 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Redis的内存淘汰策略</h1>
+            <h1 style="display: none">Redis集群Cluster</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：7 days ago
+                  本文最后更新于：a minute ago
                 
               </p>
             
             <div class="markdown-body">
-              <ul>
-<li><h3 id="Redis的内存淘汰策略介绍："><a href="#Redis的内存淘汰策略介绍：" class="headerlink" title="Redis的内存淘汰策略介绍："></a>Redis的内存淘汰策略介绍：</h3><p>​    redis在占用的内存超过指定的maxmemory之后，通过maxmemory_policy确定redis是否释放内存以及如何释放内存，提供了多种策略。</p>
-</li>
-<li><h3 id="淘汰策略："><a href="#淘汰策略：" class="headerlink" title="淘汰策略："></a>淘汰策略：</h3><ul>
-<li>volatile-lru(least recently used)<ul>
-<li>最近最少使用算法，从设置了过期时间的键中选择空转时间最长的键值对清除掉；</li>
-</ul>
-</li>
-<li>volatile-lfu(least frequently used)<ul>
-<li>最近使用频率最低算法，从设置了过期时间的键中选择某段时间之内使用频次最小的键值对清除掉；</li>
-</ul>
-</li>
-<li>volatile-ttl<ul>
-<li>从设置了过期时间的键中选择过期时间最早的键值对清除 (删除即将过期的）</li>
-</ul>
-</li>
-<li>volatile-random<ul>
-<li>从设置了过期时间的键中，随机选择键进行清除；</li>
-</ul>
-</li>
-<li>allkeys-lru<ul>
-<li>最近最少使用算法，从所有的键中选择空转时间最长的键值对清除；</li>
-</ul>
-</li>
-<li>allkeys-lfu<ul>
-<li>最近使用频率最低算法，从所有的键中选择某段时间之内使用频次最少的键值对清除；</li>
-</ul>
-</li>
-<li>allkeys-random<ul>
-<li>所有的键中，随机选择键进行删除；</li>
-</ul>
-</li>
-<li>noeviction<ul>
-<li>不做任何的清理工作，在redis的内存超过限制之后，所有的写入操作都会返回错误；但是读操作都能正常的进行;</li>
+              <p>​    Sentinel解决了主从架构故障自动迁移的问题，但是Master主节点的写能力和存储能力依旧受限。</p>
+<p>使用Redis的集群cluster就是为了解决单机Redis容量有限的问题，将数据按一定的规则分配到多台机器</p>
+<h3 id="一、什么是集群Cluster"><a href="#一、什么是集群Cluster" class="headerlink" title="一、什么是集群Cluster"></a>一、什么是集群Cluster</h3><ul>
+<li>集群Cluster介绍：<ul>
+<li>是一组相互独立的、通过高速网络互联的计算机，它们构成了一个组，并以单一系统的模式加以管理</li>
+<li>采用无中心结构，每个节点保存数据和整个集群状态, 每个节点都和其他所有节点连接</li>
+<li>官方要求：至少6个节点才可以保证高可用，即3主3从；扩展性强、更好做到高可用</li>
+<li>各个节点会互相通信，采用gossip协议交换节点元数据信息</li>
+<li>数据分散存储到各个节点上</li>
 </ul>
 </li>
 </ul>
+<h3 id="二、Cluster如何实现数据分片"><a href="#二、Cluster如何实现数据分片" class="headerlink" title="二、Cluster如何实现数据分片"></a>二、Cluster如何实现数据分片</h3><ul>
+<li>常见的数据分区算法：<ul>
+<li>哈希取模<ul>
+<li>对选择的 partitioning key 计算其哈希值，得到的哈希值就是对应的分区</li>
+</ul>
 </li>
-<li><h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><ul>
-<li>config配置的时候key的下划线 _ 需要用中横线 - </li>
+<li>范围分片<ul>
+<li>通过确定分区键是否在某个范围内来选择分区</li>
+</ul>
+</li>
+<li>一致性Hash分区</li>
 </ul>
 </li>
 </ul>
-<figure class="highlight accesslog"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1:6379</span>&gt; config set maxmemory_policy volatile-lru<br>(error) ERR Unsupported CONFIG parameter: maxmemory_policy<br><br><span class="hljs-number">127.0.0.1:6379</span>&gt; config set maxmemory-policy volatile-lru<br>OK<br></code></pre></td></tr></table></figure>
-<p>​    最好为Redis指定一种有效的内存淘汰策略以配合maxmemory设置，避免在内存使用满后发生写入失败的情况。一般来说，推荐使用的策略是volatile-lru，并辨识Redis中保存的数据的重要性。对于那些重要的，绝对不能丢弃的数据（如配置类数据等），应不设置有效期，这样Redis就永远不会淘汰这些数据。对于那些相对不是那么重要的，并且能够热加载的数据（比如缓存最近登录的用户信息，当在Redis中找不到时，程序会去DB中读取），可以设置上有效期，这样在内存不够时Redis就会淘汰这部分数据。</p>
+<p><strong>Redis Cluster集群没有采用一致性哈希方案，而是采用【数据分片】中的哈希槽来进行数据存储与读取的</strong></p>
+<ul>
+<li><p>Redis的哈希槽介绍：</p>
+<ul>
+<li>Redis的集群内部内置了16384个哈希槽，当你需要把一个Key-value形式的数据放入集群时，redis会先使用crc16算法算出一个结果，然后把结果对16384进行取余，取余的结果进行取余， 获得一个范围在0-16383范围的余数，通过余数放入对应编号的哈希槽里面。</li>
+</ul>
+</li>
+<li><p>数据分片流程：</p>
+<ul>
+<li>假设主节点的数量为3，将16384个槽位按照【用户自己的规则】去分配这3个节点，每个节点复制一部分槽位<ul>
+<li>节点1的槽位区间范围为0-5460</li>
+<li>节点2的槽位区间范围为5461-10922</li>
+<li>节点3的槽位区间范围为10923-16383</li>
+<li><strong>注意：从节点是没有槽位的，只有主节点才有</strong></li>
+</ul>
+</li>
+<li>存储查找<ul>
+<li>对要存储查找的键进行crc16哈希运算,得到一个值，并取模16384，判断这个值在哪个节点的范围区间</li>
+<li>假设crc16(“test_key”)%16384=3000，就是节点一</li>
+<li><strong>注意：crc16算法不是简单的hash算法，是一种校验算法</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
 
             </div>
             <hr>
@@ -316,18 +325,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/17/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Redis主从复制</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/14/Redis%E8%BF%87%E6%9C%9F%E9%94%AE%E7%9A%84%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5/">
-                        <span class="hidden-mobile">Redis过期键的删除策略</span>
+                      <a href="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/">
+                        <span class="hidden-mobile">Redis哨兵监控Sentinel</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
