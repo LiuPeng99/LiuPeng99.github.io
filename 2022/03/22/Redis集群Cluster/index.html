@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/image-1.png">
 <meta property="article:published_time" content="2022-03-22T10:17:27.896Z">
-<meta property="article:modified_time" content="2022-03-22T11:10:49.705Z">
+<meta property="article:modified_time" content="2022-03-23T08:05:43.999Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/image-1.png">
@@ -198,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      939 字
+      1.3k 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8 分钟
+      11 分钟
     </span>
   
 
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2 minutes ago
+                  本文最后更新于：a minute ago
                 
               </p>
             
@@ -309,6 +309,33 @@
 <li>使用哈希槽的好处就在于可以方便的添加或移除节点。<ul>
 <li>当需要增加节点时，只需要把其他节点的某些哈希槽挪到新节点就可以了</li>
 <li>当需要移除节点时，只需要把移除节点上的哈希槽挪到其他节点就行了</li>
+</ul>
+</li>
+</ul>
+<h3 id="三、注意事项"><a href="#三、注意事项" class="headerlink" title="三、注意事项"></a>三、注意事项</h3><ul>
+<li><p><strong>什么情况下会导致集群不可用</strong>？</p>
+<ul>
+<li><p>如果集群中的master没有slave节点，则master挂掉后整个集群就会进入fail状态，因为集群的slot映射不完整。</p>
+</li>
+<li><p>如果集群超过半数以上的master挂掉，无论是否有slave，集群都会进入fail状态。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>集群会有写操作丢失吗？</strong></p>
+<ul>
+<li>Redis 并不能保证数据的强一致性，这意味这在实际中集群在特定的条件下可能会丢失写操<br>作。<ul>
+<li>过期 key 被清理。</li>
+<li>最大内存不足，导致 Redis 自动清理部分 key 以节省空间。</li>
+<li>主库故障后自动重启，从库自动同步。</li>
+<li>单独的主备方案，网络不稳定触发哨兵的自动切换主从节点，切换期间会有数据丢失。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>集群的主从复制模型是怎样的？</strong></p>
+<ul>
+<li>为了使在部分节点失败或者大部分节点无法通信的情况下集群仍然可用， 所以集群使用了主<br>从复制模型,每个节点都会有N-1 个复制品。</li>
+<li>采用异步复制</li>
 </ul>
 </li>
 </ul>
