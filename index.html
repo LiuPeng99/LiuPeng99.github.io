@@ -191,6 +191,39 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/" target="_self">
+          Redis6.X新特性
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/" target="_self">
+          
+          支持多线程 redis6多线程只是用来处理网络数据的读写和协议解析上，底层数据操作还是单线程  执行命令仍然是单线程，之所以这么设计是不想因为多线程而变得复杂，需要去控制 key、lua、事务，LPUSH&#x2F;LPOP 等等的并发问题  默认不开启   12io-threads-do-reads yesio-threads 线程数  官方建议 ( 线程数小于机器核数 ) 4 核的机器建议设置为 2
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-23 17:03" pubdate>
+              2022-03-23
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/" target="_self">
           Redis集群Cluster
         </a>
@@ -472,39 +505,6 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
             <time datetime="2022-01-15 13:39" pubdate>
-              2022-01-15
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/01/15/Redis%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BC%98%E7%82%B9/" target="_self">
-          Redis介绍及优点
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/01/15/Redis%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BC%98%E7%82%B9/" target="_self">
-          
-          一.什么是Redis？Redis是开源免费，遵守BSD协议，高性能的key-value数据库。 1. Redis与其他key-value缓存产品有以下三个特点 Redis支持数据的持久化，可将内存中数据保存在磁盘中，重启时可再次加载进行使用。 Redis不仅支持key-value类型的数据，还支持list，hash，set，zset等数据结构。 Redis支持数据备份，即master-salve模
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-15 12:09" pubdate>
               2022-01-15
             </time>
           </div>
