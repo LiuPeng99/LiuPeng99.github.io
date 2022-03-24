@@ -16,22 +16,20 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="支持多线程 redis6多线程只是用来处理网络数据的读写和协议解析上，底层数据操作还是单线程  执行命令仍然是单线程，之所以这么设计是不想因为多线程而变得复杂，需要去控制 key、lua、事务，LPUSH&#x2F;LPOP 等等的并发问题  默认不开启   12io-threads-do-reads yesio-threads 线程数  官方建议 ( 线程数小于机器核数 ) 4 核的机器建议设置为 2">
+    <meta name="description" content="一、什么是消息队列MQ：MessageQueue 消息队列。队列是一种FIFO先进先出的数据结构。消息由生产者发送到MQ进行排队，然后由消费者对消息进行处理。 二、消息队列有什么优点和缺点 MQ的优点： 异步： 能提高系统的响应速度、吞吐量。   解耦：  服务之间进行解耦，可以减少服务之间的影响。提高系统整体的稳定性以及可扩展性。 解耦后可以实现数据分发。生产者发送一个消息后，可以由一个或者多个">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis6.X新特性">
-<meta property="og:url" content="http://example.com/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/index.html">
+<meta property="og:title" content="消息队列MQ介绍及优缺点">
+<meta property="og:url" content="http://example.com/2022/03/24/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97MQ%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BC%98%E7%BC%BA%E7%82%B9/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="支持多线程 redis6多线程只是用来处理网络数据的读写和协议解析上，底层数据操作还是单线程  执行命令仍然是单线程，之所以这么设计是不想因为多线程而变得复杂，需要去控制 key、lua、事务，LPUSH&#x2F;LPOP 等等的并发问题  默认不开启   12io-threads-do-reads yesio-threads 线程数  官方建议 ( 线程数小于机器核数 ) 4 核的机器建议设置为 2">
+<meta property="og:description" content="一、什么是消息队列MQ：MessageQueue 消息队列。队列是一种FIFO先进先出的数据结构。消息由生产者发送到MQ进行排队，然后由消费者对消息进行处理。 二、消息队列有什么优点和缺点 MQ的优点： 异步： 能提高系统的响应速度、吞吐量。   解耦：  服务之间进行解耦，可以减少服务之间的影响。提高系统整体的稳定性以及可扩展性。 解耦后可以实现数据分发。生产者发送一个消息后，可以由一个或者多个">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/image-1.png">
-<meta property="article:published_time" content="2022-03-23T09:03:56.256Z">
-<meta property="article:modified_time" content="2022-03-23T11:38:25.878Z">
+<meta property="article:published_time" content="2022-03-24T08:41:05.269Z">
+<meta property="article:modified_time" content="2022-03-24T09:29:55.124Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/image-1.png">
   
   
-  <title>Redis6.X新特性 - Hexo</title>
+  <title>消息队列MQ介绍及优缺点 - Hexo</title>
 
   <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -177,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Redis6.X新特性">
+            <span class="h2" id="subtitle" title="消息队列MQ介绍及优缺点">
               
             </span>
 
@@ -187,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-03-23 17:03" pubdate>
-        March 23, 2022 pm
+      <time datetime="2022-03-24 16:41" pubdate>
+        March 24, 2022 pm
       </time>
     </span>
   
@@ -198,7 +196,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.4k 字
+      500 字
     </span>
   
 
@@ -207,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12 分钟
+      5 分钟
     </span>
   
 
@@ -244,121 +242,48 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Redis6.X新特性</h1>
+            <h1 style="display: none">消息队列MQ介绍及优缺点</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：a day ago
+                  本文最后更新于：2 minutes ago
                 
               </p>
             
             <div class="markdown-body">
-              <ul>
-<li><h4 id="支持多线程"><a href="#支持多线程" class="headerlink" title="支持多线程"></a>支持多线程</h4><ul>
-<li><p>redis6多线程只是用来处理网络数据的读写和协议解析上，<strong>底层数据操作还是单线程</strong></p>
-</li>
-<li><p>执行命令仍然是单线程，之所以这么设计是不想因为多线程而变得复杂，需要去控制 key、lua、事务，LPUSH/LPOP 等等的并发问题</p>
-</li>
-<li><p>默认不开启</p>
-</li>
+              <h1 id="一、什么是消息队列"><a href="#一、什么是消息队列" class="headerlink" title="一、什么是消息队列"></a>一、什么是消息队列</h1><p><strong>MQ：MessageQueue 消息队列</strong>。队列是一种FIFO先进先出的数据结构。消息由生产者发送到MQ进行排队，然后由消费者对消息进行处理。</p>
+<h1 id="二、消息队列有什么优点和缺点"><a href="#二、消息队列有什么优点和缺点" class="headerlink" title="二、消息队列有什么优点和缺点"></a>二、消息队列有什么优点和缺点</h1><ul>
+<li><h2 id="MQ的优点："><a href="#MQ的优点：" class="headerlink" title="MQ的优点："></a>MQ的优点：</h2><ul>
+<li>异步：<ul>
+<li>能提高系统的响应速度、吞吐量。</li>
 </ul>
-<figure class="highlight lua"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs lua"><span class="hljs-built_in">io</span>-threads-<span class="hljs-keyword">do</span>-reads yes<br><span class="hljs-built_in">io</span>-threads 线程数<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>解耦：</p>
 <ul>
-<li>官方建议 ( 线程数小于机器核数 )<ul>
-<li>4 核的机器建议设置为 2 或 3 个线程</li>
-<li>8 核的建议设置为 4或6个线程</li>
+<li>服务之间进行解耦，可以减少服务之间的影响。提高系统整体的稳定性以及可扩展性。</li>
+<li>解耦后可以实现数据分发。生产者发送一个消息后，可以由一个或者多个消费者进行处理，并且消费者的增加或者减少对生产者没有影响。</li>
 </ul>
 </li>
-<li>开启多线程后，是否会存在线程并发安全问题？<ul>
-<li>不会有安全问题，Redis 的多线程部分只是用来处理网络数据的读写和协议解析，执行命令仍然是单线程顺序执行</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<li><p>削峰：</p>
 <ul>
-<li><h4 id="引入了-ACL（Access-Control-List"><a href="#引入了-ACL（Access-Control-List" class="headerlink" title="引入了 ACL（Access Control List)"></a>引入了 ACL（Access Control List)</h4><ul>
-<li>之前的redis没有用户的概念，redis6引入了acl</li>
-<li>可以给每个用户分配不同的权限来控制权限</li>
-<li>通过限制对命令和密钥的访问来提高安全性，以使不受信任的客户端无法访问</li>
-<li>提高操作安全性，以防止由于软件错误或人为错误而导致进程或人员访问 Redis，从而损坏数据或配置</li>
-</ul>
-</li>
-<li><p>常用命令</p>
-<ul>
-<li>acl list 当前启用的 ACL 规则</li>
-<li>acl cat 支持的权限分类列表</li>
-<li>acl cat hash 返回指定类别中的命令</li>
-<li>acl setuser 创建和修改用户命令</li>
-<li>acl deluser 删除用户命令</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs pf">+<span class="hljs-variable">&lt;command&gt;</span> 将命令添加到用户可以调用的命令列表中，如+@hash<br>-<span class="hljs-variable">&lt;command&gt;</span> 将命令从用户可以调用的命令列表中移除<br><br><span class="hljs-comment">#切换默认用户</span><br>auth <span class="hljs-keyword">default</span> <span class="hljs-number">123456</span><br><br><br><span class="hljs-comment">#例子 密码 123 ，全部key，全部权限</span><br>acl setuser jack <span class="hljs-keyword">on</span> &gt;<span class="hljs-number">123</span> ~* +@<span class="hljs-literal">all</span><br><br><span class="hljs-comment">#例子 密码 123 ，全部key，get权限</span><br>acl setuser jack <span class="hljs-keyword">on</span> &gt;<span class="hljs-number">123</span> ~* +get<br></code></pre></td></tr></table></figure>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>参 数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>user</td>
-<td>用户</td>
-</tr>
-<tr>
-<td>default</td>
-<td>表示默认用户名，或则自己定义的用户名</td>
-</tr>
-<tr>
-<td>on</td>
-<td>表示是否启用该用户，默认为off（禁用）</td>
-</tr>
-<tr>
-<td>#…</td>
-<td>表示用户密码，nopass表示不需要密码</td>
-</tr>
-<tr>
-<td>~*</td>
-<td>表示可以访问的Key（正则匹配）</td>
-</tr>
-<tr>
-<td>+@</td>
-<td>表示用户的权限，“+”表示授权权限，有权限操作或访问，“-”表示还是没有权限； @为权限分类，可以通过 <code>ACL CAT</code> 查询支持的分类。+@all 表示所有权限，nocommands 表示不给与任何命令的操作权限</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><h4 id="client-side-caching客户端缓存"><a href="#client-side-caching客户端缓存" class="headerlink" title="client side caching客户端缓存"></a>client side caching客户端缓存</h4><ul>
-<li>类似浏览器缓存一样<ul>
-<li>在服务器端更新了静态文件（如css、js、图片），能够在客户端得到及时的更新，但又不想让浏览器每次请求都从服务器端获取静态资源</li>
-<li>类似前端的-Expires、Last-Modified、Etag缓存控制</li>
+<li>以稳定的系统资源应对突发的流量冲击。</li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
-<p><img src="/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
-<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gauss">redis在服务端记录访问的连接和相关的<span class="hljs-built_in">key</span>， 当<span class="hljs-built_in">key</span>有变化时通知相应的应用<br>应用收到请求后自行处理有变化的<span class="hljs-built_in">key</span>, 进而实现client cache与redis的一致<br>这需要客户端实现，目前lettuce对其进行了支持<br></code></pre></td></tr></table></figure>
-<p>client side caching的两种模式：</p>
-<ul>
-<li>默认模式<ul>
-<li>Server 端全局唯一的表（<strong>Invalidation Table</strong>）记录每个Client访问的Key，当发生变更时，向client推送数据过期消息。<ul>
-<li>优点：只对Client发送其访问过的被修改的数据</li>
-<li>缺点：Server端需要额外存储较大的数据量</li>
+<li><h2 id="MQ的缺点："><a href="#MQ的缺点：" class="headerlink" title="MQ的缺点："></a>MQ的缺点：</h2><ul>
+<li>系统可用性降低：<ul>
+<li>系统引入外部依赖增多，系统的稳定性就会变差。一旦MQ宕机，对业务会产生影响。<strong>这就需要考虑如何保证MQ的高可用。</strong></li>
 </ul>
 </li>
+<li>系统复杂度提高：<ul>
+<li>以前服务之间可以进行同步的服务调用，引入MQ之后，会变成<strong>异步调用</strong>，<strong>数据的链路就会变得更复杂</strong>。并且还会带来其他一些问题。比如：<strong>如何保证消息不会丢失？如何保证消息不被重复调用？如何保证消息传递的顺序性？</strong></li>
 </ul>
 </li>
+<li>消息一致性问题：<ul>
+<li>A系统处理完业务，通过MQ发送消息给B、C系统进行后续的业务处理。如果B系统处理成功，但C系统处理失败了怎么办？<strong>这就需要考虑如何保证消息数据处理的一致性。</strong></li>
 </ul>
-<ul>
-<li>广播模式<ul>
-<li>客户端订阅key前缀的广播，服务端记录key前缀与client的对应关系。当相匹配的key发生变化时通知client。</li>
-<li>优点：服务端记录信息比较少</li>
-<li>缺点：client会收到自己未访问过的key的失效通知</li>
+</li>
 </ul>
 </li>
 </ul>
@@ -382,18 +307,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/24/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97MQ%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BC%98%E7%BC%BA%E7%82%B9/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">消息队列MQ介绍及优缺点</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/">
-                        <span class="hidden-mobile">Redis集群Cluster</span>
+                      <a href="/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/">
+                        <span class="hidden-mobile">Redis6.X新特性</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

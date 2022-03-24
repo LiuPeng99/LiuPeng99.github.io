@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>消息队列MQ介绍及优缺点</title>
+    <link href="/2022/03/24/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97MQ%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BC%98%E7%BC%BA%E7%82%B9/"/>
+    <url>/2022/03/24/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97MQ%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BC%98%E7%BC%BA%E7%82%B9/</url>
+    
+    <content type="html"><![CDATA[<h1 id="一、什么是消息队列"><a href="#一、什么是消息队列" class="headerlink" title="一、什么是消息队列"></a>一、什么是消息队列</h1><p><strong>MQ：MessageQueue 消息队列</strong>。队列是一种FIFO先进先出的数据结构。消息由生产者发送到MQ进行排队，然后由消费者对消息进行处理。</p><h1 id="二、消息队列有什么优点和缺点"><a href="#二、消息队列有什么优点和缺点" class="headerlink" title="二、消息队列有什么优点和缺点"></a>二、消息队列有什么优点和缺点</h1><ul><li><h2 id="MQ的优点："><a href="#MQ的优点：" class="headerlink" title="MQ的优点："></a>MQ的优点：</h2><ul><li>异步：<ul><li>能提高系统的响应速度、吞吐量。</li></ul></li><li><p>解耦：</p><ul><li>服务之间进行解耦，可以减少服务之间的影响。提高系统整体的稳定性以及可扩展性。</li><li>解耦后可以实现数据分发。生产者发送一个消息后，可以由一个或者多个消费者进行处理，并且消费者的增加或者减少对生产者没有影响。</li></ul></li><li><p>削峰：</p><ul><li>以稳定的系统资源应对突发的流量冲击。</li></ul></li></ul></li><li><h2 id="MQ的缺点："><a href="#MQ的缺点：" class="headerlink" title="MQ的缺点："></a>MQ的缺点：</h2><ul><li>系统可用性降低：<ul><li>系统引入外部依赖增多，系统的稳定性就会变差。一旦MQ宕机，对业务会产生影响。<strong>这就需要考虑如何保证MQ的高可用。</strong></li></ul></li><li>系统复杂度提高：<ul><li>以前服务之间可以进行同步的服务调用，引入MQ之后，会变成<strong>异步调用</strong>，<strong>数据的链路就会变得更复杂</strong>。并且还会带来其他一些问题。比如：<strong>如何保证消息不会丢失？如何保证消息不被重复调用？如何保证消息传递的顺序性？</strong></li></ul></li><li>消息一致性问题：<ul><li>A系统处理完业务，通过MQ发送消息给B、C系统进行后续的业务处理。如果B系统处理成功，但C系统处理失败了怎么办？<strong>这就需要考虑如何保证消息数据处理的一致性。</strong></li></ul></li></ul></li></ul>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Redis6.X新特性</title>
     <link href="/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/"/>
     <url>/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/</url>
@@ -134,7 +147,7 @@
   
   
   <entry>
-    <title>Redis介绍及优点</title>
+    <title>Redis介绍及优缺点</title>
     <link href="/2022/01/15/Redis%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BC%98%E7%82%B9/"/>
     <url>/2022/01/15/Redis%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BC%98%E7%82%B9/</url>
     
