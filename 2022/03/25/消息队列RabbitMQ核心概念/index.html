@@ -16,22 +16,22 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="​    Sentinel解决了主从架构故障自动迁移的问题，但是Master主节点的写能力和存储能力依旧受限。 使用Redis的集群cluster就是为了解决单机Redis容量有限的问题，将数据按一定的规则分配到多台机器 一、什么是集群Cluster 集群Cluster介绍： 是一组相互独立的、通过高速网络互联的计算机，它们构成了一个组，并以单一系统的模式加以管理 采用无中心结构，每个节点保存数据">
+    <meta name="description" content="一、RabbitMQ消息队列介绍： RabbitMQ：http:&#x2F;&#x2F;www.rabbitmq.com&#x2F; 是一个开源的AMQP实现，服务器端用Erlang语言编写，支持多种客户端，如：Python、Ruby、.NET、Java、C、用于在分布式系统中存储转发消息，在易用性、扩展性、高可用性等方面表现不错，与SpringAMQP完美的整合、API丰富易用 文档：https:&#x2F;&#x2F;www.rabbitmq">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis集群Cluster">
-<meta property="og:url" content="http://example.com/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/index.html">
+<meta property="og:title" content="消息队列RabbitMQ核心概念">
+<meta property="og:url" content="http://example.com/2022/03/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/index.html">
 <meta property="og:site_name" content=":)L">
-<meta property="og:description" content="​    Sentinel解决了主从架构故障自动迁移的问题，但是Master主节点的写能力和存储能力依旧受限。 使用Redis的集群cluster就是为了解决单机Redis容量有限的问题，将数据按一定的规则分配到多台机器 一、什么是集群Cluster 集群Cluster介绍： 是一组相互独立的、通过高速网络互联的计算机，它们构成了一个组，并以单一系统的模式加以管理 采用无中心结构，每个节点保存数据">
+<meta property="og:description" content="一、RabbitMQ消息队列介绍： RabbitMQ：http:&#x2F;&#x2F;www.rabbitmq.com&#x2F; 是一个开源的AMQP实现，服务器端用Erlang语言编写，支持多种客户端，如：Python、Ruby、.NET、Java、C、用于在分布式系统中存储转发消息，在易用性、扩展性、高可用性等方面表现不错，与SpringAMQP完美的整合、API丰富易用 文档：https:&#x2F;&#x2F;www.rabbitmq">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/image-1.png">
-<meta property="article:published_time" content="2022-03-22T10:17:27.896Z">
-<meta property="article:modified_time" content="2022-03-23T08:05:43.999Z">
+<meta property="og:image" content="http://example.com/2022/03/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/image-1.png">
+<meta property="article:published_time" content="2022-03-25T05:31:13.676Z">
+<meta property="article:modified_time" content="2022-03-25T05:47:03.677Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/image-1.png">
+<meta name="twitter:image" content="http://example.com/2022/03/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/image-1.png">
   
   
-  <title>Redis集群Cluster - :)L</title>
+  <title>消息队列RabbitMQ核心概念 - :)L</title>
 
   <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -177,7 +177,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Redis集群Cluster">
+            <span class="h2" id="subtitle" title="消息队列RabbitMQ核心概念">
               
             </span>
 
@@ -187,8 +187,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-03-22 18:17" pubdate>
-        March 22, 2022 pm
+      <time datetime="2022-03-25 13:31" pubdate>
+        March 25, 2022 pm
       </time>
     </span>
   
@@ -198,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      1k 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11 分钟
+      9 分钟
     </span>
   
 
@@ -244,98 +244,80 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Redis集群Cluster</h1>
+            <h1 style="display: none">消息队列RabbitMQ核心概念</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2 days ago
+                  本文最后更新于：a few seconds ago
                 
               </p>
             
             <div class="markdown-body">
-              <p>​    Sentinel解决了主从架构故障自动迁移的问题，但是Master主节点的写能力和存储能力依旧受限。</p>
-<p>使用Redis的集群cluster就是为了解决单机Redis容量有限的问题，将数据按一定的规则分配到多台机器</p>
-<h3 id="一、什么是集群Cluster"><a href="#一、什么是集群Cluster" class="headerlink" title="一、什么是集群Cluster"></a>一、什么是集群Cluster</h3><ul>
-<li>集群Cluster介绍：<ul>
-<li>是一组相互独立的、通过高速网络互联的计算机，它们构成了一个组，并以单一系统的模式加以管理</li>
-<li>采用无中心结构，每个节点保存数据和整个集群状态, 每个节点都和其他所有节点连接</li>
-<li>官方要求：至少6个节点才可以保证高可用，即3主3从；扩展性强、更好做到高可用</li>
-<li>各个节点会互相通信，采用gossip协议交换节点元数据信息</li>
-<li>数据分散存储到各个节点上</li>
+              <h1 id="一、RabbitMQ消息队列介绍："><a href="#一、RabbitMQ消息队列介绍：" class="headerlink" title="一、RabbitMQ消息队列介绍："></a>一、RabbitMQ消息队列介绍：</h1><ul>
+<li>RabbitMQ：<a target="_blank" rel="noopener" href="http://www.rabbitmq.com/">http://www.rabbitmq.com/</a><ul>
+<li>是一个开源的AMQP实现，服务器端用Erlang语言编写，支持多种客户端，如：Python、Ruby、.NET、Java、C、用于在分布式系统中存储转发消息，在易用性、扩展性、高可用性等方面表现不错，与SpringAMQP完美的整合、API丰富易用</li>
+<li>文档：<a target="_blank" rel="noopener" href="https://www.rabbitmq.com/getstarted.html">https://www.rabbitmq.com/getstarted.html</a></li>
 </ul>
 </li>
 </ul>
-<h3 id="二、Cluster如何实现数据分片"><a href="#二、Cluster如何实现数据分片" class="headerlink" title="二、Cluster如何实现数据分片"></a>二、Cluster如何实现数据分片</h3><ul>
-<li>常见的数据分区算法：<ul>
-<li>哈希取模<ul>
-<li>对选择的 partitioning key 计算其哈希值，得到的哈希值就是对应的分区</li>
+<h1 id="二、RabbitMQ核心概念"><a href="#二、RabbitMQ核心概念" class="headerlink" title="二、RabbitMQ核心概念"></a>二、RabbitMQ核心概念</h1><ul>
+<li>核心概念, 了解了这些概念，是使用好RabbitMQ的基础</li>
 </ul>
-</li>
-<li>范围分片<ul>
-<li>通过确定分区键是否在某个范围内来选择分区</li>
-</ul>
-</li>
-<li>一致性Hash分区</li>
-</ul>
-</li>
-</ul>
-<p><strong>Redis Cluster集群没有采用一致性哈希方案，而是采用【数据分片】中的哈希槽来进行数据存储与读取的</strong></p>
+<p><img src="/2022/03/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
 <ul>
-<li><p>Redis的哈希槽介绍：</p>
+<li>Broker<ul>
+<li>RabbitMQ的服务端程序，可以认为一个mq节点就是一个broker</li>
+</ul>
+</li>
+<li>Producer生产者<ul>
+<li>创建消息Message，然后发布到RabbitMQ中</li>
+</ul>
+</li>
+<li>Consumer消费者:<ul>
+<li>消费队列里面的消息</li>
+</ul>
+</li>
+<li>Message 消息<ul>
+<li>生产消费的内容，有消息头和消息体，也包括多个属性配置，比如routingKey路由键</li>
+</ul>
+</li>
+<li>Queue 队列<ul>
+<li>是RabbitMQ 的内部对象，用于存储消息，消息都只能存储在队列中</li>
+</ul>
+</li>
+<li>Channel 信道<ul>
+<li>一条支持多路复用的通道，独立的双向数据流通道，可以发布、订阅、接收消息。</li>
+<li>信道是建立在真实的TCP连接内的虚拟连接，复用TCP连接的通道</li>
+</ul>
+</li>
+<li>Connection连接<ul>
+<li>是RabbitMQ的socket链接，它封装了socket协议相关部分逻辑，一个连接上可以有多个channel进行通信</li>
+</ul>
+</li>
+<li>Exchange 交换器<ul>
+<li>生产者将消息发送到 Exchange，交换器将消息路由到一个或者多个队列中，里面有多个类型，后续再一一介绍，队列和交换机是多对多的关系。</li>
+</ul>
+</li>
+<li>RoutingKey 路由键<ul>
+<li>生产者将消息发给交换器的时候，一般会指定一个RoutingKey，用来指定这个消息的路由规则</li>
+<li>最大长度255 字节</li>
+</ul>
+</li>
+<li>Binding 绑定<ul>
+<li>通过绑定将交换器与队列关联起来，在绑定的时候一般会指定一个绑定键 ( BindingKey )，这样 RabbitMQ 就知道如何正确地将消息路由到队列了</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs">生产者将消息发送给交换器时，需要一个RoutingKey，只有当BindingKey和RoutingKey相匹配时，消息才会被路由到对应的队列中<br></code></pre></td></tr></table></figure>
 <ul>
-<li>Redis的集群内部内置了16384个哈希槽，当你需要把一个Key-value形式的数据放入集群时，redis会先使用crc16算法算出一个结果，然后把结果对16384进行取余，取余的结果进行取余， 获得一个范围在0-16383范围的余数，通过余数放入对应编号的哈希槽里面。</li>
+<li>Virtual host 虚拟主机<ul>
+<li>用于不同业务模块的逻辑隔离，一个Virtual Host里面可以有若干个Exchange和Queue，同一个VirtualHost里面不能有相同名称的Exchange或Queue</li>
+<li>默认是 /<ul>
+<li>/dev</li>
+<li>/test</li>
+<li>/pro</li>
 </ul>
 </li>
-<li><p>数据分片流程：</p>
-<ul>
-<li>假设主节点的数量为3，将16384个槽位按照【用户自己的规则】去分配这3个节点，每个节点复制一部分槽位<ul>
-<li>节点1的槽位区间范围为0-5460</li>
-<li>节点2的槽位区间范围为5461-10922</li>
-<li>节点3的槽位区间范围为10923-16383</li>
-<li><strong>注意：从节点是没有槽位的，只有主节点才有</strong></li>
-</ul>
-</li>
-<li>存储查找<ul>
-<li>对要存储查找的键进行crc16哈希运算,得到一个值，并取模16384，判断这个值在哪个节点的范围区间</li>
-<li>假设crc16(“test_key”)%16384=3000，就是节点一</li>
-<li><strong>注意：crc16算法不是简单的hash算法，是一种校验算法</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
-<ul>
-<li>使用哈希槽的好处就在于可以方便的添加或移除节点。<ul>
-<li>当需要增加节点时，只需要把其他节点的某些哈希槽挪到新节点就可以了</li>
-<li>当需要移除节点时，只需要把移除节点上的哈希槽挪到其他节点就行了</li>
-</ul>
-</li>
-</ul>
-<h3 id="三、注意事项"><a href="#三、注意事项" class="headerlink" title="三、注意事项"></a>三、注意事项</h3><ul>
-<li><p><strong>什么情况下会导致集群不可用</strong>？</p>
-<ul>
-<li><p>如果集群中的master没有slave节点，则master挂掉后整个集群就会进入fail状态，因为集群的slot映射不完整。</p>
-</li>
-<li><p>如果集群超过半数以上的master挂掉，无论是否有slave，集群都会进入fail状态。</p>
-</li>
-</ul>
-</li>
-<li><p><strong>集群会有写操作丢失吗？</strong></p>
-<ul>
-<li>Redis 并不能保证数据的强一致性，这意味这在实际中集群在特定的条件下可能会丢失写操<br>作。<ul>
-<li>过期 key 被清理。</li>
-<li>最大内存不足，导致 Redis 自动清理部分 key 以节省空间。</li>
-<li>主库故障后自动重启，从库自动同步。</li>
-<li>单独的主备方案，网络不稳定触发哨兵的自动切换主从节点，切换期间会有数据丢失。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>集群的主从复制模型是怎样的？</strong></p>
-<ul>
-<li>为了使在部分节点失败或者大部分节点无法通信的情况下集群仍然可用， 所以集群使用了主<br>从复制模型,每个节点都会有N-1 个复制品。</li>
-<li>采用异步复制</li>
 </ul>
 </li>
 </ul>
@@ -359,18 +341,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Redis6.X新特性</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/">
-                        <span class="hidden-mobile">Redis哨兵监控Sentinel</span>
+                      <a href="/2022/03/24/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97AMQP%E5%92%8CJMS/">
+                        <span class="hidden-mobile">消息队列JMS和AMQP</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
