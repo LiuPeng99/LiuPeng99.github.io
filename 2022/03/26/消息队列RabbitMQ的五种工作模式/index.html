@@ -16,22 +16,20 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一、JMS介绍 什么是JMS：  JMS是Java消息服务（Java Message Service),Java平台中关于面向消息中间件的接口 JMS是一种与厂商无关的 API，用来访问消息收发系统消息，它类似于JDBC(Java Database Connectivity)。这里，JDBC 是可以用来访问许多不同关系数据库的 API  是由Sun公司早期提出的消息标准，旨在为java应用提供统一">
+    <meta name="description" content="一、simple简单（最简单的收发模式）   一个生产、一个消费，不用指定交换机，使用默认交换机  二、work工作队列（资源的竞争） 一个生产，多个消费，有轮询策略和公平策略，不用指定交换机，使用默认交换机 轮询：一个消费者消费一条，直至消息消费完，平均分配 公平：根据消费者的消费能力进行公平分发，处理得快的分得多，处理的慢的分得少，能者多劳 将消息置为手动确认模式，且将预置队列数为1（pre">
 <meta property="og:type" content="article">
-<meta property="og:title" content="消息队列JMS和AMQP">
-<meta property="og:url" content="http://example.com/2022/03/24/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97AMQP%E5%92%8CJMS/index.html">
+<meta property="og:title" content="消息队列RabbitMQ的五种工作模式">
+<meta property="og:url" content="http://example.com/2022/03/26/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E4%BA%94%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content=":)L">
-<meta property="og:description" content="一、JMS介绍 什么是JMS：  JMS是Java消息服务（Java Message Service),Java平台中关于面向消息中间件的接口 JMS是一种与厂商无关的 API，用来访问消息收发系统消息，它类似于JDBC(Java Database Connectivity)。这里，JDBC 是可以用来访问许多不同关系数据库的 API  是由Sun公司早期提出的消息标准，旨在为java应用提供统一">
+<meta property="og:description" content="一、simple简单（最简单的收发模式）   一个生产、一个消费，不用指定交换机，使用默认交换机  二、work工作队列（资源的竞争） 一个生产，多个消费，有轮询策略和公平策略，不用指定交换机，使用默认交换机 轮询：一个消费者消费一条，直至消息消费完，平均分配 公平：根据消费者的消费能力进行公平分发，处理得快的分得多，处理的慢的分得少，能者多劳 将消息置为手动确认模式，且将预置队列数为1（pre">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/03/24/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97AMQP%E5%92%8CJMS/image-1.png">
-<meta property="article:published_time" content="2022-03-24T11:01:42.410Z">
-<meta property="article:modified_time" content="2022-03-24T11:37:21.745Z">
+<meta property="article:published_time" content="2022-03-26T07:50:48.483Z">
+<meta property="article:modified_time" content="2022-03-26T08:29:49.727Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2022/03/24/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97AMQP%E5%92%8CJMS/image-1.png">
   
   
-  <title>消息队列JMS和AMQP - :)L</title>
+  <title>消息队列RabbitMQ的五种工作模式 - :)L</title>
 
   <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -177,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="消息队列JMS和AMQP">
+            <span class="h2" id="subtitle" title="消息队列RabbitMQ的五种工作模式">
               
             </span>
 
@@ -187,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-03-24 19:01" pubdate>
-        March 24, 2022 pm
+      <time datetime="2022-03-26 15:50" pubdate>
+        March 26, 2022 pm
       </time>
     </span>
   
@@ -198,7 +196,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      737 字
     </span>
   
 
@@ -207,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11 分钟
+      7 分钟
     </span>
   
 
@@ -244,111 +242,47 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">消息队列JMS和AMQP</h1>
+            <h1 style="display: none">消息队列RabbitMQ的五种工作模式</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2 days ago
+                  本文最后更新于：a few seconds ago
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="一、JMS介绍"><a href="#一、JMS介绍" class="headerlink" title="一、JMS介绍"></a>一、JMS介绍</h1><ul>
-<li><p>什么是JMS：</p>
+              <ol>
+<li><h1 id="一、simple简单（最简单的收发模式）"><a href="#一、simple简单（最简单的收发模式）" class="headerlink" title="一、simple简单（最简单的收发模式）"></a>一、simple简单（最简单的收发模式）</h1></li>
+</ol>
 <ul>
-<li>JMS是Java消息服务（Java Message Service),Java平台中关于面向消息中间件的接口</li>
-<li><p>JMS是一种与厂商无关的 API，用来访问消息收发系统消息，它类似于JDBC(Java Database Connectivity)。这里，JDBC 是可以用来访问许多不同关系数据库的 API</p>
-</li>
-<li><p>是由Sun公司早期提出的消息标准，旨在为java应用提供统一的消息操作，包括create、send、receive</p>
-</li>
-<li><p>JMS是针对java的，那微软开发了NMS（.NET消息传递服务）</p>
-</li>
+<li>一个生产、一个消费，不用指定交换机，使用默认交换机</li>
 </ul>
-</li>
-<li><p>常见概念：</p>
-<ul>
-<li>JMS提供者：连接面向消息中间件的，JMS接口的一个实现，RocketMQ,ActiveMQ,Kafka等等</li>
-<li>JMS生产者(Message Producer)：生产消息的服务</li>
-<li>JMS消费者(Message Consumer)：消费消息的服务</li>
-<li>JMS消息：数据对象</li>
-<li>JMS队列：存储待消费消息的区域</li>
-<li>JMS主题：一种支持发送消息给多个订阅者的机制</li>
-<li>JMS消息通常有两种类型：点对点（Point-to-Point)、发布/订阅（Publish/Subscribe）</li>
-</ul>
-</li>
-<li><p>特性：</p>
-<ul>
-<li>面向Java平台的标准消息传递API</li>
-<li>在Java或JVM语言比如Scala、Groovy中具有互用性</li>
-<li>无需担心底层协议</li>
-<li>有queues和topics两种消息传递模型</li>
-<li>支持事务、能够定义消息格式（消息头、属性和内容）</li>
+<h1 id="二、work工作队列（资源的竞争）"><a href="#二、work工作队列（资源的竞争）" class="headerlink" title="二、work工作队列（资源的竞争）"></a>二、work工作队列（资源的竞争）</h1><ul>
+<li>一个生产，多个消费，有轮询策略和公平策略，不用指定交换机，使用默认交换机<ul>
+<li>轮询：一个消费者消费一条，直至消息消费完，<strong>平均分配</strong></li>
+<li>公平：根据消费者的消费能力进行公平分发，处理得快的分得多，处理的慢的分得少，<strong>能者多劳</strong><ul>
+<li>将消息置为手动确认模式，且将预置队列数为1（prefetchCount=1）</li>
 </ul>
 </li>
 </ul>
-<h1 id="二、AMQP介绍"><a href="#二、AMQP介绍" class="headerlink" title="二、AMQP介绍"></a>二、AMQP介绍</h1><ul>
-<li><p>什么是AMQP：</p>
-<ul>
-<li>AMQP（advanced message queuing protocol）在2003年时被提出，最早用于解决金融领不同平台之间的消息传递交互问题,就是是一种协议，兼容JMS</li>
-<li>更准确说的链接协议 binary- wire-level-protocol 直接定义网络交换的数据格式，类似http</li>
-<li>具体的产品实现比较多，RabbitMQ就是其中一种</li>
-</ul>
 </li>
-<li><p>特性</p>
-<ul>
-<li>独立于平台的底层消息传递协议</li>
-<li>消费者驱动消息传递</li>
-<li>跨语言和平台的互用性、属于底层协议</li>
-<li>有5种交换类型direct，fanout，topic，headers，system</li>
-<li>面向缓存的、可实现高性能、支持经典的消息队列，循环，存储和转发</li>
-<li>支持长周期消息传递、支持事务（跨消息队列）</li>
+</ul>
+<h1 id="三、publish-subscribe发布订阅（共享资源）"><a href="#三、publish-subscribe发布订阅（共享资源）" class="headerlink" title="三、publish/subscribe发布订阅（共享资源）"></a>三、publish/subscribe发布订阅（共享资源）</h1><ul>
+<li>fanout类型交换机，通过交换机和队列绑定，<strong>不用指定绑定的路由健</strong>，生产者将消息发送给broker，由交换机将消息转发到绑定此交换机的每个队列，所有绑定同一个fanout交换机的队列都将接收到消息</li>
+</ul>
+<h1 id="四、routing路由"><a href="#四、routing路由" class="headerlink" title="四、routing路由"></a>四、routing路由</h1><ul>
+<li>direct类型交换机，通过交换机和队列绑定，<strong>需要指定绑定的路由健</strong>，生产者发送消息到broker，由交换机根据消息的RoutingKey转发到对应的队列，对应的消费者才能接收到消息</li>
+</ul>
+<h1 id="五、topic主题（通配符）"><a href="#五、topic主题（通配符）" class="headerlink" title="五、topic主题（通配符）"></a>五、topic主题（通配符）</h1><ul>
+<li>topic交换机，通过交换机和队列绑定，<strong>指定绑定的【通配符路由健】</strong>，生产者发送消息到broker，由交换机根据消息的RoutingKey转发到对应的队列，对应的消费者才能接收到消息<ul>
+<li>* 代表一个词，#代表1个或多个词，一般用#作为通配符居多</li>
+<li>比如 #.order 会匹配 info.order 、sys.error.order, 而 *.order 只会匹配 info.order  词之间是使用 . 点进行分割</li>
+<li>如果只使用点 . 则info.order、error.order都会匹配</li>
+<li>生产者发送消息时需要使用具体的路由健</li>
 </ul>
 </li>
 </ul>
-<h1 id="三、JMS和AMQP的对比"><a href="#三、JMS和AMQP的对比" class="headerlink" title="三、JMS和AMQP的对比"></a>三、JMS和AMQP的对比</h1><p><img src="/2022/03/24/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97AMQP%E5%92%8CJMS/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th></th>
-<th>JMS</th>
-<th>AMQP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>定义</td>
-<td>Java API</td>
-<td>Wire-protocol （协议）</td>
-</tr>
-<tr>
-<td>跨语言</td>
-<td>否</td>
-<td>是</td>
-</tr>
-<tr>
-<td>跨平台</td>
-<td>否</td>
-<td>是</td>
-</tr>
-<tr>
-<td>Model</td>
-<td>提供两种消息模型：<br>（1）Peer-2-Peer<br>（2）Pub/sub<br><br><br><br></td>
-<td>提供了五种消息模型：<br>（1）direct exchange<br>（2）fanout exchange<br>（3）topic change<br>（4）headers exchange<br>（5）system exchange<br></td>
-</tr>
-<tr>
-<td>支持消息类型</td>
-<td>多种消息类型：<br>TextMessage<br>MapMessage<br>BytesMessage<br>StreamMessage<br>ObjectMessage<br>Message （只有消息头和属性）</td>
-<td>byte[]<br>当实际应用时，有复杂的消息，<br>可以将消息序列化后发送。<br><br><br><br></td>
-</tr>
-<tr>
-<td>综合评价</td>
-<td>JMS 定义了JAVA API层面的标准；<br>在java体系中，多个client均可以通过JMS进行交互，<br>不需要应用修改代码，但是其对跨平台的支持较差；</td>
-<td>AMQP定义了wire-level层的协议标准；<br>天然具有跨平台、跨语言特性。</td>
-</tr>
-</tbody>
-</table>
-</div>
+<p><strong>结合官方文档学习</strong>：<a target="_blank" rel="noopener" href="https://www.rabbitmq.com/getstarted.html">https://www.rabbitmq.com/getstarted.html</a></p>
 
             </div>
             <hr>
@@ -369,18 +303,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">消息队列RabbitMQ核心概念</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/24/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97MQ%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BC%98%E7%BC%BA%E7%82%B9/">
-                        <span class="hidden-mobile">消息队列MQ介绍及优缺点</span>
+                      <a href="/2022/03/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/">
+                        <span class="hidden-mobile">消息队列RabbitMQ核心概念</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
