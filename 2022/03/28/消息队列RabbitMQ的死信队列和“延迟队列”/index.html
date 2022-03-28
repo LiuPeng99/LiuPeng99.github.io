@@ -16,22 +16,22 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一、RabbitMQ消息队列介绍 RabbitMQ：http:&#x2F;&#x2F;www.rabbitmq.com&#x2F; 是一个开源的AMQP实现，服务器端用Erlang语言编写，支持多种客户端，如：Python、Ruby、.NET、Java、C、用于在分布式系统中存储转发消息，在易用性、扩展性、高可用性等方面表现不错，与SpringAMQP完美的整合、API丰富易用 文档：https:&#x2F;&#x2F;www.rabbitmq.">
+    <meta name="description" content="一、RabbitMQ的死信队列TTL是什么？  TTL（Time To Live），即存活时间 RabbitMQ支持两种方式设置TTL 单独对消息本身设置，每条消息的 TTL 可以不同。 expiration 单位ms(毫秒)   通过队列属性设置，队列中所有消息都有相同的存活时间。 x-message-ttl 单位ms(毫秒)     注意：如果两种方式同时使用，则消息的 TTL 以两者之间较小">
 <meta property="og:type" content="article">
-<meta property="og:title" content="消息队列RabbitMQ核心概念">
-<meta property="og:url" content="http://example.com/2022/03/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/index.html">
+<meta property="og:title" content="消息队列RabbitMQ的死信队列和“延迟队列”">
+<meta property="og:url" content="http://example.com/2022/03/28/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97%E5%92%8C%E2%80%9C%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97%E2%80%9D/index.html">
 <meta property="og:site_name" content=":)L">
-<meta property="og:description" content="一、RabbitMQ消息队列介绍 RabbitMQ：http:&#x2F;&#x2F;www.rabbitmq.com&#x2F; 是一个开源的AMQP实现，服务器端用Erlang语言编写，支持多种客户端，如：Python、Ruby、.NET、Java、C、用于在分布式系统中存储转发消息，在易用性、扩展性、高可用性等方面表现不错，与SpringAMQP完美的整合、API丰富易用 文档：https:&#x2F;&#x2F;www.rabbitmq.">
+<meta property="og:description" content="一、RabbitMQ的死信队列TTL是什么？  TTL（Time To Live），即存活时间 RabbitMQ支持两种方式设置TTL 单独对消息本身设置，每条消息的 TTL 可以不同。 expiration 单位ms(毫秒)   通过队列属性设置，队列中所有消息都有相同的存活时间。 x-message-ttl 单位ms(毫秒)     注意：如果两种方式同时使用，则消息的 TTL 以两者之间较小">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/03/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/image-1.png">
-<meta property="article:published_time" content="2022-03-25T05:31:13.676Z">
-<meta property="article:modified_time" content="2022-03-27T14:50:00.439Z">
+<meta property="og:image" content="http://example.com/2022/03/28/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97%E5%92%8C%E2%80%9C%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97%E2%80%9D/image-1.png">
+<meta property="article:published_time" content="2022-03-28T12:30:14.333Z">
+<meta property="article:modified_time" content="2022-03-28T13:27:40.808Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2022/03/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/image-1.png">
+<meta name="twitter:image" content="http://example.com/2022/03/28/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97%E5%92%8C%E2%80%9C%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97%E2%80%9D/image-1.png">
   
   
-  <title>消息队列RabbitMQ核心概念 - :)L</title>
+  <title>消息队列RabbitMQ的死信队列和“延迟队列” - :)L</title>
 
   <link  rel="stylesheet" href="https://unpkg.com/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -177,7 +177,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="消息队列RabbitMQ核心概念">
+            <span class="h2" id="subtitle" title="消息队列RabbitMQ的死信队列和“延迟队列”">
               
             </span>
 
@@ -187,8 +187,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-03-25 13:31" pubdate>
-        March 25, 2022 pm
+      <time datetime="2022-03-28 20:30" pubdate>
+        March 28, 2022 pm
       </time>
     </span>
   
@@ -198,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      1.2k 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17 分钟
+      11 分钟
     </span>
   
 
@@ -244,128 +244,63 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">消息队列RabbitMQ核心概念</h1>
+            <h1 style="display: none">消息队列RabbitMQ的死信队列和“延迟队列”</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：a day ago
+                  本文最后更新于：a minute ago
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="一、RabbitMQ消息队列介绍"><a href="#一、RabbitMQ消息队列介绍" class="headerlink" title="一、RabbitMQ消息队列介绍"></a>一、RabbitMQ消息队列介绍</h1><ul>
-<li>RabbitMQ：<a target="_blank" rel="noopener" href="http://www.rabbitmq.com/">http://www.rabbitmq.com/</a><ul>
-<li>是一个开源的AMQP实现，服务器端用Erlang语言编写，支持多种客户端，如：Python、Ruby、.NET、Java、C、用于在分布式系统中存储转发消息，在易用性、扩展性、高可用性等方面表现不错，与SpringAMQP完美的整合、API丰富易用</li>
-<li>文档：<a target="_blank" rel="noopener" href="https://www.rabbitmq.com/getstarted.html">https://www.rabbitmq.com/getstarted.html</a></li>
-</ul>
-</li>
-</ul>
-<h1 id="二、RabbitMQ核心概念"><a href="#二、RabbitMQ核心概念" class="headerlink" title="二、RabbitMQ核心概念"></a>二、RabbitMQ核心概念</h1><ul>
-<li>核心概念, 了解了这些概念，是使用好RabbitMQ的基础</li>
-</ul>
-<p><img src="/2022/03/25/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
+              <h1 id="一、RabbitMQ的死信队列"><a href="#一、RabbitMQ的死信队列" class="headerlink" title="一、RabbitMQ的死信队列"></a>一、RabbitMQ的死信队列</h1><p><strong>TTL是什么？</strong></p>
 <ul>
-<li><p>Broker</p>
+<li>TTL（Time To Live），即存活时间</li>
+<li>RabbitMQ支持两种方式设置TTL<ul>
+<li>单独对消息本身设置，每条消息的 TTL 可以不同。<ul>
+<li>expiration 单位ms(毫秒)</li>
+</ul>
+</li>
+<li>通过队列属性设置，队列中所有消息都有相同的存活时间。<ul>
+<li>x-message-ttl 单位ms(毫秒)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>注意：如果两种方式同时使用，则消息的 TTL 以两者之间较小的数值为准。</li>
+</ul>
+<p><strong>消息在什么情况会成为死信（Dead Message）</strong></p>
 <ul>
-<li>RabbitMQ的服务端程序，可以认为一个mq节点就是一个broker</li>
+<li>消费者拒收消息<strong>（ basic.reject/ basic.nack ）</strong>，并且不再重新入队 <strong>requeue=false</strong></li>
+<li>消息 TTL 超时</li>
+<li>队列达到最大长度</li>
 </ul>
-</li>
-<li><p>Producer生产者</p>
+<p><strong>死信队列是什么？</strong></p>
 <ul>
-<li>创建消息Message，然后发布到RabbitMQ中</li>
+<li>没有被及时消费的消息存放的队列，即死信队列</li>
 </ul>
-</li>
-<li><p>Consumer消费者:</p>
+<p><strong>死信交换机是什么？</strong></p>
 <ul>
-<li>消费队列里面的消息</li>
+<li>DLX，全称为 <code>Dead-Letter-Exchange</code> ，当消息成为死信后，会被重新发送到另一个交换机，这个交换机就是 DLX 死信交换机。</li>
 </ul>
-</li>
-<li><p>Message 消息</p>
+<p><img src="/2022/03/28/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97%E5%92%8C%E2%80%9C%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97%E2%80%9D/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
 <ul>
-<li>生产消费的内容，有消息头和消息体，也包括多个属性配置，比如routingKey路由键</li>
+<li>注意：消息成为死信后，如果原队列绑定了死信交换机，则消息会被死信交换机重新路由到死信队列</li>
 </ul>
-</li>
-<li><p>Queue 队列</p>
+<h1 id="二、RabbitMQ的“延迟队列”"><a href="#二、RabbitMQ的“延迟队列”" class="headerlink" title="二、RabbitMQ的“延迟队列”"></a>二、RabbitMQ的“延迟队列”</h1><p><strong>延迟队列是什么？</strong></p>
 <ul>
-<li>是RabbitMQ 的内部对象，用于存储消息，消息都只能存储在队列中</li>
+<li>一种带有延迟功能的消息队列，Producer 将消息发送到消息队列 服务端，但并不期望这条消息立马投递，而是推迟到在当前时间点之后的某一个时间投递到 Consumer 进行消费，该消息即定时消息。</li>
+<li>注意：在 RabbitMQ 中不存在延迟队列，但可以通过设置消息的 TTL 和死信队列来模拟延迟队列。<ul>
+<li>消费者监听与死信交换机绑定的队列，而不要监听消息发送的队列。</li>
 </ul>
 </li>
-<li><p>Channel 信道</p>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> Queue <span class="hljs-function"><span class="hljs-title">newMerchantQueue</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>, <span class="hljs-built_in">Object</span>&gt; args = <span class="hljs-keyword">new</span> HashMap&lt;&gt;(<span class="hljs-number">3</span>);<br>    <span class="hljs-comment">//消息过期后，进入到死信交换机</span><br>    args.put(<span class="hljs-string">&quot;x-dead-letter-exchange&quot;</span>, LOCK_MERCHANT_DEAD_EXCHANGE);<br>    <span class="hljs-comment">//消息过期后，进入到死信交换机的路由key</span><br>    args.put(<span class="hljs-string">&quot;x-dead-letter-routing-key&quot;</span>, LOCK_MERCHANT_ROUTING_KEY);<br>    <span class="hljs-comment">//过期时间，单位毫秒</span><br>    args.put(<span class="hljs-string">&quot;x-message-ttl&quot;</span>, <span class="hljs-number">10000</span>);<br>    <span class="hljs-keyword">return</span> QueueBuilder.durable(NEW_MERCHANT_QUEUE).withArguments(args).build();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>延迟队列的使用场景</strong></p>
 <ul>
-<li>一条支持多路复用的通道，独立的双向数据流通道，可以发布、订阅、接收消息。</li>
-<li>信道是建立在真实的TCP连接内的虚拟连接，复用TCP连接的通道</li>
-</ul>
-</li>
-<li><p>Connection连接</p>
-<ul>
-<li>是RabbitMQ的socket链接，它封装了socket协议相关部分逻辑，一个连接上可以有多个channel进行通信</li>
-</ul>
-</li>
-<li><p>Exchange 交换器</p>
-<ul>
-<li>生产者将消息发送到 Exchange，交换器将消息路由到一个或者多个队列中，里面有多个类型，后续再一一介绍，队列和交换机是多对多的关系。</li>
-</ul>
-</li>
-<li><p>RoutingKey 路由键</p>
-<ul>
-<li>生产者将消息发给交换器的时候，一般会指定一个RoutingKey，用来指定这个消息的路由规则</li>
-<li>最大长度255 字节</li>
-</ul>
-</li>
-<li><p>Binding 绑定</p>
-<ul>
-<li>通过绑定将交换器与队列关联起来，在绑定的时候一般会指定一个绑定键 ( BindingKey )，这样 RabbitMQ 就知道如何正确地将消息路由到队列了</li>
-<li>生产者将消息发送给交换器时，需要一个RoutingKey，只有当BindingKey和RoutingKey相匹配时，消息才会被路由到对应的队列中</li>
-</ul>
-</li>
-<li><p>Virtual host 虚拟主机</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><pre><code class="hljs mipsasm">vhost可以理解为虚拟<span class="hljs-keyword">broker，即mini-RabbitMQ </span>server<br>其内部均含有独立的queue、exchange和<span class="hljs-keyword">binding等</span><br><span class="hljs-keyword"></span>拥有独立的权限系统，可以做到vhost范围的用户控制，更多用作不同权限的隔离<br></code></pre></td></tr></table></figure>
-<ul>
-<li>用于不同业务模块的逻辑隔离<ul>
-<li>一个Virtual Host里面可以有若干个Exchange和Queue</li>
-<li>同一个VirtualHost 里面不能有相同名称的Exchange或Queue</li>
-</ul>
-</li>
-<li>默认是 /</li>
-</ul>
-</li>
-</ul>
-<h1 id="三、RabbitMQ交换机介绍"><a href="#三、RabbitMQ交换机介绍" class="headerlink" title="三、RabbitMQ交换机介绍"></a>三、RabbitMQ交换机介绍</h1><ul>
-<li>RabbitMQ的Exchange交换机<ul>
-<li>生产者将消息发送到 Exchange，交换器将消息路由到一个或者多个队列中，交换机有多个类型，队列和交换机是多对多的关系。</li>
-<li>交换机只负责转发消息，不具备存储消息的能力，如果没有队列和exchange绑定，或者没有符合的路由规则，则消息会被丢失</li>
-<li>RabbitMQ有四种交换机类型，分别是Direct exchange、Fanout exchange、Topic exchange、Headers exchange</li>
-</ul>
-</li>
-<li>交换机类型<ul>
-<li>Direct Exchange 定向<ul>
-<li>将一个队列绑定到交换机上，要求该消息与一个特定的路由键完全匹配</li>
-<li>例子：如果一个队列绑定到该交换机上要求路由键 “aabb”，则只有被标记为“aabb”的消息才被转发，不会转发aabb.cc，也不会转发gg.aabb，只会转发aabb</li>
-<li>处理路由健</li>
-</ul>
-</li>
-<li>Fanout Exchange 广播<ul>
-<li>只需要简单的将队列绑定到交换机上，一个被发送到交换机的消息都会被转发到与该交换机绑定的所有队列上。很像子网广播，每台子网内的主机都获得了一份复制的消息</li>
-<li>Fanout交换机转发消息是最快的，用于发布订阅，广播形式。</li>
-<li>不处理路由健</li>
-</ul>
-</li>
-<li>Topic Exchange 通配符<ul>
-<li>主题交换机是一种发布/订阅的模式，结合了直连交换机与扇形交换机的特点</li>
-<li>将路由键和某模式进行匹配。此时队列需要绑定到一个模式上</li>
-<li>符号“#”匹配一个或多个词，符号“*”只匹配一个词</li>
-<li>例子：因此“abc.#”能够匹配到“abc.def.ghi”，但是“abc.*” 只会匹配到“abc.def”。</li>
-</ul>
-</li>
-<li>Headers Exchanges（很少使用）<ul>
-<li>根据发送的消息内容中的headers属性进行匹配, 在绑定Queue与Exchange时指定一组键值对</li>
-<li>当消息发送到RabbitMQ时会取到该消息的headers与Exchange绑定时指定的键值对进行匹配；</li>
-<li>如果完全匹配则消息会路由到该队列，否则不会路由到该队列</li>
-<li>不处理路由键</li>
-</ul>
-</li>
-</ul>
-</li>
+<li>通过消息触发一些定时任务，比如在某一固定时间点向用户发送提醒消息；</li>
+<li>用户登录之后5分钟给用户做分类推送、用户多少天未登录给用户做召回推送；</li>
+<li>消息生产和消费有时间窗口要求：比如在天猫电商交易中超时未支付关闭订单的场景，在订单创建时会发送一条延时消息。这条消息将会在 30 分钟以后投递给消费者，消费者收到此消息后需要判断对应的订单是否已完成支付。 如支付未完成，则关闭订单。如已完成支付则忽略。</li>
 </ul>
 
             </div>
@@ -387,18 +322,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/26/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E4%BA%94%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">消息队列RabbitMQ的五种工作模式</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/24/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97AMQP%E5%92%8CJMS/">
-                        <span class="hidden-mobile">消息队列JMS和AMQP</span>
+                      <a href="/2022/03/28/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E7%9A%84%E5%B9%82%E7%AD%89%E6%80%A7%E3%80%81%E5%8F%AF%E9%9D%A0%E6%80%A7%E3%80%81%E9%A1%BA%E5%BA%8F%E6%80%A7/">
+                        <span class="hidden-mobile">消息队列RabbitMQ如何保证消息的幂等性、可靠性、顺序性</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
