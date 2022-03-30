@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/03/28/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97%E5%92%8C%E2%80%9C%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97%E2%80%9D/image-1.png">
 <meta property="article:published_time" content="2022-03-28T12:30:14.333Z">
-<meta property="article:modified_time" content="2022-03-28T13:27:40.808Z">
+<meta property="article:modified_time" content="2022-03-30T08:17:43.567Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2022/03/28/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97%E5%92%8C%E2%80%9C%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97%E2%80%9D/image-1.png">
@@ -198,7 +198,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.1k 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11 分钟
+      10 分钟
     </span>
   
 
@@ -295,7 +295,7 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight typescript"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> Queue <span class="hljs-function"><span class="hljs-title">newMerchantQueue</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>, <span class="hljs-built_in">Object</span>&gt; args = <span class="hljs-keyword">new</span> HashMap&lt;&gt;(<span class="hljs-number">3</span>);<br>    <span class="hljs-comment">//消息过期后，进入到死信交换机</span><br>    args.put(<span class="hljs-string">&quot;x-dead-letter-exchange&quot;</span>, LOCK_MERCHANT_DEAD_EXCHANGE);<br>    <span class="hljs-comment">//消息过期后，进入到死信交换机的路由key</span><br>    args.put(<span class="hljs-string">&quot;x-dead-letter-routing-key&quot;</span>, LOCK_MERCHANT_ROUTING_KEY);<br>    <span class="hljs-comment">//过期时间，单位毫秒</span><br>    args.put(<span class="hljs-string">&quot;x-message-ttl&quot;</span>, <span class="hljs-number">10000</span>);<br>    <span class="hljs-keyword">return</span> QueueBuilder.durable(NEW_MERCHANT_QUEUE).withArguments(args).build();<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 设置属性，消息10秒钟过期</span><br>AMQP.BasicProperties properties = <span class="hljs-keyword">new</span> AMQP.BasicProperties.Builder()<br>.expiration(<span class="hljs-string">&quot;10000&quot;</span>) <span class="hljs-comment">// TTL</span><br><br><span class="hljs-comment">// 指定队列的死信交换机</span><br><span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>,<span class="hljs-built_in">Object</span>&gt; <span class="hljs-built_in">arguments</span> = <span class="hljs-keyword">new</span> HashMap&lt;<span class="hljs-built_in">String</span>,<span class="hljs-built_in">Object</span>&gt;();<br><span class="hljs-built_in">arguments</span>.put(<span class="hljs-string">&quot;x-dead-letter-exchange&quot;</span>,<span class="hljs-string">&quot;DLX_EXCHANGE&quot;</span>);<br></code></pre></td></tr></table></figure>
 <p><strong>延迟队列的使用场景</strong></p>
 <ul>
 <li>通过消息触发一些定时任务，比如在某一固定时间点向用户发送提醒消息；</li>
@@ -321,6 +321,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/03/30/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">消息队列RabbitMQ的集群模式</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
