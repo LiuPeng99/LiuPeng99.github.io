@@ -24,7 +24,7 @@
 <meta property="og:description" content="一、Java SE基础（上）1、运算符（上）简介：短路运算符 和 位运算  考点：计算机基础运算知识  运算符 &amp;和&amp;&amp; 以及 |和|| 的区别 1234567891011121314&amp; 按位与操作	两个二进制数同时为1时，结果才为1	1&amp;1 &#x3D; 1	1&amp;0 &#x3D; 0	0&amp;1 &#x3D; 0	0&amp;0 &#x3D; 0| 按位或操作	两个二进制数中有一个为">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-07-01T01:40:48.355Z">
-<meta property="article:modified_time" content="2022-07-03T14:49:59.510Z">
+<meta property="article:modified_time" content="2022-07-06T05:43:09.742Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -196,7 +196,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.4k 字
+      11k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      54 分钟
+      90 分钟
     </span>
   
 
@@ -388,6 +388,88 @@
 <li>interface中可以有static方法，但必须有方法实现体，该方法只属于该接口，只能通过接口名直接调用该方法</li>
 <li>接口中新增default关键字修饰的方法，default方法只能定义在接口中，可以在子类或子接口中被重写default定义的方法必须有方法体</li>
 </ul>
+</li>
+</ul>
+<h1 id="三、Java集合List"><a href="#三、Java集合List" class="headerlink" title="三、Java集合List"></a>三、Java集合List</h1><h2 id="1、Java集合List基础（上）"><a href="#1、Java集合List基础（上）" class="headerlink" title="1、Java集合List基础（上）"></a>1、Java集合List基础（上）</h2><p><strong>简介：Java集合LIst常见基础面试题</strong></p>
+<ul>
+<li>考点：List的基础知识点掌握、对应实现的区别、线程安全、使用场景</li>
+<li>Vector、ArrayList、LinkedList的联系和区别？各自的使用场景？<ul>
+<li>线程安全：<ul>
+<li>Vector：底层是数组实现，线程安全，操作时使用synchronized进行加锁</li>
+<li>ArrayList：底层是数组实现，线程不安全，查询和修改快，增加和删除慢</li>
+<li>LinkedList：底层是双向链表实现，线程不安全，查询和修改慢，增加和删除快</li>
+</ul>
+</li>
+<li>使用场景：<ul>
+<li>Vector：很少使用了</li>
+<li>ArrayList：查询和修改场景多时</li>
+<li>LinkedList：增加和删除场景多时</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2、Java集合List基础（下）"><a href="#2、Java集合List基础（下）" class="headerlink" title="2、Java集合List基础（下）"></a>2、Java集合List基础（下）</h2><p><strong>简介：基于List基础篇进行追问</strong></p>
+<ul>
+<li>考点：List的掌握情况（追问系列）</li>
+<li>如果需要保证线程安全，ArrayList应该如何做？（以下方式基于JDK8实现）<ul>
+<li>方式一：Collections.synchronizedList(new ArrayList&lt;&gt;()); 使用synchronized加锁</li>
+<li>方式二：new CopyOnWriteArrayList&lt;&gt;(); 使用ReentrantLock加锁</li>
+<li>方式三：自己写个包装类，根据业务一般是add/update/remove加锁</li>
+</ul>
+</li>
+</ul>
+<h2 id="3、CopyOnWriteArrayList"><a href="#3、CopyOnWriteArrayList" class="headerlink" title="3、CopyOnWriteArrayList"></a>3、CopyOnWriteArrayList</h2><p><strong>简介：基于CopyOnWriteArrayList进行追问</strong></p>
+<ul>
+<li>考点：CopyOnWriteArrayList的掌握情况（追问系列）</li>
+<li>了解CopyOnWriteArrayList吗？和Collections.synchronizedList实现线程安全有什么区别？使用场景是怎样的？<ul>
+<li>CopyOnWriteArrayList：执行修改操作时，会拷贝一份新的数组进行操作（add、set、remove等），代价很高，在执行完修改后将原来集合指向新的集合来完成修改操作，源码里的ReentrantLock可重入锁来保证不会有多个线程同时拷贝一份数组<ul>
+<li>场景：适用于读多写少的并发场景（读操作不需要加锁）</li>
+</ul>
+</li>
+<li>Collections.synchronizedList：线程安全的原因是因为它几乎在每个方法中都使用了synchronized同步锁<ul>
+<li>场景：写操作性能比CopyOnWriteArrayList好，但是读操作性能不如CopyOnWriteArrayList</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>CopyOnWriteArrayList的设计思想是怎样的？有什么缺点？<ul>
+<li>设计思想：读写分离+最终一致性</li>
+<li>缺点：内存占用问题，写时复制机制，内存里面会同时驻扎两个对象的内存（旧的对象和新写入的对象），如果对象过大则容易发生Young GC和Full GC</li>
+</ul>
+</li>
+</ul>
+<h2 id="4、List集合扩容机制"><a href="#4、List集合扩容机制" class="headerlink" title="4、List集合扩容机制"></a>4、List集合扩容机制</h2><p><strong>简介：基于List进行追问，扩容机制</strong></p>
+<ul>
+<li>考点：List集合扩容机制</li>
+<li>说下List的扩容机制是怎样的？<ul>
+<li>扩容可分为两种情况：<ul>
+<li>第一种情况，当ArrayList的容量为0时，此时添加元素的话，需要扩容，三种构造方法创建的ArrayList在扩容时略有不同：<ol>
+<li>无参构造，创建ArrayList后容量为0，添加第一个元素后，容量变为10，此后若需要扩容，则正常扩容。</li>
+<li>传容量构造，当参数为0时，创建ArrayList后容量为0，添加第一个元素后，容量为1，此时ArrayList是满的，下次添加元素时需正常扩容。</li>
+<li>传列表构造，当列表为空时，创建ArrayList后容量为0，添加第一个元素后，容量为1，此时ArrayList是满的，下次添加元素时需正常扩容。</li>
+</ol>
+</li>
+<li>第二种情况，当ArrayList的容量大于0，并且ArrayList已满的时候，此时添加元素的话，进行正常扩容，每次扩容到原来的1.5倍。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="5、手写ArrayList（上）"><a href="#5、手写ArrayList（上）" class="headerlink" title="5、手写ArrayList（上）"></a>5、手写ArrayList（上）</h2><p><strong>简介：基于List进行追问，代码实战</strong></p>
+<ul>
+<li><p>考点：源码设计思想、代码编写规范</p>
+</li>
+<li><p>设计一个简单的ArrayList【需要包含 构造函数(无参和有参)、add(e)、 扩容机制】</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs processing"><span class="hljs-comment">//判断当前集合类是否被并发修改，即迭代器并发修改的fail-fast机制</span><br>   <span class="hljs-keyword">private</span> <span class="hljs-keyword">transient</span> <span class="hljs-built_in">int</span> modCount = <span class="hljs-number">0</span>;<br>  <br>   <span class="hljs-comment">//默认的容量大小（常量）</span><br>   <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-built_in">int</span> DEFAULT_CAPACITY = <span class="hljs-number">10</span>;<br>  <br>   <span class="hljs-comment">//定义的空数组（final修饰，大小固定为0）</span><br>   <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">Object</span>[] EMPTY_ELEMENTDATA = &#123;&#125;;<br>  <br>   <span class="hljs-comment">//定义的不可被序列化的数组，实际存储元素的数组</span><br>   <span class="hljs-keyword">transient</span> <span class="hljs-keyword">Object</span>[] elementData;<br>  <br>   <span class="hljs-comment">//数组中元素的个数</span><br>   <span class="hljs-keyword">private</span> <span class="hljs-built_in">int</span> <span class="hljs-built_in">size</span>;<br>  <br>   <span class="hljs-keyword">public</span> MyArrayList() &#123;<br>       <span class="hljs-keyword">this</span>.elementData = EMPTY_ELEMENTDATA;<br>   &#125;<br>  <br>   <span class="hljs-keyword">public</span> MyArrayList(<span class="hljs-built_in">int</span> initialCapacity) &#123;<br>       <span class="hljs-keyword">if</span> (initialCapacity &gt; <span class="hljs-number">0</span>) &#123;<br>           <span class="hljs-keyword">this</span>.elementData = <span class="hljs-keyword">new</span> <span class="hljs-keyword">Object</span>[initialCapacity];<br>       &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (initialCapacity == <span class="hljs-number">0</span>) &#123;<br>           <span class="hljs-keyword">this</span>.elementData = EMPTY_ELEMENTDATA;<br>       &#125; <span class="hljs-keyword">else</span> &#123;<br>           <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalArgumentException(<span class="hljs-string">&quot;参数异常&quot;</span>);<br>       &#125;<br>   &#125;<br>  <br>   <span class="hljs-keyword">public</span> <span class="hljs-built_in">boolean</span> <span class="hljs-built_in">add</span>(<span class="hljs-keyword">Object</span> e) &#123;<br>       <span class="hljs-comment">//判断容量</span><br>       ensureCapacityInternal(<span class="hljs-built_in">size</span> + <span class="hljs-number">1</span>);<br>       <span class="hljs-comment">//使用下标赋值，尾部插入</span><br>       elementData[<span class="hljs-built_in">size</span>++] = e;<br>       <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>   &#125;<br>  <br>   <span class="hljs-comment">//计算容量+确保容量</span><br>   <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> ensureCapacityInternal(<span class="hljs-built_in">int</span> minCapacity) &#123;<br>       <span class="hljs-comment">//用于并发判断</span><br>       modCount++;<br>  <br>       <span class="hljs-comment">//如果是初次扩容，则使用默认的容量</span><br>       <span class="hljs-keyword">if</span> (elementData == EMPTY_ELEMENTDATA) &#123;<br>           minCapacity = Math.<span class="hljs-built_in">max</span>(DEFAULT_CAPACITY, minCapacity);<br>       &#125;<br>       <span class="hljs-comment">//判断是否需要扩容，所需的最少容量 大于 现在数组的长度 则需要扩容</span><br>       <span class="hljs-keyword">if</span> (minCapacity - elementData.length &gt; <span class="hljs-number">0</span>) &#123;<br>           <span class="hljs-built_in">int</span> oldCapacity = elementData.length;<br>           <span class="hljs-built_in">int</span> newCapacity = oldCapacity + (oldCapacity &gt;&gt; <span class="hljs-number">1</span>);<br>           <span class="hljs-comment">//如果新容量 &lt; 所需最小容量 ，则所需最小容量赋给新容量</span><br>           <span class="hljs-keyword">if</span> (newCapacity - minCapacity &lt; <span class="hljs-number">0</span>) &#123;<br>               newCapacity = minCapacity;<br>           &#125;<br>           <span class="hljs-comment">//创建数组</span><br>           <span class="hljs-keyword">Object</span>[] objects = <span class="hljs-keyword">new</span> <span class="hljs-keyword">Object</span>[newCapacity];<br>           <span class="hljs-comment">//将旧的数组拷贝到新的数组中</span><br>           System.arraycopy(elementData, <span class="hljs-number">0</span>, objects, <span class="hljs-number">0</span>, elementData.length);<br>           <span class="hljs-comment">//修改引用</span><br>           elementData = objects;<br>       &#125;<br>   &#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="6、手写ArrayList（下）"><a href="#6、手写ArrayList（下）" class="headerlink" title="6、手写ArrayList（下）"></a>6、手写ArrayList（下）</h2><p><strong>简介：基于List进行追问，代码实战</strong></p>
+<ul>
+<li><p>考点：源码设计思想、代码编写规范</p>
+</li>
+<li><p>设计一个简单的ArrayList【remove(index)、get(index) 、indexOf(o) ,set(int index,Object o)】</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">private <span class="hljs-type">void</span> range<span class="hljs-keyword">Check</span>(<span class="hljs-type">int</span> <span class="hljs-keyword">index</span>) &#123;<br>       <span class="hljs-keyword">if</span> (<span class="hljs-keyword">index</span> &gt; size || <span class="hljs-keyword">index</span> &lt; <span class="hljs-number">0</span>) &#123;<br>           throw <span class="hljs-built_in">new</span> IndexOutOfBoundsException(&quot;数组越界&quot;);<br>       &#125;<br>   &#125;<br>  <br>   //根据索引删除元素<br>   <span class="hljs-built_in">public</span> <span class="hljs-keyword">Object</span> remove(<span class="hljs-type">int</span> <span class="hljs-keyword">index</span>) &#123;<br>       range<span class="hljs-keyword">Check</span>(<span class="hljs-keyword">index</span>);<br>  <br>       //用于并发判断<br>       modCount++;<br>  <br>       <span class="hljs-keyword">Object</span> oldValue = elementData[<span class="hljs-keyword">index</span>];<br>       //计算要删除的位置后面还有多少个元素<br>       <span class="hljs-type">int</span> numMoved = size - <span class="hljs-keyword">index</span> - <span class="hljs-number">1</span>;<br>       <span class="hljs-keyword">if</span> (numMoved &gt; <span class="hljs-number">0</span>) &#123;<br>           <span class="hljs-keyword">System</span>.arraycopy(elementData, <span class="hljs-keyword">index</span> + <span class="hljs-number">1</span>, elementData, <span class="hljs-keyword">index</span>, numMoved);<br>       &#125;<br>       //将多出的位置设置为空，没有引用对象，GC可以回收，如果不为空，将多保存一个引用，可能会造成内存泄露<br>       elementData[<span class="hljs-comment">--size] = null;</span><br>       <span class="hljs-keyword">return</span> oldValue;<br>   &#125;<br>  <br>   //通过索引获取对象<br>   <span class="hljs-built_in">public</span> <span class="hljs-keyword">Object</span> <span class="hljs-keyword">get</span>(<span class="hljs-type">int</span> <span class="hljs-keyword">index</span>) &#123;<br>       range<span class="hljs-keyword">Check</span>(<span class="hljs-keyword">index</span>);<br>       <span class="hljs-keyword">return</span> elementData[<span class="hljs-keyword">index</span>];<br>   &#125;<br>  <br>   //判断对象所在的位置<br>   <span class="hljs-built_in">public</span> <span class="hljs-type">int</span> indexOf(<span class="hljs-keyword">Object</span> o) &#123;<br>       <span class="hljs-keyword">if</span> (o == <span class="hljs-keyword">null</span>) &#123;<br>           <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++) &#123;<br>               <span class="hljs-keyword">if</span> (elementData[i] == <span class="hljs-keyword">null</span>) &#123;<br>                   <span class="hljs-keyword">return</span> i;<br>               &#125;<br>           &#125;<br>       &#125; <span class="hljs-keyword">else</span> &#123;<br>           <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++) &#123;<br>               <span class="hljs-keyword">if</span> (o.equals(elementData[i])) &#123;<br>                   <span class="hljs-keyword">return</span> i;<br>               &#125;<br>           &#125;<br>       &#125;<br>       <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>   &#125;<br>  <br>   //根据索引修改元素<br>   <span class="hljs-built_in">public</span> <span class="hljs-keyword">Object</span> <span class="hljs-keyword">set</span>(<span class="hljs-type">int</span> <span class="hljs-keyword">index</span>, <span class="hljs-keyword">Object</span> e) &#123;<br>       range<span class="hljs-keyword">Check</span>(<span class="hljs-keyword">index</span>);<br>       <span class="hljs-keyword">Object</span> oldValue = elementData[<span class="hljs-keyword">index</span>];<br>       elementData[<span class="hljs-keyword">index</span>] = e;<br>       <span class="hljs-keyword">return</span> oldValue;<br>   &#125;<br>   <br>   //获取数组实际大小<br>   <span class="hljs-built_in">public</span> <span class="hljs-type">int</span> size() &#123;<br>       <span class="hljs-keyword">return</span> this.size;<br>   &#125;<br></code></pre></td></tr></table></figure>
 </li>
 </ul>
 
