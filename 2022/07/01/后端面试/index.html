@@ -25,8 +25,13 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-1.png">
 <meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-2.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-3.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-4.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-5.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-6.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-7.png">
 <meta property="article:published_time" content="2022-07-01T01:40:48.355Z">
-<meta property="article:modified_time" content="2022-07-08T08:58:49.492Z">
+<meta property="article:modified_time" content="2022-07-11T06:01:47.251Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-1.png">
@@ -199,7 +204,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      15k 字
+      24k 字
     </span>
   
 
@@ -208,7 +213,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      126 分钟
+      202 分钟
     </span>
   
 
@@ -249,7 +254,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：5 minutes ago
+                  本文最后更新于：a few seconds ago
                 
               </p>
             
@@ -585,6 +590,161 @@
 </li>
 <li><p>ConcurrentHashMap的put的核心逻辑（JDK8以上版本）</p>
 <p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-2.png" srcset="/img/loading.gif" lazyload alt="image-2"></p>
+</li>
+</ul>
+<h1 id="五、并发编程"><a href="#五、并发编程" class="headerlink" title="五、并发编程"></a>五、并发编程</h1><h2 id="1、进程、线程、协程"><a href="#1、进程、线程、协程" class="headerlink" title="1、进程、线程、协程"></a>1、进程、线程、协程</h2><p><strong>简介：是否掌握进程、线程、协程的区别</strong></p>
+<ul>
+<li><p>考点：是否掌握进程、线程、协程的区别</p>
+</li>
+<li><p>能否解释下什么是否掌握进程、线程、协程之间有什么联系和区别？</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs mathematica">进程：进程是计算机中已运行程序的实体，是操作系统资源分配的最小单位<br><br>线程：线程是在进程中执行的一个任务，是<span class="hljs-variable">CPU</span>调度和执行的最小单位<br><br>协程：又称为微线程，是一种用户态的轻量级线程，协程不像线程和进程需要进行系统内核上的上下文切换，协程的上下文切换是由用户自己决定的，有自己的上下文，所以说是轻量级的线程，协程也称之为用户级别的线程，一个线程可以多个协程<span class="hljs-operator">,</span>线程进程都是同步机制，而协程则是异步<br><br>联系：一个进程至少有一个线程，一个进程可以有多个线程，多个线程可共享数据。<br><br>区别：进程和线程的本质区别在于是否单独占有内存地址空间及其它系统资源（比如<span class="hljs-built_in">I</span><span class="hljs-operator">/</span><span class="hljs-built_in">O</span>）<br>		进程单独占有一定的内存地址空间；线程共享所属进程占有的内存地址空间和资源<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>协程对于多线程的优缺点是什么？</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">优点：<br>    非常快速的上下文切换，不用系统内核的上下文切换，减小开销<br>    单线程即可实现高并发，单核CPU可以支持上万的协程<br>    由于只有一个线程，也不存在同时写变量的冲突，在协程中控制共享资源不需要加锁<br>缺点：<br>    协程无法利用多核资源，本质也是个单线程<br>    协程需要和进程配合才能运行在多CPU上<br>    目前<span class="hljs-keyword">java没成熟的第三方库，存在风险</span><br><span class="hljs-keyword"></span>    调试<span class="hljs-built_in">debug</span>存在难度，不利于发现问题<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="2、并发、并行、串行"><a href="#2、并发、并行、串行" class="headerlink" title="2、并发、并行、串行"></a>2、并发、并行、串行</h2><p><strong>简介：是否知道并发、并行、串行的区别</strong></p>
+<ul>
+<li><p>考点：计算机基础中并发、并行、串行的概念</p>
+</li>
+<li><p>说下并发、并行、串行的区别，最好举例说明</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs excel">并发：多个任务在同一个CPU核上，按细分的时间片段轮流（交替）执行，从逻辑上来看那些任务是“同时进行”。【两个人用一台电脑】<br><br>并行：单位时间内，多个处理器或多核处理器同时处理多个任务，是真正意义上的“同时进行”。【两个人分配了两台电脑】<br><br>串行：有<span class="hljs-built_in">n</span>个任务，由一个线程按顺序执行。由于任务、方法都在一个线程执行所以不存在线程不安全的情况，也就不存在临界区的问题。【两个人排队使用一台电脑】<br></code></pre></td></tr></table></figure>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-3.png" srcset="/img/loading.gif" lazyload alt="image-3"></p>
+</li>
+</ul>
+<h2 id="3、Java多线程的实现方式"><a href="#3、Java多线程的实现方式" class="headerlink" title="3、Java多线程的实现方式"></a>3、Java多线程的实现方式</h2><p><strong>简介：Java多线程的实现方式和区别</strong></p>
+<ul>
+<li><p>考点：Java多线程基础知识</p>
+</li>
+<li><p>Java里面实现多线程有哪几种方式，比较常用的是哪些？</p>
+<ol>
+<li><p>继承Thread类</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">Thread类本质上也是实现了Runnable接口的一个实例，代表一个线程的实例。启动线程的唯一方法就是通过Thread类的start<span class="hljs-literal">()</span>方法。start<span class="hljs-literal">()</span>方法是一个native方法，它将启动一个新线程，并执行run<span class="hljs-literal">()</span>方法<br>优点：代码编写简单直接操作<br>缺点：没返回值，继承一个类后，没法继承其他的类，拓展性差<br><br>public <span class="hljs-keyword">class</span> ThreadDemo01 extends Thread&#123;<br>    @Override<br>    public void run<span class="hljs-literal">()</span> &#123;<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(<span class="hljs-string">&quot;继承Thread类实现多线程，线程名称：&quot;</span>+<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Thread</span>.</span></span>current<span class="hljs-constructor">Thread()</span>.get<span class="hljs-constructor">Name()</span>);<br>    &#125;<br>&#125;<br><br>public static void main(String<span class="hljs-literal">[]</span> args) &#123;<br>    ThreadDemo01 threadDemo01 = <span class="hljs-keyword">new</span> <span class="hljs-constructor">ThreadDemo01()</span>;<br>    threadDemo01.set<span class="hljs-constructor">Name(<span class="hljs-string">&quot;demo01&quot;</span>)</span>;<br>    threadDemo01.start<span class="hljs-literal">()</span>;<br>    <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(<span class="hljs-string">&quot;主线程名称：&quot;</span> + <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Thread</span>.</span></span>current<span class="hljs-constructor">Thread()</span>.get<span class="hljs-constructor">Name()</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>实现Runnable接口<strong>【常用】</strong></p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">实现Runnable接口并实现其中的run<span class="hljs-literal">()</span>方法，然后通过构造Thread实例，传入Runnable实现类，然后调用Thread的start<span class="hljs-literal">()</span>方法即可开启一个新线程<br>优点：线程类可以实现多个接口，可以再继承一个类<br>缺点：没返回值，不能直接启动，需要通过构造一个Thread实例再传入Runnable实现类进去启动<br><br>public <span class="hljs-keyword">class</span> ThreadDemo02 implements Runnable&#123;<br>    @Override<br>    public void run<span class="hljs-literal">()</span> &#123;<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(<span class="hljs-string">&quot;实现Runnable接口实现多线程，线程名称：&quot;</span>+<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Thread</span>.</span></span>current<span class="hljs-constructor">Thread()</span>.get<span class="hljs-constructor">Name()</span>);<br>    &#125;<br>&#125;<br><br>public static void main(String<span class="hljs-literal">[]</span> args) &#123;<br>    ThreadDemo02 threadDemo02 = <span class="hljs-keyword">new</span> <span class="hljs-constructor">ThreadDemo02()</span>;<br>    Thread thread = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Thread(<span class="hljs-params">threadDemo02</span>)</span>;<br>    thread.set<span class="hljs-constructor">Name(<span class="hljs-string">&quot;demo02&quot;</span>)</span>;<br>    thread.start<span class="hljs-literal">()</span>;<br>    <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(<span class="hljs-string">&quot;主线程名称：&quot;</span> + <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Thread</span>.</span></span>current<span class="hljs-constructor">Thread()</span>.get<span class="hljs-constructor">Name()</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>匿名内部类</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs livescript">JDK8之后采用lambda表达式<br>public <span class="hljs-keyword">static</span> <span class="hljs-literal">void</span> main(<span class="hljs-built_in">String</span>[] args) &#123;<br>	Thread thread = <span class="hljs-keyword">new</span> Thread<span class="hljs-function"><span class="hljs-params">(() -&gt; &#123;</span></span><br><span class="hljs-params"><span class="hljs-function">		System.out.println(<span class="hljs-string">&quot;匿名内部类实现多线程，线程名称：&quot;</span> + Thread.currentThread().getName());</span></span><br><span class="hljs-params"><span class="hljs-function">	&#125;)</span>;</span><br><span class="hljs-function">    <span class="hljs-title">thread</span>.<span class="hljs-title">setName</span><span class="hljs-params">(<span class="hljs-string">&quot;demo03&quot;</span>)</span>;</span><br><span class="hljs-function">    <span class="hljs-title">thread</span>.<span class="hljs-title">start</span><span class="hljs-params">()</span>;</span><br><span class="hljs-function">    <span class="hljs-title">System</span>.<span class="hljs-title">out</span>.<span class="hljs-title">println</span><span class="hljs-params">(<span class="hljs-string">&quot;主线程名称：&quot;</span> + Thread.currentThread().getName())</span>;</span><br><span class="hljs-function">&#125;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>实现Callable接口通过FutureTask包装器</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs livescript">首先需要一个实现Callable接口的实例，然后实现该接口的唯一方法call逻辑，接着把Callable实例包装成FutureTask传递给Thread实例启动新线程。FutureTask本质上也实现了Runnable接口，所以同样可以用来构造Thread实例。<br>优点：有返回值，拓展性高<br>缺点：JDK5以后才支持，需要重写call方法，结合多个类比如FutureTask和Thread类<br><br>public <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyTask</span> <span class="hljs-title">implements</span> <span class="hljs-title">Callable</span>&lt;<span class="hljs-title">Object</span>&gt; &#123;</span><br>    @Override<br>    public <span class="hljs-built_in">Object</span> call() throws Exception &#123;<br>        System.out.println(<span class="hljs-string">&quot;实现Callable接口实现多线程，线程名称：&quot;</span>+Thread.currentThread().getName());<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;这是返回值&quot;</span>;<br>    &#125;<br>&#125;<br><br>public <span class="hljs-keyword">static</span> <span class="hljs-literal">void</span> main(<span class="hljs-built_in">String</span>[] args) &#123;<br><br>	<span class="hljs-regexp">// MyTask myTask = new MyTask();</span><br><span class="hljs-regexp">	//</span> FutureTask&lt;<span class="hljs-built_in">Object</span>&gt; futureTask = <span class="hljs-keyword">new</span> FutureTask&lt;&gt;(myTask);<br><br>	FutureTask&lt;<span class="hljs-built_in">Object</span>&gt; futureTask = <span class="hljs-keyword">new</span> FutureTask&lt;&gt;<span class="hljs-function"><span class="hljs-params">(() -&gt; &#123;</span></span><br><span class="hljs-params"><span class="hljs-function">		System.out.println(<span class="hljs-string">&quot;实现Callable接口实现多线程，线程名称：&quot;</span> + Thread.currentThread().getName());</span></span><br><span class="hljs-params"><span class="hljs-function">		<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;这是返回值&quot;</span>;</span></span><br><span class="hljs-params"><span class="hljs-function">	&#125;)</span>;</span><br><span class="hljs-function"></span><br><span class="hljs-function">	<span class="hljs-title">Thread</span> <span class="hljs-title">thread</span> = <span class="hljs-title">new</span> <span class="hljs-title">Thread</span><span class="hljs-params">(futureTask)</span>;</span><br><span class="hljs-function">	<span class="hljs-title">thread</span>.<span class="hljs-title">setName</span><span class="hljs-params">(<span class="hljs-string">&quot;demo04&quot;</span>)</span>;</span><br><span class="hljs-function">	<span class="hljs-title">thread</span>.<span class="hljs-title">start</span><span class="hljs-params">()</span>;</span><br><span class="hljs-function">	<span class="hljs-title">System</span>.<span class="hljs-title">out</span>.<span class="hljs-title">println</span><span class="hljs-params">(<span class="hljs-string">&quot;主线程名称：&quot;</span> + Thread.currentThread().getName())</span>;</span><br><span class="hljs-function">	<span class="hljs-title">try</span> &#123;</span><br><span class="hljs-function">		<span class="hljs-title">System</span>.<span class="hljs-title">out</span>.<span class="hljs-title">println</span><span class="hljs-params">(futureTask.get())</span>;</span><br><span class="hljs-function">	&#125; <span class="hljs-title">catch</span> <span class="hljs-params">(InterruptedException e)</span> &#123;</span><br><span class="hljs-function">        //阻塞等待中被中断，则抛出</span><br><span class="hljs-function">        <span class="hljs-title">e</span>.<span class="hljs-title">printStackTrace</span><span class="hljs-params">()</span>;</span><br><span class="hljs-function">    &#125; <span class="hljs-title">catch</span> <span class="hljs-params">(ExecutionException e)</span> &#123;</span><br><span class="hljs-function">        //执行过程发送异常被抛出</span><br><span class="hljs-function">        <span class="hljs-title">e</span>.<span class="hljs-title">printStackTrace</span><span class="hljs-params">()</span>;</span><br><span class="hljs-function">    &#125;</span><br><span class="hljs-function">&#125;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>通过线程池<strong>【常用】</strong></p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">自定义Runnable接口，实现run方法，创建线程池，调用执行方法并传入对象<br>优点：安全、性能高，因为复用了线程<br>缺点：JDK5以后才支持，需要结合Runnable进行使用<br><br>public <span class="hljs-keyword">class</span> ThreadDemo05 implements Runnable&#123;<br>    @Override<br>    public void run<span class="hljs-literal">()</span> &#123;<br>        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(<span class="hljs-string">&quot;通过线程池实现多线程，线程名称：&quot;</span>+<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Thread</span>.</span></span>current<span class="hljs-constructor">Thread()</span>.get<span class="hljs-constructor">Name()</span>);<br>    &#125;<br>&#125;<br><br>public static void main(String<span class="hljs-literal">[]</span> args) &#123;<br>	ExecutorService executorService = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Executors</span>.</span></span><span class="hljs-keyword">new</span><span class="hljs-constructor">FixedThreadPool(3)</span>;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;<br>		executorService.execute(<span class="hljs-keyword">new</span> <span class="hljs-constructor">ThreadDemo05()</span>);<br>    &#125;<br>    <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(<span class="hljs-string">&quot;主线程名称：&quot;</span> + <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Thread</span>.</span></span>current<span class="hljs-constructor">Thread()</span>.get<span class="hljs-constructor">Name()</span>);<br>    <span class="hljs-comment">//关闭线程池</span><br>    executorService.shutdown<span class="hljs-literal">()</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="4、Java线程的状态"><a href="#4、Java线程的状态" class="headerlink" title="4、Java线程的状态"></a>4、Java线程的状态</h2><p><strong>简介：线程有几种状态有哪些，分别解释下</strong></p>
+<ul>
+<li><p>考点：是否掌握线程常见的状态</p>
+</li>
+<li><p>操作系统中的线程状态有哪些？</p>
+<ol>
+<li><strong>新建状态 NEW</strong>: 使用 new 关键字和 Thread 类或其子类建立一个线程对象后，该线程对象就处于新建状态。它保持这个状态直到程序 start() 这个线程。</li>
+<li><strong>就绪状态 RUNNABLE</strong>: 当线程对象调用了start()方法之后，该线程就进入就绪状态。就绪状态的线程处于就绪队列中，要等待JVM里线程调度器的调度。</li>
+<li><strong>运行状态: RUNNING</strong> 如果就绪状态的线程获取 CPU 资源，就可以执行 run()，此时线程便处于运行状态。处于运行状态的线程最为复杂，它可以变为阻塞状态、就绪状态和死亡状态。</li>
+<li><strong>阻塞状态: BLOCKED</strong>如果一个线程执行了sleep（睡眠）、suspend（挂起）等方法，失去所占用资源之后，该线程就从运行状态进入阻塞状态。在睡眠时间已到或获得设备资源后可以重新进入就绪状态。可以分为三种：<ul>
+<li>等待阻塞：运行状态中的线程执行 wait() 方法，该线程会释放占⽤的所有资源，JVM会把该线程放入“等待池”中。进⼊这个状态后，是不能自动唤醒的，必须依靠其他线程调用notify或notifyAll方法才能被 唤醒，wait是object类的方法</li>
+<li>同步阻塞：线程在获取 synchronized同步锁失败(因为同步锁被其他线程占用)，则JVM会把该线程放入“锁池”中。</li>
+<li>其他阻塞：运⾏的线程执行 sleep() 或 join() 发出了 I/O请求时，JVM会把该线程置为阻塞状 态。当sleep() 状态超时，join() 等待线程终止或超时，或者 I/O 处理完毕，线程重新转入就绪状态，sleep是Thread类的方法。</li>
+</ul>
+</li>
+<li><strong>死亡状态: TERMINATED</strong> 一个运行状态的线程完成任务或者其他终止条件发生时，该线程就切换到终止状态。</li>
+</ol>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-4.png" srcset="/img/loading.gif" lazyload alt="image-4"></p>
+</li>
+<li><p>Java中Thread对象的状态有哪些？</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">public enum State &#123;<br>    NEW,<span class="hljs-regexp">//</span>新建态<br>    RUNNABLE,<span class="hljs-regexp">//</span>运行态<br>    BLOCKED,<span class="hljs-regexp">//</span>阻塞态<br>    WAITING,<span class="hljs-regexp">//</span>等待态<br>    TIMED_WAITING,<span class="hljs-regexp">//</span>有时间限制的等待态<br>    TERMINATED;<span class="hljs-regexp">//</span>死亡态<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-5.png" srcset="/img/loading.gif" lazyload alt="image-5"></p>
+</li>
+</ul>
+<ol>
+<li><p>NEW 新建态：</p>
+<p>处于NEW状态的线程此时尚未启动，还没调用Thread实例的start()方法。</p>
+</li>
+<li><p>RUNNABLE 运行态：</p>
+<p>表示当前线程正在运行中。处于RUNNABLE状态的线程可能在Java虚拟机中运行，也有可能在等待其他系统资源（比如I/O）。</p>
+<p>Java线程的<strong>RUNNABLE</strong>状态其实是包括了传统操作系统线程的<strong>ready</strong>和<strong>running</strong>两个状态的</p>
+</li>
+<li><p>BLOCKED 阻塞态：</p>
+<p>线程没有申请到synchronize同步锁，就会处于阻塞状态，等待锁的释放以进入同步区。</p>
+</li>
+<li><p>WAITING 等待态：处于等待状态的线程变成RUNNABLE状态需要其他线程唤醒。</p>
+<p>调用如下3个方法会使线程进入等待状态：</p>
+<ul>
+<li>Object.wait()：使当前线程处于等待状态直到另一个线程调用notify唤醒它；</li>
+<li>Thread.join()：等待线程执行完毕，底层调用的是Object实例的wait()方法；</li>
+<li>LockSupport.park()：除非获得调用许可，否则禁用当前线程进行线程调度。</li>
+</ul>
+</li>
+<li><p>TIMED_WAITING 超时等待态：</p>
+<p>线程等待一个具体的时间，时间到后会被自动唤醒。</p>
+<p>调用如下方法会使线程进入超时等待状态：</p>
+<ul>
+<li>Thread.sleep(long millis)：使当前线程睡眠指定时间；</li>
+<li>Object.wait(long timeout)：线程休眠指定时间，等待期间可以通过notify()/notifyAll()唤醒；</li>
+<li>Thread.join(long millis)：等待当前线程最多执行millis毫秒，如果millis为0，则会一直执行；</li>
+<li>LockSupport.parkNanos(long nanos)： 除非获得调用许可，否则禁用当前线程进行线程调度指定时间；</li>
+<li>LockSupport.parkUntil(long deadline)：同上，也是禁止线程进行调度指定时间；</li>
+</ul>
+</li>
+<li><p>TERMINATED 终止：</p>
+<p>此时线程已执行完毕。</p>
+</li>
+</ol>
+<h2 id="5、Java线程的常见方法"><a href="#5、Java线程的常见方法" class="headerlink" title="5、Java线程的常见方法"></a>5、Java线程的常见方法</h2><p><strong>简介：Java线程常见的方法</strong></p>
+<ul>
+<li><p>考点：常见线程的API操作是否熟悉</p>
+</li>
+<li><p>是否了解多线程开发里面常用的方法，sleep/yield/join wait/notify/notifyAll, 分别解释下</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs perl"><span class="hljs-keyword">sleep</span><br>	属于线程Thread的方法<br>	让线程暂缓执行，等待时间结束后再恢复<br>	交出CPU使用权，不会释放锁<br>	进入阻塞状态TIMED_WAITING，睡眠结束后变为就绪状态RUNNABLE<br>	<br>yield<br>	属于线程Thread的方法<br>	暂停当前线程的对象，去执行其他线程<br>	交出CPU使用权，不会释放锁，和<span class="hljs-keyword">sleep</span>类似<br>	让相同优先级的线程轮流执行，但是不保证每个线程都一定能轮到<br>	不会让线程进入阻塞状态，而是直接变为就绪状态，但是保留了CPU的执⾏资格，所以有可能cpu下次进⾏线程调度还会让这个线程获取到执⾏权继续执⾏<br><br><span class="hljs-keyword">join</span><br>	属于线程Thread的方法<br>	在主线程上运行调用该方法，会让主线程休眠，不会释放已经持有的对象锁<br>	让调用<span class="hljs-keyword">join</span>方法的线程先执行完毕，再执行其他线程<br>	类似让救护车、警车优先通行<br>	<br><span class="hljs-keyword">wait</span><br>	属于Object的方法<br>	当前线程调用对象的<span class="hljs-keyword">wait</span>方法，会释放锁，进入线程的等待队列<br>	需要依靠notify、notifyAll唤醒，或者<span class="hljs-keyword">wait</span>(timeout)自动唤醒<br>	<br>notify<br>	属于Object的方法<br>	唤醒在对象监视器上等待的单个线程，选择是任意的<br><br>notifyAll<br>	属于Object的方法<br>	唤醒在对象监视器上等待的全部线程<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="6、Java线程的转换流程图"><a href="#6、Java线程的转换流程图" class="headerlink" title="6、Java线程的转换流程图"></a>6、Java线程的转换流程图</h2><p><strong>简介：线程有几种状态和API，画出转换流程图</strong></p>
+<ul>
+<li><p>考点：常见线程状态和API结合考查</p>
+</li>
+<li><p>画下线程的状态转换图和这些转换过程常用的api也标记下</p>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-6.png" srcset="/img/loading.gif" lazyload alt></p>
+</li>
+</ul>
+<h2 id="7、Java并发编程核心知识点（一）"><a href="#7、Java并发编程核心知识点（一）" class="headerlink" title="7、Java并发编程核心知识点（一）"></a>7、Java并发编程核心知识点（一）</h2><p><strong>简介：并发编程常见知识点考查</strong></p>
+<ul>
+<li><p>考点：并发编程常见知识点考查</p>
+</li>
+<li><p>平时业务代码里面使用过多线程吗，能举例几个多线程的业务场景吗？</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">异步任务：用户注册、记录日志<br>定时任务：定时备份日志、备份数据库<br>分布式计算：Hadoop处理任务MapReduce，<span class="hljs-literal">master</span>-worker<br>服务器编程：Socket网络编程，一个连接一个线程<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>你知道有哪些非线程安全的数据结构吗？</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs processing"><span class="hljs-keyword">HashMap</span>、ArrayList、LinkedList<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在Java中有哪些方法可以用来保证线程安全？</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs aspectj">加锁：<span class="hljs-keyword">synchronized</span>、ReentrantLock<br>使用线程安全类（原子类AtomicXXX、并发容器、同步容器）CopyOnWriteArrayList/ConcurrentHashMap等<br>ThreadLocal本地私有变量/信号量Semaphore等<br>使用<span class="hljs-keyword">volatile</span>声明变量（要使 <span class="hljs-keyword">volatile</span> 变量提供理想的线程安全性，必须同时满足两个条件：①对变量的写操作不依赖于当前值。②该变量没有包含在具有其他变量的不变式中。）<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="2、Java并发编程核心知识点（二）"><a href="#2、Java并发编程核心知识点（二）" class="headerlink" title="2、Java并发编程核心知识点（二）"></a>2、Java并发编程核心知识点（二）</h2><p><strong>简介：并发编程常见知识点考查</strong></p>
+<ul>
+<li><p>考点：并发编程常见知识点考查</p>
+</li>
+<li><p>了解volatile关键字不？能否解释下它和synchronized有什么大的区别？</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><span class="hljs-keyword">volatile</span>是轻量级的<span class="hljs-keyword">synchronized</span>，保证被<span class="hljs-keyword">volatile</span>修饰的共享变量对所有线程总是可⻅的（可见性），也就是当⼀个线程修改了⼀个被<span class="hljs-keyword">volatile</span>修饰共享变量的值，新值总是可以被其他线程⽴即得知，避免出现脏读现象。<br><br><span class="hljs-keyword">volatile</span>：保证可见性，但不能保证原子性<br><span class="hljs-keyword">synchronized</span>：保证可见性，也保证原子性<br><br>使用场景：<br><span class="hljs-number">1</span>、不能修饰写入操作依赖当前值的变量；比如num++、num=num+<span class="hljs-number">1</span>，不是原子操作，虽然肉眼看上去是，但在JVM字节码层面不是原子操作<br><span class="hljs-number">2</span>、由于禁止了指令重排，所以JVM相关的优化没有了，效率会偏弱<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>为什么会出现脏读现象？</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">JAVA内存模型简称JMM</span><br><span class="hljs-keyword"></span><span class="hljs-keyword">JMM规定所有的变量存在主内存中，每个线程都有自己的工作内存,线程对变量的操作都在工作内存中进行，不能直接对主内存就行操作</span><br><span class="hljs-keyword"></span><br>使用volatile修饰变量<br>每次读取前必须从主内存获取到最新的值<br>每次写入需要立刻写到主内存中<br></code></pre></td></tr></table></figure>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-7.png" srcset="/img/loading.gif" lazyload alt="image-7"></p>
+</li>
+</ul>
+<h2 id="3、Java并发编程核心知识点（三）"><a href="#3、Java并发编程核心知识点（三）" class="headerlink" title="3、Java并发编程核心知识点（三）"></a>3、Java并发编程核心知识点（三）</h2><p><strong>简介：并发编程常见知识点考查：指令重排、happens-before</strong></p>
+<ul>
+<li><p>考点：并发编程常见知识点考查</p>
+</li>
+<li><p>你说volatile可以避免指令重排，能否解释下什么是指令重排？</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">指令重排序分两类：编译器重排序、运行时重排序<br><br>JVM在编译java代码或者CPU执行JVM字节码时，对现有的指令进行重新排序，主要目的是优化运行效率(在不改变程序结果的前提下)<br><br>例子：<br><span class="hljs-built_in">int</span> a = <span class="hljs-number">3</span> <span class="hljs-comment">//1</span><br><span class="hljs-built_in">int</span> b = <span class="hljs-number">4</span> <span class="hljs-comment">//2</span><br><span class="hljs-built_in">int</span> c =<span class="hljs-number">5</span> <span class="hljs-comment">//3 </span><br><span class="hljs-built_in">int</span> h = a*b*c <span class="hljs-comment">//4</span><br><br>定义顺序 <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span><br>计算顺序 <span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span> 和 <span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span> 结果都是一样<br><br>虽然指令重排序可以提高执行效率，但是多线程上可能会影响结果，有什么解决办法？<br><br>解决办法：内存屏障<br>解释：内存屏障就是一类同步屏障指令，是CPU或者编译器在对内存随机访问的操作中的一个同步点，只有在此点之前的所有读写操作都执行后才可以执行此点之后的操作<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>知道 happens-before吗，能否简单解释下？</p>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs mathematica">先行发生原则，<span class="hljs-variable">volatile</span>的内存可见性就提现了该原则之一<br><br>例子：<br><span class="hljs-operator">//</span>线程<span class="hljs-variable">A</span>操作<br><span class="hljs-variable">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span><span class="hljs-operator">;</span><br><br><span class="hljs-operator">//</span>线程<span class="hljs-variable">B</span>操作<br><span class="hljs-variable">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-variable">k</span><span class="hljs-operator">;</span><br><br><span class="hljs-operator">//</span>线程<span class="hljs-built_in">C</span>操作<br><span class="hljs-variable">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span><br><br>分析：<br>假设线程<span class="hljs-variable">A</span>中的操作“<span class="hljs-variable">k</span><span class="hljs-operator">=</span><span class="hljs-number">1</span>”先行发生于线程<span class="hljs-variable">B</span>的操作“<span class="hljs-variable">j</span><span class="hljs-operator">=</span><span class="hljs-variable">k</span>”，那确定在线程<span class="hljs-variable">B</span>的操作执行后，变量<span class="hljs-variable">j</span>的值一定等于<span class="hljs-number">1</span>，依据有两个：一是先行发生原则，“<span class="hljs-variable">k</span><span class="hljs-operator">=</span><span class="hljs-number">1</span>”的结果可以被观察到；二是第三者线程<span class="hljs-built_in">C</span>还没出现，线程<span class="hljs-variable">A</span>操作结束之后没有其他线程会修改变量<span class="hljs-variable">k</span>的值。<br><br>但是考虑线程<span class="hljs-built_in">C</span>出现了，保持线程<span class="hljs-variable">A</span>和线程<span class="hljs-variable">B</span>之间的先行发生关系，线程<span class="hljs-built_in">C</span>出现在线程<span class="hljs-variable">A</span>和线程<span class="hljs-variable">B</span>的操作之间，但是线程<span class="hljs-built_in">C</span>与线程<span class="hljs-variable">B</span>没有先行发生关系，那<span class="hljs-variable">j</span>的值会是多少？答案是<span class="hljs-number">1</span>和<span class="hljs-number">2</span>都有可能，因为线程<span class="hljs-built_in">C</span>对变量<span class="hljs-variable">k</span>的影响可能会被线程<span class="hljs-variable">B</span>观察到，也可能不会，所以线程<span class="hljs-variable">B</span>就存在读取到不符合预期数据的风险，不具备多线程安全性<br><br>先行发生的八大原则：<br><span class="hljs-number">1</span>、程序次序规则（<span class="hljs-variable">Program</span> <span class="hljs-built_in">Order</span> <span class="hljs-built_in">Rule</span>）：在一个线程内，按照控制流顺序，书写在前面的操作先行发生于书写在后面的操作；<br><span class="hljs-number">2</span>、管程锁定规则（<span class="hljs-built_in">Monitor</span> <span class="hljs-variable">Lock</span> <span class="hljs-built_in">Rule</span>）：一个<span class="hljs-variable">unlock</span>操作先行发生于后面对同一个锁的<span class="hljs-variable">lock</span>操作。这里必须强调的是“同一个锁”，而“后面”是指时间上的先后；<br><span class="hljs-number">3</span>、<span class="hljs-variable">volatile</span>变量规则（<span class="hljs-variable">Volatile</span> <span class="hljs-variable">Variable</span> <span class="hljs-built_in">Rule</span>）：对一个<span class="hljs-variable">volatile</span>变量的写操作先行发生于后面对这个变量的读操作，这里的“后面”同样是指时间上的先后；<br><span class="hljs-number">4</span>、线程启动规则（<span class="hljs-built_in">Thread</span> <span class="hljs-variable">Start</span> <span class="hljs-built_in">Rule</span>）：<span class="hljs-built_in">Thread</span>对象的<span class="hljs-variable">start</span><span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>方法先行发生于此线程的每一个动作；<br><span class="hljs-number">5</span>、线程终止规则（<span class="hljs-built_in">Thread</span> <span class="hljs-variable">Termination</span> <span class="hljs-built_in">Rule</span>）：线程中的所有操作都先行发生于对此线程的终止检测，我们可以通过<span class="hljs-built_in">Thread</span><span class="hljs-string">::join</span><span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>方法是否结束、<span class="hljs-built_in">Thread</span><span class="hljs-string">::isAlive</span><span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>的返回值等手段检测线程是否已经终止执行；<br><span class="hljs-number">6</span>、线程中断规则（<span class="hljs-built_in">Thread</span> <span class="hljs-variable">Interruption</span> <span class="hljs-built_in">Rule</span>）：对线程<span class="hljs-variable">interrupt</span><span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>方法的调用先行发生于被中断线程代码检测到中断事件的发生，可以通过<span class="hljs-built_in">Thread</span><span class="hljs-string">::interrupted</span><span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>方法检测到是否有中断发生；<br><span class="hljs-number">7</span>、对象终结规则（<span class="hljs-variable">Finalizer</span> <span class="hljs-built_in">Rule</span>）：一个对象的初始化完成（构造函数执行结束）先行发生于它的<span class="hljs-variable">finalize</span><span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>方法的开始；<br><span class="hljs-number">8</span>、传递性（<span class="hljs-variable">Transitivity</span>）：如果操作<span class="hljs-variable">A</span>先行发生于操作<span class="hljs-variable">B</span>，操作<span class="hljs-variable">B</span>先行发生于操作<span class="hljs-built_in">C</span>，那就可以得出操作<span class="hljs-variable">A</span>先行发生于操作<span class="hljs-built_in">C</span>的结论。<br></code></pre></td></tr></table></figure>
 </li>
 </ul>
 
