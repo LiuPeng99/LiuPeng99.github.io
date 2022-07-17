@@ -36,8 +36,15 @@
 <meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-11.png">
 <meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-12.png">
 <meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-13.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-14.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-15.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-16.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-17.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-18.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-19.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-20.png">
 <meta property="article:published_time" content="2022-07-01T01:40:48.355Z">
-<meta property="article:modified_time" content="2022-07-16T06:56:50.065Z">
+<meta property="article:modified_time" content="2022-07-17T15:24:07.472Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-1.png">
@@ -210,7 +217,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      45k 字
+      54k 字
     </span>
   
 
@@ -219,7 +226,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      379 分钟
+      452 分钟
     </span>
   
 
@@ -1087,12 +1094,12 @@
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">线程安全原因：<br>ConcurrentLinkedQueue是基于链表实现的无界线程安全队列，采用FIFO进行排序<br>保证线程安全的三要素：原子、有序、可见性<br><br><span class="hljs-number">1</span>、底层结构是<span class="hljs-keyword">Node</span><span class="hljs-title">，链表头部和尾部节点是head</span>和tail，使用节点变量和内部类属性使用volatile声明保证了有序和可见性<br><br><span class="hljs-number">2</span>、插入、移除、更新操作使用CAS无锁操作，保证了原子性<br><br><span class="hljs-number">3</span>、假如多线程并发修改导致 CAS 更新失败，采用for循环插入保证更新操作成功<br></code></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="7、并发编程最佳实践"><a href="#7、并发编程最佳实践" class="headerlink" title="7、并发编程最佳实践"></a>7、并发编程最佳实践</h2><p><strong>简介: 并发编程常用的最佳实践</strong></p>
+<h2 id="7、并发编程的最佳实践"><a href="#7、并发编程的最佳实践" class="headerlink" title="7、并发编程的最佳实践"></a>7、并发编程的最佳实践</h2><p><strong>简介: 并发编程常用的最佳实践</strong></p>
 <ul>
 <li><p>考点：考查是否有用多线程，总结个人的最佳实践</p>
 </li>
 <li><p>平时多线程用的挺多的，写出3条你遵循的多线程最佳实践？</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs awk">给不同模块的线程起名称，方便后续排查问题<br><br>使用同步代码块或者同步的方法的时候，尽量减小同步范围<br><br>多用并发集合少用同步集合<br>	支持线程安全<br>        同步集合：Hashtable<span class="hljs-regexp">/Vector/</span>同步工具类包装Collections.synXXX<br>        并发集合：ConcurrentHashMap、CopyOnWriteArrayList<br><br>线上业务需要使用多线程，优先考虑线程池是否更加合适，然后判断哪种线程池比较好，最后才是自己创建单一线程<br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs awk">给不同模块的线程起名称，方便后续排查问题<br><br>使用同步代码块或者同步的方法的时候，尽量减小同步范围<br><br>多用并发集合少用同步集合<br>	支持线程安全<br>		并发集合：ConcurrentHashMap、CopyOnWriteArrayList<br>        同步集合：Hashtable<span class="hljs-regexp">/Vector/</span>同步工具类包装Collections.synXXX<br><br>线上业务需要使用多线程，优先考虑线程池是否更加合适，然后判断哪种线程池比较好，最后才是自己创建单一线程<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>用过线程池不? 有什么好处， java里有哪些是常用的线程池？</p>
 <p><strong>使用线程池的好处：</strong></p>
@@ -1154,6 +1161,481 @@
 </ul>
 </li>
 </ol>
+<h1 id="八、消息队列"><a href="#八、消息队列" class="headerlink" title="八、消息队列"></a>八、消息队列</h1><h2 id="1、消息队列的优缺点及选型"><a href="#1、消息队列的优缺点及选型" class="headerlink" title="1、消息队列的优缺点及选型"></a>1、消息队列的优缺点及选型</h2><p><strong>简介：对比当下主流的消息队列和选择问题</strong></p>
+<ul>
+<li><p>考点：是否有了解主流消息队列</p>
+</li>
+<li><p>消息队列有什么优点和缺点？</p>
+<p>优点：</p>
+<ul>
+<li>异步：<ul>
+<li>能提高系统的响应速度、吞吐量。</li>
+</ul>
+</li>
+<li>解耦：<ul>
+<li>服务之间进行解耦，可以减少服务之间的影响。提高系统整体的稳定性以及可扩展性。</li>
+<li>解耦后可以实现数据分发。生产者发送一个消息后，可以由一个或者多个消费者进行处理，并且消费者的增加或者减少对生产者没有影响。</li>
+</ul>
+</li>
+<li>削峰：<ul>
+<li>以稳定的系统资源应对突发的流量冲击。</li>
+</ul>
+</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>系统可用性降低：<ul>
+<li>系统引入外部依赖增多，系统的稳定性就会变差。一旦MQ宕机，对业务会产生影响。<strong>这就需要考虑如何保证MQ的高可用。</strong></li>
+</ul>
+</li>
+<li>系统复杂度提高：<ul>
+<li>以前服务之间可以进行同步的服务调用，引入MQ之后，会变成异步调用，数据的链路就会变得更复杂。并且还会带来其他一些问题。比如：<strong>如何保证消息不会丢失？如何保证消息不被重复调用？如何保证消息传递的顺序性？</strong></li>
+</ul>
+</li>
+<li>消息一致性问题：<ul>
+<li>A系统处理完业务，通过MQ发送消息给B、C系统进行后续的业务处理。如果B系统处理成功，但C系统处理失败了怎么办？<strong>这就需要考虑如何保证消息数据处理的一致性。</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>业界主流消息队列和技术选型？</p>
+<ul>
+<li>ActiveMQ：<a target="_blank" rel="noopener" href="http://activemq.apache.org/">http://activemq.apache.org/</a><ul>
+<li>Apache出品，历史悠久，支持多种语言的客户端和协议，支持多种语言Java, .NET, C++ 等</li>
+<li>基于JMS Provider的实现</li>
+<li>缺点：吞吐量不高，多队列的时候性能下降，存在消息丢失的情况，比较少大规模使用</li>
+</ul>
+</li>
+<li>Kafka：<a target="_blank" rel="noopener" href="http://kafka.apache.org/">http://kafka.apache.org/</a><ul>
+<li>是由Apache软件基金会开发的一个开源流处理平台，由Scala和Java编写。Kafka是一种高吞吐量的分布式发布订阅消息系统，它可以处理大规模的网站中的所有动作流数据(网页浏览，搜索和其他用户的行动)，副本集机制，实现数据冗余，保障数据尽量不丢失；支持多个生产者和消费者</li>
+<li>类似MQ，功能较为简单，主要支持简单的MQ功能</li>
+<li>缺点：不支持批量和广播消息，运维难度大，文档比较少, 需要掌握Scala</li>
+</ul>
+</li>
+<li>RocketMQ：<a target="_blank" rel="noopener" href="http://rocketmq.apache.org/">http://rocketmq.apache.org/</a><ul>
+<li>阿里开源的一款的消息中间件, 纯Java开发，具有高吞吐量、高可用性、适合大规模分布式系统应用的特点, 性能强劲(零拷贝技术)，支持海量堆积, 支持指定次数和时间间隔的失败消息重发,支持consumer端tag过滤、延迟消息等，在阿里内部进行大规模使用，适合在电商，互联网金融等领域</li>
+<li>基于JMS Provider的实现</li>
+<li>缺点：社区相对不活跃，更新比较快，纯java支持</li>
+</ul>
+</li>
+<li>RabbitMQ：<a target="_blank" rel="noopener" href="http://www.rabbitmq.com/">http://www.rabbitmq.com/</a><ul>
+<li>是一个开源的AMQP实现，服务器端用Erlang语言编写，支持多种客户端，如：Python、Ruby、.NET、Java、C、用于在分布式系统中存储转发消息，在易用性、扩展性、高可用性等方面表现不错</li>
+<li>缺点：使用Erlang开发，阅读和修改源码难度大</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2、oneway-延迟消息"><a href="#2、oneway-延迟消息" class="headerlink" title="2、oneway/延迟消息"></a>2、oneway/延迟消息</h2><p><strong>简介：是否知道oneway、延迟消息等类型消息的应用</strong></p>
+<ul>
+<li>考点：是否有了解主流消息队列oneway、延迟消息的使用</li>
+<li>消息队列的发送方式有哪几种，使用场景分别是怎样的？</li>
+</ul>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs fortran"><span class="hljs-built_in">SYNC</span> 同步发送<br>应用场景：重要通知邮件、报名短信通知、营销短信系统等<br><br>ASYNC 异步发送<br>应用场景：对RT时间敏感,可以支持更高的并发，回调成功触发相对应的业务，比如注册成功后通知积分系统发放优惠券<br><br>ONEWAY 无需要等待响应<br>应用场景：主要是日志收集，适用于某些耗时非常短，但对可靠性要求并不高的场景, 也就是LogServer, 只负责发送消息，不等待服务器回应且没有回调函数触发，即只发送请求，不等待应答<br></code></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">发送方式</th>
+<th style="text-align:left">发送 TPS</th>
+<th style="text-align:left">发送结果反馈</th>
+<th style="text-align:left">可靠性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">同步发送</td>
+<td style="text-align:left">快</td>
+<td style="text-align:left">有</td>
+<td style="text-align:left">不丢失</td>
+</tr>
+<tr>
+<td style="text-align:left">异步发送</td>
+<td style="text-align:left">快</td>
+<td style="text-align:left">有</td>
+<td style="text-align:left">不丢失</td>
+</tr>
+<tr>
+<td style="text-align:left">单向发送</td>
+<td style="text-align:left">最快</td>
+<td style="text-align:left">无</td>
+<td style="text-align:left">可能丢失</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>有没用过延迟消息，使用场景是怎样的？</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs markdown">延迟消息：<br><span class="hljs-code">    Producer 将消息发送到消息队列 broker服务端，但并不期望这条消息立马投递，而是推迟到在当前时间点之后的某一个时间投递到 Consumer 进行消费</span><br><span class="hljs-code"></span><br>使用场景一：通过消息触发一些定时任务，比如在某一固定时间点向用户发送提醒消息<br>使用场景二：消息生产和消费有时间窗口要求，比如在天猫电商交易中超时未支付关闭订单的场景，在订单创建时会发送一条 延时消息。这条消息将会在 30 分钟以后投递给消费者，消费者收到此消息后需要判断对应的订单是否已完成支付。 如支付未完成，则关闭订单。如已完成支付则忽略<br></code></pre></td></tr></table></figure>
+<h2 id="3、消息的顺序性"><a href="#3、消息的顺序性" class="headerlink" title="3、消息的顺序性"></a>3、消息的顺序性</h2><p><strong>简介：是否知道如何保证消息的顺序性</strong></p>
+<ul>
+<li><p>考点：如何保证消息的顺序性</p>
+</li>
+<li><p>你用的队列是否支持顺序消息，是怎么实现顺序消息的？</p>
+<ul>
+<li><p>消息的顺序性：消息的生产顺序和消费顺序一致</p>
+<ul>
+<li><p>全局顺序：</p>
+<p>​    topic下面全部消息都要有序(很少使用)，适合于性能要求不高，所有的消息严格按照 FIFO 原则进行消息发布和消费的场景，并行度成为消息系统的瓶颈, 吞吐量不够</p>
+<p>​    使用场景：在证券处理中，以人民币兑换美元为例子，在价格相同的情况下，先出价者优先处理，则可以通过全局顺序的方式按照 FIFO 的方式进行发布和消费</p>
+</li>
+<li><p>局部顺序：</p>
+<p>​    只要保证一组消息被顺序消费即可，性能要求高</p>
+<p>​    使用场景：电商的订单创建，同一个订单相关的创建订单消息、订单支付消息、订单退款消息、订单物流消息、订单交易成功消息 都会按照先后顺序来发布和消费（阿里巴巴集团内部电商系统均使用局部顺序消息，既保证业务的顺序，同时又能保证业务的高性能）</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>以RabbitMQ为例分析如何保证消息的顺序性</strong></p>
+<p><strong>出现消费顺序错乱的情况①：</strong></p>
+<ul>
+<li><strong>一个queue存在多个consumer</strong></li>
+</ul>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-14.png" srcset="/img/loading.gif" lazyload alt></p>
+<ul>
+<li><strong>解决方案：</strong>将原来的一个queue拆分成多个queue，每个queue都有一个自己的consumer。该种方案的核心是生产者在投递消息的时候<strong>根据业务数据关键值（例如订单ID哈希值对订单队列数取模）来将需要保证先后顺序的同一类数据（同一个订单的数据）</strong> 发送到同一个queue当中</li>
+</ul>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-15.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><strong>出现消费顺序错乱的情况②：</strong></p>
+<ul>
+<li><strong>一个queue只存在一个consumer，但consumer中使用了多线程进行处理</strong></li>
+</ul>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-16.png" srcset="/img/loading.gif" lazyload alt></p>
+<ul>
+<li><strong>解决方案：</strong>在consumer中维护<strong>多个内存队列</strong>，<strong>根据业务数据关键值（例如订单ID哈希值对内存队列数取模）将消息加入到不同的内存队列中</strong>，然后多个真正负责处理消息的线程去各自对应的内存队列当中获取消息进行消费。</li>
+</ul>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-17.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><strong>RabbitMQ保证消息顺序性总结：</strong><br>核心思路就是根据业务数据关键值划分成多个消息集合，而且每个消息集合中的消息数据都是有序的，每个消息集合有自己独立的一个consumer。多个消息集合的存在保证了消息消费的效率，每个有序的消息集合对应单个的consumer保证了消息消费时的顺序性。</p>
+<h2 id="4、消息的幂等性"><a href="#4、消息的幂等性" class="headerlink" title="4、消息的幂等性"></a>4、消息的幂等性</h2><p><strong>简介：考查怎么样可以避免重复消费</strong></p>
+<ul>
+<li>考点：是否有真正用过消息队列，是否设计过重复消费</li>
+<li>幂等性是什么?<ul>
+<li>通俗点说，就一个数据或者一个请求，给你重复来多次，你得确保对应的数据是不会改变的</li>
+<li>保证同一条消息不会重复或者重复消费了也不会对系统数据造成异常</li>
+</ul>
+</li>
+<li>哪些情况会导致重复消费？<ul>
+<li>在生产者发送消息给rabbitMQ服务器的时候，有可能因为网络波动等情况，导致生产者收不到rabbitMQ服务器的应答，导致生产者再发送一条消息。</li>
+<li>也是因为网络波动等问题，导致rabbitMQ服务器在向消费者发送消息的时候，没有收到消费者的应答，重复向消费者发生消息。</li>
+</ul>
+</li>
+<li>如何保证消息的幂等性?<ul>
+<li>在消息生产时，MQ内部针对每条生产者发送的消息都会生成一个<code>inner-msg-id</code>作为去重和幂等的依据（消息传递失败并重传），避免重复的消息进入队列；</li>
+<li>在消息消费时，要求消息体中必须要有一个<code>bizid</code>（对于同一业务全局唯一，如支付ID、订单ID等）作为去重和幂等的依据，避免同一条消息被重复消费。</li>
+</ul>
+</li>
+<li>你的业务系统有没做消息的重复消费处理，是怎么做的?<ul>
+<li>拿到这个消息做数据库的 <code>insert</code> 操作。给这个消息一个唯一主键，那么即使出现重复消费的情况，也会因为主键冲突，而避免数据库出现脏数据。</li>
+<li>拿到这个消息做Redis的 <code>set</code> 操作，无论你 <code>set</code> 几次结果都一样，<code>set</code> 操作本身就算是幂等操作。</li>
+<li>用第三方介质来做消费记录。如Redis；给消息分配一个全局ID，只要消费过此消息，将以key-value的形式写入Redis。在消费者开始消费之前，先去Redis中查询有没有消费记录即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="5、消息的幂等性"><a href="#5、消息的幂等性" class="headerlink" title="5、消息的幂等性"></a>5、消息的幂等性</h2><p><strong>简介：如何保证消费的可靠性传输</strong></p>
+<ul>
+<li>考点：是否有研究消息队列的底层原理，保证消息的可靠性传输，消息队列的架构</li>
+<li><p>你用了消息队列，你知道这个消息队列如何保证消息的可靠性传输吗？</p>
+</li>
+<li><p><strong>可能发生消息丢失情况的阶段</strong></p>
+<ul>
+<li><strong>Producer 发送消息到 Broker 失败</strong>；（发送过程中网络波动、发送到一个不存在的 Exchange等）</li>
+<li><strong>Exchange 路由到 Queue 失败</strong>；Exchange 将消息根据 RoutingKey 路由到对应的 Queue 时失败；（此 Exchange 没有绑定 Queue 等）</li>
+<li><strong>Consumer 处理消息失败</strong>；已经获取了消息但无法正确处理导致消息丢失（消费者来不及处理就挂掉了等）</li>
+</ul>
+</li>
+</ul>
+<p>针对以上可能发生消息丢失的情况可以采取对应的<strong>解决方案：</strong></p>
+<p><strong>① Producer 发送消息到 Broker 失败 情况的解决方案：</strong></p>
+<ul>
+<li><p><strong>transaction 机制：</strong></p>
+<ul>
+<li>生产者发送数据之前开启 RabbitMQ 的事务 <code>channel.txSelect</code> ，然后发送消息，如果消息没有成功被 RabbitMQ 接收到，那么生产者会收到异常报错，此时就可以回滚事务 <code>channel.txRollback</code> ，然后重试发送消息；如果收到了消息，那么可以提交事务<code>channel.txCommit</code></li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>开启事务<br>channel.txSelect<br>try &#123;<br>    <span class="hljs-regexp">//</span>这里发送消息<br>&#125; catch (Exception e) &#123;<br>    channel.txRollback<br>    <span class="hljs-regexp">//</span>回滚食物后，这里重试发送消息<br>&#125;<br><span class="hljs-regexp">//</span>提交事务<br>channel.txCommit<br>Copy<br></code></pre></td></tr></table></figure>
+<ul>
+<li>采用该种方法由于事务机制，会导致吞吐量下降，太消耗性能。</li>
+</ul>
+</li>
+<li><p><strong>confirm机制：</strong>（推荐使用）</p>
+<ul>
+<li>使用 SpringBoot 时在 application.yml 配置文件中做如下配置</li>
+</ul>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stata"># 发送者开启 <span class="hljs-keyword">confirm</span> 确认机制<br>publisher-<span class="hljs-keyword">confirm</span>-<span class="hljs-keyword">type</span>: correlated<br><span class="hljs-keyword">Copy</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>通过<strong>confirmCallback</strong>生产者投递消息后，如果Broker收到消息后，会给生产者一个ACK。生产者通过ACK，可以确认这条消息是否正常发送到Broker，这种方式是消息可靠性投递的核心。</li>
+<li>一旦 channel 进入 confirm 模式，所有在该 channel 上的消息都会被指派一个以为的ID（从1开始），一旦消息被投递到所有匹配到的队列之后，RabbitMQ 就会发送一个 <code>ACK</code> 给生产者（包含消息的唯一ID），这就使得生产者知道消息已经正确到达目的队列了。如果 RabbitMQ 没能处理该消息，则会发送一个 <code>Nack</code> 消息给你，你可以进行重试操作。</li>
+</ul>
+</li>
+<li><p><strong>注意：</strong>transaction 机制和 confirm 机制是互斥的，两者不能共存，会导致 RabbitMQ 报错。</p>
+</li>
+</ul>
+<p><strong>② Exchange 路由到 Queue 失败 情况的解决方案：</strong></p>
+<ul>
+<li><strong>开启 RabbitMQ 的持久化机制</strong><ul>
+<li>消息写入之后会持久化到磁盘，哪怕 RabbitMQ 挂了，重启之后会自动读取之前存储的数据，一般数据不会丢失。<strong>特殊情况：除非 RabbitMQ 还没持久化就已经挂了，此时会导致少量数据丢失。</strong></li>
+<li>解决特殊情况，<strong>持久化机制和 confirm 机制配合使用</strong>；可以在消息持久化磁盘之后，再给生产者发送一个 <code>ACK</code> ，这样，如果消息持久化磁盘之前，RabbitMQ 挂掉了，那么生产者收不到 <code>ACK</code> ，生产者也会自动重发处理。</li>
+<li>通过<strong>returnCallback</strong>，消息从交换器发送到对应队列失败时触发</li>
+</ul>
+</li>
+</ul>
+<p><strong>③ Consumer 处理消息失败 情况的解决方案：</strong></p>
+<ul>
+<li><p><strong>关闭自动<code>ACK</code>，使用手动<code>ACK</code></strong></p>
+<ul>
+<li>使用 SpringBoot 时在 application.yml 配置文件中做如下配置</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">listener:</span><br>	<span class="hljs-attr">simple:</span><br>    <span class="hljs-comment"># 设置消费端手动 ack</span><br>    <span class="hljs-attr">acknowledge-mode:</span> <span class="hljs-string">manual</span><br><span class="hljs-string">Copy</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>如果消费者来不及处理就挂掉了，没有响应<code>ACK</code>时会重复发送一条信息给其他的消费者</li>
+<li>如果出现了异常，且不对异常进行捕获，就会一直重复接受消息，然后一直抛异常。</li>
+<li>如果对异常进行了捕获，但是没有在 finally 里<code>ACK</code>，也会一直重复发送消息（<strong>重试机制</strong>）</li>
+<li>我们只需要保证幂等性就好了，重复消费也不会造成问题。</li>
+</ul>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">@RabbitHandler<br>public void handler<span class="hljs-constructor">Mq(String <span class="hljs-params">msg</span>, Channel <span class="hljs-params">channel</span>, Message <span class="hljs-params">message</span>)</span> throws IOException &#123;<br>	<span class="hljs-keyword">try</span> &#123;<br>	<span class="hljs-comment">//业务处理代码</span><br>	...... <br>	<span class="hljs-comment">//手动ACK</span><br>		channel.basic<span class="hljs-constructor">Ack(<span class="hljs-params">message</span>.<span class="hljs-params">getMessageProperties</span>()</span>.get<span class="hljs-constructor">DeliveryTag()</span>, <span class="hljs-literal">false</span>);<br>	&#125; catch (Exception e) &#123;<br>		<span class="hljs-keyword">if</span> (message.get<span class="hljs-constructor">MessageProperties()</span>.get<span class="hljs-constructor">Redelivered()</span>) &#123;<br>			log.error(<span class="hljs-string">&quot;消息已重复处理失败,拒绝再次接收...&quot;</span>, e);<br>			<span class="hljs-comment">//拒绝消息</span><br>			channel.basic<span class="hljs-constructor">Reject(<span class="hljs-params">message</span>.<span class="hljs-params">getMessageProperties</span>()</span>.get<span class="hljs-constructor">DeliveryTag()</span>, <span class="hljs-literal">false</span>); <br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			log.error(<span class="hljs-string">&quot;消息即将再次返回队列处理...&quot;</span>, e);<br>			channel.basic<span class="hljs-constructor">Nack(<span class="hljs-params">message</span>.<span class="hljs-params">getMessageProperties</span>()</span>.get<span class="hljs-constructor">DeliveryTag()</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="6、消息堆积的处理"><a href="#6、消息堆积的处理" class="headerlink" title="6、消息堆积的处理"></a>6、消息堆积的处理</h2><p><strong>简介：如果消息大量堆积在broker里面，应该怎么处理</strong></p>
+<ul>
+<li>考点：是否有研究消息队列不可用后的应急方案，是否有架构思维</li>
+<li>线上故障了，怎么处理？<ul>
+<li>消息堆积了10小时，有几千万条消息待处理，现在怎么办?</li>
+<li>修复consumer, 然后慢慢消费？也需要几小时才可以消费完成，新的消息怎么办？</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">核心思想：紧急临时扩容，更快的速度去消费数据<br><br><span class="hljs-bullet">- </span>修复Consumer不消费问题，使其恢复正常消费，根据业务需要看是否要暂停<br><br><span class="hljs-bullet">- </span>临时topic队列扩容，并提高消费者能力，但是如果增加Consumer数量，但是堆积的topic里面的message queue数量固定，过多的consumer不能分配到message queue<br><br><span class="hljs-bullet">- </span>编写临时处理分发程序，从旧topic快速读取到临时新topic中，新topic的queue数量扩容多倍，然后再启动更多consumer进行在临时新的topic里消费<br><br><span class="hljs-bullet">- </span>直到堆积的消息处理完成，再还原到正常的机器数量<br></code></pre></td></tr></table></figure>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-18.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-19.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-20.png" srcset="/img/loading.gif" lazyload alt></p>
+<h1 id="九、MySQL数据库"><a href="#九、MySQL数据库" class="headerlink" title="九、MySQL数据库"></a>九、MySQL数据库</h1><h2 id="1、ACID"><a href="#1、ACID" class="headerlink" title="1、ACID"></a>1、ACID</h2><p><strong>简介：是否掌握事务的ACID原理</strong></p>
+<ul>
+<li>考点：是否掌握事务的ACID原理</li>
+<li>你知道Mysql事务的四大特性不，简单说下？<ul>
+<li><strong>原子性Atomicity</strong>：一个事务必须是不可分割的最小工作单元，整个操作要么全部成功，要么全部失败，一般就是通过commit和rollback来控制。</li>
+<li><strong>一致性Consistency</strong>：数据库总能从一个一致性的状态转换到另一个一致性的状态。</li>
+<li><strong>隔离性Isolation</strong>：一个事务相对于另一个事务是隔离的，一个事务所做的修改在最终提交以前，对其他事务是不可见的。</li>
+<li><strong>持久性Durability</strong>：一旦事务提交，其所做的修改就会永久保存到数据库，即使系统崩溃，修改的数据也不会丢失</li>
+</ul>
+</li>
+</ul>
+<h2 id="2、脏读-不可重复读-幻读"><a href="#2、脏读-不可重复读-幻读" class="headerlink" title="2、脏读-不可重复读-幻读"></a>2、脏读-不可重复读-幻读</h2><p><strong>简介：考查数据库隔离级别导致的问题</strong></p>
+<ul>
+<li><p>考点：是否掌握数据库常见隔离级别和对应导致的问题</p>
+</li>
+<li><p>能否简单解释下脏读、不可重复读、幻读的意思</p>
+<ul>
+<li><p><strong>脏读</strong>：一个事务读取到另外一个事务未提交的数据</p>
+<p>​    例子：A向B转账，<strong>A执行了转账语句，但A还没有提交事务，B读取数据，发现自己账户钱变多了</strong>！B跟A说，我已经收到钱了。A回滚事务【rollback】，等B再查看账户的钱时，发现钱并没有多。</p>
+</li>
+<li><p><strong>不可重复读</strong>：一个事务读取到另外一个事务已经提交的数据，也就是说一个事务可以看到其他事务所做的修改</p>
+<p>​    注：<strong>A查询数据库得到数据，B去修改数据库的数据，导致A多次查询数据库的结果都不一样【危害：A每次查询的结果都是受B的影响的，那么A查询出来的信息就没有意思了】</strong></p>
+</li>
+<li><p><strong>幻读(虚读)</strong>：是指在一个事务内读取到了别的事务插入的数据，导致前后读取不一致。</p>
+<p>​    注：<strong>和不可重复读类似，但幻读(虚读)会读到其他事务的插入的数据，导致前后读取不一致</strong></p>
+</li>
+</ul>
+<p><strong>不可重复读和幻读有什么区别呢？</strong></p>
+<ul>
+<li>不可重复读的重点是内容修改或者记录减少，比如多次读取一条记录发现其中某些记录的值被修改；</li>
+<li>幻读的重点在于记录新增，比如多次执行同一条查询语句（DQL）时，发现查到的记录增加了。</li>
+</ul>
+</li>
+<li><p>常见的隔离级别由低到高有哪几种，mysql默认是哪种?</p>
+<ul>
+<li><strong>READ-UNCOMMITTED(读取未提交)</strong> ： 最低的隔离级别，允许读取尚未提交的数据变更，可能会导致脏读、幻读或不可重复读。</li>
+<li><strong>READ-COMMITTED(读取已提交)</strong> ： 允许读取并发事务已经提交的数据，可以阻止脏读，但是幻读或不可重复读仍有可能发生。</li>
+<li><strong>REPEATABLE-READ(可重复读)</strong> ： 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍有可能发生。<strong>【MySQL默认是REPEATABLE-READ(可重复读)】</strong></li>
+<li><strong>SERIALIZABLE(可串行化)</strong> ： 最高的隔离级别，完全服从 ACID 的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读。</li>
+</ul>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">隔离级别</th>
+<th style="text-align:center">脏读</th>
+<th style="text-align:center">不可重复读</th>
+<th style="text-align:center">幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">READ-UNCOMMITTED</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+</tr>
+<tr>
+<td style="text-align:center">READ-COMMITTED</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+</tr>
+<tr>
+<td style="text-align:center">REPEATABLE-READ</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">×</td>
+</tr>
+<tr>
+<td style="text-align:center">SERIALIZABLE</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>×代表无法解决，√代表能解决</p>
+</blockquote>
+<h2 id="3、MySQL的存储引擎"><a href="#3、MySQL的存储引擎" class="headerlink" title="3、MySQL的存储引擎"></a>3、MySQL的存储引擎</h2><p><strong>简介：考查mysql的存储引擎</strong></p>
+<ul>
+<li><p>考点：是否知道Mysql的存储引擎及其区别</p>
+</li>
+<li><p>说下你知道Mysql常见的存储引擎，新版Mysql默认是哪个</p>
+<ul>
+<li><strong>Innodb引擎</strong>，Innodb引擎提供了对数据库ACID事务的支持。并且还提供了行级锁和外键的约束。它的设计的目标就是处理大数据容量的数据库系统。</li>
+<li><strong>MyIASM引擎</strong>(原本Mysql的默认引擎),不提供事务的支持，也不支持行级锁和外键。</li>
+<li><strong>MEMORY引擎</strong>：所有的数据都在内存中，数据的处理速度快，但是安全性不高。</li>
+</ul>
+<blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">新版本MySQL 5.5以后默认是Innodb；MySQL 5.5以前默认是MyIASM<br></code></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>mysql的存储引擎 Innodb和MyIASM有什么区别，应该怎么选择？</p>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">区别项</th>
+<th style="text-align:center">Innodb</th>
+<th style="text-align:center">MyIASM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">事务</td>
+<td style="text-align:center">支持</td>
+<td style="text-align:center">不支持</td>
+</tr>
+<tr>
+<td style="text-align:center">锁粒度</td>
+<td style="text-align:center">行锁，适合高并发</td>
+<td style="text-align:center">表锁，不适合高并发</td>
+</tr>
+<tr>
+<td style="text-align:center">是否默认</td>
+<td style="text-align:center">默认</td>
+<td style="text-align:center">非默认</td>
+</tr>
+<tr>
+<td style="text-align:center">支持外键</td>
+<td style="text-align:center">支持外键</td>
+<td style="text-align:center">不支持</td>
+</tr>
+<tr>
+<td style="text-align:center">适合场景</td>
+<td style="text-align:center">读写均衡、写大于读、需要事务</td>
+<td style="text-align:center">读多写少、不需要事务</td>
+</tr>
+<tr>
+<td style="text-align:center">全文索引</td>
+<td style="text-align:center">不支持，可以通过插件实现, 更多使用ElasticSearch</td>
+<td style="text-align:center">支持全文索引</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>InnoDB 是聚簇索引；InnoDB 非主键索引的叶子节点存储的是主键和其他带索引的列数据，因此查询时做到覆盖索引会非常高效</p>
+<p>MyISAM 是非聚簇索引；MyISAM 索引的叶子节点存储的是行数据地址，需要再寻址一次才能得到数据</p>
+</blockquote>
+<h2 id="4、MySQL的索引"><a href="#4、MySQL的索引" class="headerlink" title="4、MySQL的索引"></a>4、MySQL的索引</h2><p><strong>简介：考查mysql的功能索引掌握情况</strong></p>
+<ul>
+<li>考点：mysql的功能索引</li>
+<li>mysql常用的功能索引有哪些？分别在什么场景下使用？创建语句是怎样的？</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">索引名称</th>
+<th style="text-align:center">特点</th>
+<th style="text-align:left">创建语句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">普通索引</td>
+<td style="text-align:center">最基本的索引,加速查询</td>
+<td style="text-align:left">CREATE INDEX idx_name ON table_name(filed_name)</td>
+</tr>
+<tr>
+<td style="text-align:center">唯一索引</td>
+<td style="text-align:center">加速查询，列值唯一，允许为空； <br>组合索引则列值的组合必须唯一</td>
+<td style="text-align:left">CREATE UNIQUE INDEX idx_name ON table_name(filed_name_1,filed_name_2)</td>
+</tr>
+<tr>
+<td style="text-align:center">主键索引</td>
+<td style="text-align:center">加速查询，列值唯一 <br>一个表只有1个，不允许有空值</td>
+<td style="text-align:left">ALTER TABLE table_name ADD PRIMARY KEY ( filed_name )</td>
+</tr>
+<tr>
+<td style="text-align:center">组合索引</td>
+<td style="text-align:center">加速查询，多条件组合查询</td>
+<td style="text-align:left">CREATE INDEX idx_name ON table_name(filed_name_1,filed_name_2);</td>
+</tr>
+<tr>
+<td style="text-align:center">覆盖索引</td>
+<td style="text-align:center">索引包含所需要的字段，不需要“回表”查询； <br>比如查询的两个字段，刚好是组合索引的两个字段</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:center">全文索引</td>
+<td style="text-align:center">对内容进行分词搜索，仅可用于Myisam， 更多用ElasticSearch做搜索</td>
+<td style="text-align:left">ALTER TABLE table_name ADD FULLTEXT ( filed_name</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><p>数据库索引的优缺点？</p>
+<ul>
+<li><p>优点：</p>
+<ul>
+<li><p>可以大大加快数据的检索速度，这也是创建索引的最主要的原因。</p>
+</li>
+<li><p>通过使用索引，可以在查询的过程中，使用优化隐藏器，提高系统的性能。</p>
+</li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li>时间方面：创建索引和维护索引要耗费时间，当对表中的数据进行增/删/改的时候，索引也要动态的维护，会降低增/删/改的执行效率；</li>
+<li>空间方面：索引需要占用物理空间</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>索引的最佳实践？</p>
+<ul>
+<li>前缀索引，特别是TEXT和BLOG类型的字段，只检索前面几个字符，提高检索速度</li>
+<li>尽量使用数据量少的索引，索引值过长查询速度会受到影响</li>
+<li>选择合适的索引列顺序</li>
+<li>内容变动少，且查询频繁，可以建立多个索引</li>
+<li>内容变动频繁，谨慎创建索引</li>
+<li>根据业务创建适合的索引类型，比如某个字段常用来做查询条件，才为这个字段建立索引来提高查询速度</li>
+<li>组合索引选择业务查询最相关的字段</li>
+</ul>
+</li>
+</ul>
 
             </div>
             <hr>
