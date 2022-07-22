@@ -43,8 +43,15 @@
 <meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-18.png">
 <meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-19.png">
 <meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-20.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-21.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-22.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-23.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-24.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-25.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-26.png">
+<meta property="og:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-27.png">
 <meta property="article:published_time" content="2022-07-01T01:40:48.355Z">
-<meta property="article:modified_time" content="2022-07-17T15:24:07.472Z">
+<meta property="article:modified_time" content="2022-07-22T06:29:51.218Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-1.png">
@@ -217,7 +224,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      54k 字
+      68k 字
     </span>
   
 
@@ -226,7 +233,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      452 分钟
+      563 分钟
     </span>
   
 
@@ -267,7 +274,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：a few seconds ago
+                  本文最后更新于：a minute ago
                 
               </p>
             
@@ -397,7 +404,7 @@
 </li>
 <li><p>接口是否可以继承接口？接口是否支持多继承？类是否支持多继承？接口里面是否可以有方法实现？</p>
 <ul>
-<li>接口⾥可以有静态方法和方法体</li>
+<li>接口里可以有静态方法和方法体</li>
 <li>接口中所有的方法必须是抽象方法（JDK8之后就不是）</li>
 <li>接口不是被类继承了，而是要被类实现</li>
 <li>接口支持多继承, 类不支持多个类继承</li>
@@ -407,7 +414,7 @@
 <li><p>JDK8的接口新特性有哪些？</p>
 <ul>
 <li>interface中可以有static方法，但必须有方法实现体，该方法只属于该接口，只能通过接口名直接调用该方法</li>
-<li>接口中新增default关键字修饰的方法，default方法只能定义在接口中，可以在子类或子接口中被重写default定义的方法必须有方法体</li>
+<li>接口中新增default关键字修饰的方法，default方法只能定义在接口中，可以在子类或子接口中被重写，default定义的方法必须有方法体</li>
 </ul>
 </li>
 </ul>
@@ -591,7 +598,7 @@
 <li><p>为什么 ConcurrentHashMap 比 HashTable 效率要高？</p>
 <ul>
 <li>HashTable：<ul>
-<li>使用一把锁（锁住整个链表结构）处理<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=并发&amp;spm=1001.2101.3001.7020">并发</a>问题，多个线程竞争一把锁，容易阻塞</li>
+<li>使用一把锁（锁住整个链表结构）处理并发问题，多个线程竞争一把锁，容易阻塞</li>
 </ul>
 </li>
 <li>ConcurrentHashMap：<ul>
@@ -1334,7 +1341,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="5、消息的幂等性"><a href="#5、消息的幂等性" class="headerlink" title="5、消息的幂等性"></a>5、消息的幂等性</h2><p><strong>简介：如何保证消费的可靠性传输</strong></p>
+<h2 id="5、消息的可靠性"><a href="#5、消息的可靠性" class="headerlink" title="5、消息的可靠性"></a>5、消息的可靠性</h2><p><strong>简介：如何保证消费的可靠性传输</strong></p>
 <ul>
 <li>考点：是否有研究消息队列的底层原理，保证消息的可靠性传输，消息队列的架构</li>
 <li><p>你用了消息队列，你知道这个消息队列如何保证消息的可靠性传输吗？</p>
@@ -1354,7 +1361,7 @@
 <ul>
 <li>生产者发送数据之前开启 RabbitMQ 的事务 <code>channel.txSelect</code> ，然后发送消息，如果消息没有成功被 RabbitMQ 接收到，那么生产者会收到异常报错，此时就可以回滚事务 <code>channel.txRollback</code> ，然后重试发送消息；如果收到了消息，那么可以提交事务<code>channel.txCommit</code></li>
 </ul>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>开启事务<br>channel.txSelect<br>try &#123;<br>    <span class="hljs-regexp">//</span>这里发送消息<br>&#125; catch (Exception e) &#123;<br>    channel.txRollback<br>    <span class="hljs-regexp">//</span>回滚食物后，这里重试发送消息<br>&#125;<br><span class="hljs-regexp">//</span>提交事务<br>channel.txCommit<br>Copy<br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>开启事务<br>channel.txSelect<br>try &#123;<br>    <span class="hljs-regexp">//</span>这里发送消息<br>&#125; catch (Exception e) &#123;<br>    channel.txRollback<br>    <span class="hljs-regexp">//</span>回滚事务后，这里重试发送消息<br>&#125;<br><span class="hljs-regexp">//</span>提交事务<br>channel.txCommit<br>Copy<br></code></pre></td></tr></table></figure>
 <ul>
 <li>采用该种方法由于事务机制，会导致吞吐量下降，太消耗性能。</li>
 </ul>
@@ -1633,6 +1640,762 @@
 <li>内容变动频繁，谨慎创建索引</li>
 <li>根据业务创建适合的索引类型，比如某个字段常用来做查询条件，才为这个字段建立索引来提高查询速度</li>
 <li>组合索引选择业务查询最相关的字段</li>
+</ul>
+</li>
+</ul>
+<h1 id="十、数据库设计"><a href="#十、数据库设计" class="headerlink" title="十、数据库设计"></a>十、数据库设计</h1><h2 id="1、数据库查询关键词执行顺序"><a href="#1、数据库查询关键词执行顺序" class="headerlink" title="1、数据库查询关键词执行顺序"></a>1、数据库查询关键词执行顺序</h2><p><strong>简介：数据库查询指令的执行顺序</strong></p>
+<ul>
+<li>考点：考查数据库查询指令的执行顺</li>
+<li>MySQL数据库查询的指令有多个，说下执行顺序 select、where、from、group by、having、order by、limit<ol>
+<li><strong>FROM阶段</strong>：标识出查询的来源表，并处理表运算符</li>
+<li><strong>WHERE阶段</strong>：初步过滤条件，此时数据还没有分组，所以不能在WHERE中出现对统计的过滤</li>
+<li><strong>GROUP BY阶段</strong>：过滤后进行分组，在GROUP BY阶段，数据库认为两个NULL值是相等的，因此会将NULL值分到同一个分组中</li>
+<li><strong>HAVING阶段</strong>：对分组后的数据进行二次过滤，COUNT(expr) 会返回expr不为NULL的行数，count(1)、count(*)会返回包括NULL值在内的所有数量</li>
+<li><strong>SELECT阶段</strong>：查看哪些结果字段</li>
+<li><strong>ORDER BY阶段</strong>：按照怎样的顺序进行排序返回，如果不指定排序，数据并非总是按照主键顺序进行排序的。NULL被视为最小值</li>
+<li><strong>LIMIT阶段</strong>：指定返回的记录数，LIMIT n, m的效率是十分低的，一般可以通过在WHERE条件中指定范围来优化 WHERE id &gt; ? limit 10</li>
+</ol>
+</li>
+</ul>
+<h2 id="2、数据库表的字段类型"><a href="#2、数据库表的字段类型" class="headerlink" title="2、数据库表的字段类型"></a>2、数据库表的字段类型</h2><p><strong>简介：设计数据库的时候相似类型的字段区分</strong></p>
+<ul>
+<li><p>考点：是否知道常用的相似字段他们的区别</p>
+</li>
+<li><p>MySQL中的varchar和char有什么区别，应该怎么选择？</p>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">对比项</th>
+<th style="text-align:center">char(16)</th>
+<th style="text-align:center">varchar(16)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">长度特点</td>
+<td style="text-align:center">长度固定，存储字符</td>
+<td style="text-align:center">长度可变，存储字符</td>
+</tr>
+<tr>
+<td style="text-align:center">长度不足情况</td>
+<td style="text-align:center">插入的长度小于定义长度时，则右侧用空格填充</td>
+<td style="text-align:center">小于定义长度时，按实际插入长度存储</td>
+</tr>
+<tr>
+<td style="text-align:center">性能</td>
+<td style="text-align:center">存取速度较快</td>
+<td style="text-align:center">存取速度较慢</td>
+</tr>
+<tr>
+<td style="text-align:center">使用场景</td>
+<td style="text-align:center">适合存储很短的,固定长度的字符串,如手机号，MD5值等</td>
+<td style="text-align:center">适合用在长度不固定场景，如收货地址，邮箱地址等</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>MySQL中的datetime和timestamp有什么区别？</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">类型</td>
+<td style="text-align:left">占据字节</td>
+<td style="text-align:left">范围</td>
+<td style="text-align:left">时区问题</td>
+</tr>
+<tr>
+<td style="text-align:left">datetime</td>
+<td style="text-align:left">8 字节</td>
+<td style="text-align:left">1000-01-01 00:00:00到 9999-12-31 23:59:59</td>
+<td style="text-align:left">存储与时区无关，不会发生改变</td>
+</tr>
+<tr>
+<td style="text-align:left">timestamp</td>
+<td style="text-align:left">4 字节</td>
+<td style="text-align:left">1970-01-01 00:00:01 到 2038-01-19 11:14:07</td>
+<td style="text-align:left">存储的是与时区有关，随数据库的时区而发生改变</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>为什么timestamp只能到2038年？</li>
+</ul>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs subunit">MySQL的timestamp类型是4个字节，最大值是(2的31次方)<span class="hljs-string">-1</span>，结果是2147483647，<br>转换成北京时间就是2038<span class="hljs-string">-01</span><span class="hljs-string">-19</span> 11:14:07<br></code></pre></td></tr></table></figure>
+<h2 id="3、数据表分页优化"><a href="#3、数据表分页优化" class="headerlink" title="3、数据表分页优化"></a>3、数据表分页优化</h2><p><strong>简介：针对海量数据sql分页优化思路</strong></p>
+<ul>
+<li>考点：是否有海量数据分页优化思路</li>
+<li>线上数据库的一个商品表数据量过千万，做深度分页的时候性能很慢，有什么优化思路？</li>
+</ul>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">现象：千万级别数据很正常，比如数据流水、日志记录等，数据库正常的深度分页会很慢<br>慢的原因：<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> product <span class="hljs-keyword">limit</span> M,N<br>MySQL执行此类<span class="hljs-keyword">SQL</span>时是从第M+<span class="hljs-number">1</span>行开始显示，一共显示N条（显示的记录是M+<span class="hljs-number">1</span>，M+N）所以M越大,MySQL扫描的记录数越多，<span class="hljs-keyword">SQL</span>的性能就会越差<br><br><span class="hljs-number">1</span>、后端、前端缓存<br><br><span class="hljs-number">2</span>、使用ElasticSearch分页搜索<br><br><span class="hljs-number">3</span>、合理使用 mysql 查询缓存，覆盖索引进行查询分页<br>  <span class="hljs-keyword">select</span> title,cateory <span class="hljs-keyword">from</span> product <span class="hljs-keyword">limit</span> <span class="hljs-number">1000000</span>,<span class="hljs-number">100</span><br>  <br><span class="hljs-number">4</span>、如果id是自增且不存在中间删除数据，使用子查询优化，定位偏移位置的 id<br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> oper_log <span class="hljs-keyword">where</span> <span class="hljs-keyword">type</span>=<span class="hljs-string">&#x27;BUY&#x27;</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">1000000</span>,<span class="hljs-number">100</span>; //<span class="hljs-number">5.</span>秒<br>      <br><span class="hljs-keyword">select</span> id <span class="hljs-keyword">from</span> oper_log <span class="hljs-keyword">where</span> <span class="hljs-keyword">type</span>=<span class="hljs-string">&#x27;BUY&#x27;</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">1000000</span>,<span class="hljs-number">1</span>; // <span class="hljs-number">0.4</span>秒 <br><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> oper_log <span class="hljs-keyword">where</span> <span class="hljs-keyword">type</span>=<span class="hljs-string">&#x27;BUY&#x27;</span> <span class="hljs-keyword">and</span>  id&gt;=(<span class="hljs-keyword">select</span> id <span class="hljs-keyword">from</span> oper_log <span class="hljs-keyword">where</span> <span class="hljs-keyword">type</span>=<span class="hljs-string">&#x27;BUY&#x27;</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">1000000</span>,<span class="hljs-number">1</span>) <span class="hljs-keyword">limit</span> <span class="hljs-number">100</span>; //<span class="hljs-number">0.8</span>秒 <br></code></pre></td></tr></table></figure>
+<h2 id="4、数据库应用版本更新"><a href="#4、数据库应用版本更新" class="headerlink" title="4、数据库应用版本更新"></a>4、数据库应用版本更新</h2><p><strong>简介：数据库上线流程，版本更新流程</strong></p>
+<ul>
+<li>考点：是否有正确的数据库部署流程</li>
+<li>你公司里面产品迭代更新，开发好代码和数据库，上线流程是怎样的？</li>
+</ul>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-21.png" srcset="/img/loading.gif" lazyload alt></p>
+<h1 id="十一、数据库性能监控和优化"><a href="#十一、数据库性能监控和优化" class="headerlink" title="十一、数据库性能监控和优化"></a>十一、数据库性能监控和优化</h1><h2 id="1、生产环境的数据库的安全保证"><a href="#1、生产环境的数据库的安全保证" class="headerlink" title="1、生产环境的数据库的安全保证"></a>1、生产环境的数据库的安全保证</h2><p><strong>简介：生成环境监控指标和安全</strong></p>
+<ul>
+<li><p>考点：是否有监控和数据安全思维</p>
+</li>
+<li><p>针对线上的数据库，你会做哪些监控？，业务性能 + 数据安全的角度分析</p>
+<ul>
+<li><p><strong>业务性能</strong>：</p>
+<ol>
+<li><p>应用上线前会审查业务新增的sql、分析sql执行计划</p>
+<p>​    比如是否存在 select *    索引建立是否合理</p>
+</li>
+<li><p>开启慢查询日志，定期分析慢查询日志</p>
+</li>
+<li><p>监控CPU/内存利用率、读写、网关IO、流量带宽 随着时间变化的统计图</p>
+</li>
+<li><p>吞吐量QPS/TPS 一天内随着时间变化的统计图</p>
+</li>
+</ol>
+</li>
+<li><p><strong>数据安全</strong>：</p>
+<ol>
+<li>短期增量备份，比如一周一次。定期全量备份，比如一月一次</li>
+<li>检查是否存在非授权用户、是否存在弱口令，进行网络防火墙检查</li>
+<li>导出数据是否进行脱敏，防止数据泄露或者黑产利用</li>
+<li>数据库进行全量操作日志审计，防止数据泄露</li>
+<li>数据库账号密码根据业务进行独立，权限独立控制，防止多库共用同一个账号密码</li>
+<li>高可用时采用主从架构、多机房部署</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2、MySQL中的日志"><a href="#2、MySQL中的日志" class="headerlink" title="2、MySQL中的日志"></a>2、MySQL中的日志</h2><p><strong>简介：mysql常见日志的考查</strong></p>
+<ul>
+<li><p>考点：mysql常见日志种类和作用</p>
+</li>
+<li><p>Mysql有多少种常见的日志？分别解释日志的作用</p>
+<ol>
+<li><p><strong>redo 重做日志</strong></p>
+<p>​    确保事务的持久性，防止在发生故障时，脏页未写入磁盘。重启数据库会进行<strong>redo log</strong>执行重做，达到事务一致性</p>
+<blockquote>
+<p>脏页：内存数据页与磁盘内存页的内容不一致时的内存页叫做脏页</p>
+</blockquote>
+</li>
+<li><p><strong>undo 回滚日志</strong></p>
+<p>​    保证数据的原子性，记录事务发生之前数据的一个版本，用于回滚</p>
+<blockquote>
+<p>MVCC的实现就是依赖于：隐藏字段、Read View、undo log</p>
+</blockquote>
+</li>
+<li><p><strong>errorlog 错误日志</strong></p>
+<p>​    记录MySQL本身启动、停止、运行期间发生的错误信息</p>
+</li>
+<li><p><strong>slow query log 慢查询日志</strong></p>
+<p>​    记录执行时间过程的sql，时间阈值可以配置，只记录执行成功</p>
+</li>
+<li><p><strong>binlog 二进制日志</strong></p>
+<p>​    用于数据库的数据备份、主备、主主、主从 ，保证数据一致性</p>
+</li>
+<li><p><strong>relay log 中继日志</strong></p>
+<p>​    用于数据库主从同步，将主库发送来的binlog先保存在本地，然后在从库进行重放</p>
+</li>
+<li><p><strong>general log 普通日志</strong></p>
+<p>​    记录数据库操作明细，默认关闭，因为开启会降低数据库性能</p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="3、数据库的主从同步"><a href="#3、数据库的主从同步" class="headerlink" title="3、数据库的主从同步"></a>3、数据库的主从同步</h2><p><strong>简介：数据库主从的用途、原理流程</strong></p>
+<ul>
+<li>考点：是否搭建过主从，并掌握原理</li>
+<li>解释下主从复制中的异步复制原理？</li>
+</ul>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-22.png" srcset="/img/loading.gif" lazyload alt></p>
+<ul>
+<li><p>搭建数据库主从同步的目的是什么？</p>
+<ol>
+<li>业务需要，进行读写分离，减少主库压力</li>
+<li>容灾使用，用于故障切换</li>
+</ol>
+</li>
+<li><p>同步延迟问题如何解决？</p>
+<p>保证性能的情况下，无法百分百的解决，只能缓解</p>
+<p><strong>现象</strong>：大量数据的场景下，主库的数据已经写入，但从库中还没有</p>
+<p><strong>原因</strong>：</p>
+<ol>
+<li>主从复制是单线程操作，当主库TPS过高，产生的数据量超过从库SQL执行的执行能力</li>
+<li>从库执行了某些很大的SQL操作，导致阻塞等待</li>
+<li>服务器硬件问题，如磁盘、CPU、网络延迟</li>
+</ol>
+<p><strong>缓解方法</strong>：</p>
+<ol>
+<li>引入缓存；写入主库后，再写入缓存，读取的时候可以先读缓存，没命中再去读从库</li>
+<li>读写分离；一主多从，分散主库和从库的压力</li>
+<li>提高硬件配置；比如使用SSD固态硬盘、更好的CPU和网络</li>
+<li>进行分库分表；减少单机数据库的压力</li>
+</ol>
+</li>
+</ul>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-23.png" srcset="/img/loading.gif" lazyload alt></p>
+<ul>
+<li>什么场景下会出现主从数据不一致？<ol>
+<li>复制的延迟导致</li>
+<li>主库或从库宕机都会导致复制中断</li>
+<li>把一个从库升级为主库时，也可能会导致</li>
+</ol>
+</li>
+<li>主从一致性校验和修复如何做？</li>
+</ul>
+<p>​    Mysql主从复制是基于binlog复制，难免出现复制数据不一致的风险，导致用户数据访问前后不一致的问题<br>所以要定期开展主从复制数据一致性的校验并修复</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs stata">使用Percona公司下的工具<br><br>pt-<span class="hljs-keyword">table</span>-<span class="hljs-keyword">checksum</span>工具进行一致性校验<br><br>  原理：<br>  主库利用表中的索引，将表的数据切割成一个个chunk(块)，然后进行计算得到<span class="hljs-keyword">checksum</span>值。<br>  从库也执相应的操作，并在从库上计算相同数据块的<span class="hljs-keyword">checksum</span>，然后对比主从中各个表的<span class="hljs-keyword">checksum</span>是否一致并存储到数据库，最后通过存储校验结果的表就可以判断出哪些表的数据不一致<br><br><br>pt-<span class="hljs-keyword">table</span>-sync(在从库执行)工具进行数据不一致的修复，可以修复主从结构数据的不一致，也可以修复非主从结构数据的不一致<br><br>  原理：在主库上执行数据的更改，再同步到从库上，不会直接更改成从的数据。在主库上执行更改是基于主库现有的数据，不会更改主库上的数据，可以同步某些表或整个库的数据，但它不会同步表结构、索引，只同步不一致的数据<br><br><br>注意：<br>  默认主库要检查的表在从库都存在，并且同主库表有相同的表结构<br>  如果表中没有索引，pt-<span class="hljs-keyword">table</span>-<span class="hljs-keyword">checksum</span>将没法处理，一般最基本的主键索引要有<br>  pt-<span class="hljs-keyword">table</span>-sync工具会修改数据，使用前最好备份下数据，防止误操作<br></code></pre></td></tr></table></figure>
+<ul>
+<li>pt-table-checksum怎么保证在计算某个chunk的时候checksum数据一致性？</li>
+</ul>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata">当pt工具在计算主库上某chunk的<span class="hljs-keyword">checksum</span>时，主库可能在更新且从库可能复制延迟，那该怎么保证主库与从库计算的是”同一份”数据，答案把要<span class="hljs-keyword">checksum</span>的行加上<span class="hljs-keyword">for</span> <span class="hljs-keyword">update</span>锁并计算，这保证了主库的某个chunk内部数据的一致性<br></code></pre></td></tr></table></figure>
+<h1 id="十二、HTTP协议"><a href="#十二、HTTP协议" class="headerlink" title="十二、HTTP协议"></a>十二、HTTP协议</h1><h2 id="1、HTTP协议核心知识"><a href="#1、HTTP协议核心知识" class="headerlink" title="1、HTTP协议核心知识"></a>1、HTTP协议核心知识</h2><p><strong>简介：http状态码和method知识点考查</strong></p>
+<ul>
+<li>考点：是否掌握Http基础知识，遵循开发规范</li>
+<li>常见的Http Method有哪些，使用场景分别是？<ul>
+<li><strong>HTTP 1.0</strong> 定义的三种：<ol>
+<li>GET：向服务器获取资源，比如常见的查询请求</li>
+<li>POST：向服务器提交数据而发送的请求</li>
+<li>HEAD：和GET类似，返回的响应中没有具体的内容，用于获取报文头</li>
+</ol>
+</li>
+<li><strong>HTTP 1.1</strong> 定义的六种：<ol>
+<li>PUT：一般用于更新请求，比如更新个人信息、商品信息，采用全量更新</li>
+<li>PATCH：是PUT方法的补充，更新指定资源的部分数据</li>
+<li>DELETE：用于删除指定的资源</li>
+<li>OPTIONS：获取服务器支持的HTTP请求方式，服务器性能、跨域检查等</li>
+<li>CONNECT：把服务器作为跳板，让服务器代替用户去访问其他网页，之后把数据返回给用户；一般网页开发基本不用这个，如果是HTTP代理才会使用，类似于中介</li>
+<li>TRACE：回显服务器收到的请求，主要用于测试或诊断</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>常见HTTP状态码有哪些？<ul>
+<li>1XX：收到请求，需要请求者继续执行操作，很少使用</li>
+<li>2XX：请求成功，常用的200</li>
+<li>3XX：重定向，浏览器在拿到服务器返回的这个状态码后会自动跳转到一个新的URL地址，这个地址可以从响应的Location中获取；网站改版、域名迁移等，多个域名指向同一个主站导流<ul>
+<li>301 永久性跳转，比如域名过期，换个域名</li>
+<li>302 临时性跳转</li>
+</ul>
+</li>
+<li>4XX：客户端出错，比如语法错误、请求无法完成<ul>
+<li>400 请求出错，比如语法协议</li>
+<li>403 无访问权限</li>
+<li>404 找不到路径对应的接口或者文件</li>
+<li>405 提交方式错误，Method not allowed</li>
+</ul>
+</li>
+<li>5XX：服务端出错，服务器在处理请求的过程中发生了错误<ul>
+<li>500 服务器内部报错，无法完成请求</li>
+<li>503 服务器宕机</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2、HTTP协议无状态解决方法之Cookie和Session"><a href="#2、HTTP协议无状态解决方法之Cookie和Session" class="headerlink" title="2、HTTP协议无状态解决方法之Cookie和Session"></a>2、HTTP协议无状态解决方法之Cookie和Session</h2><p><strong>简介：单机情况下 http无状态解决方案，cookie和session</strong></p>
+<ul>
+<li>考点：是否掌握cookie和session知识点</li>
+<li>说下Cookie和Session的区别和联系<ul>
+<li>cookie数据保存在客户端；session数据保存在服务端</li>
+<li>cookie不是很安全，容易泄露，不能直接明文存储信息</li>
+<li>cookie存储的大小和数量有限制</li>
+</ul>
+</li>
+</ul>
+<h2 id="3、HTTP协议分布式业务无状态解决方法之JWT"><a href="#3、HTTP协议分布式业务无状态解决方法之JWT" class="headerlink" title="3、HTTP协议分布式业务无状态解决方法之JWT"></a>3、HTTP协议分布式业务无状态解决方法之JWT</h2><p><strong>简介：分布式业务场景的常见登录解决方案JWT</strong></p>
+<ul>
+<li><p>考点：是否知道JWT</p>
+</li>
+<li><p>你们公司是用JWT做集群的登录解决是不是，能否介绍下JWT</p>
+<ul>
+<li><p>JWT 是一个开放标准，它定义了一种紧凑的、自包含的方式，用于作为JSON对象在各方之间安全地传输信息。该信息可以被验证和信任，因为它是数字签名的。</p>
+</li>
+<li><p>JSON Web Token由三部分组成，它们之间用圆点(.)连接。这三部分分别是：</p>
+<ul>
+<li>Header 头部：主要描述签名的算法</li>
+<li>Payload 负载：主要描述加密对象的信息，比如用户的id、iss签发者、exp过期时间、sub面向的用户等</li>
+<li>Signature 签名：主要是把前面两部分进行加密吗，防止别人拿到token进行base解密之后篡改token</li>
+</ul>
+<p>因此，一个典型的JWT看起来是这个样子的：</p>
+<blockquote>
+<p>xxxxx.yyyyy.zzzzz</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p>简单来说: 就是通过一定规范来生成token，然后可以通过解密算法逆向解密token，这样就可以获取用户信息</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">&#123;<br>          id:<span class="hljs-number">666</span>,<br>          <span class="hljs-type">name</span>:<span class="hljs-string">&#x27;张三&#x27;</span>,<br>          expire:<span class="hljs-number">10000</span><br>      &#125;<br>          <br>      funtion 加密(<span class="hljs-keyword">object</span>, appsecret)&#123;<br>          xxxx<br>          <span class="hljs-keyword">return</span> base64( token);<br>      &#125;<br>      <br>      <span class="hljs-keyword">function</span> 解密(token ,appsecret)&#123;<br>          xxxx<br>          //成功返回<span class="hljs-keyword">true</span>,失败返回<span class="hljs-keyword">false</span><br>      &#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>使用 JWT 的优缺点有哪些？<ul>
+<li>优点：<ul>
+<li>生成的token可以包含基本信息，比如id、昵称等信息，避免再次查库</li>
+<li>存储在客户端，不需要占用服务端的内存资源，使用加解密的方式进行校验，在分布式业务中能较好地提高性能和节省空间</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>token是经过base64编码的，所以是可以进行解码的，因此token加密前的对象不应该包含敏感信息，比如用户权限、密码等</li>
+<li>如果没有服务端存储，则不能做登录失效处理，除非服务端该密钥</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>生成的token在客户端或者浏览器中具体是如何存储的？<ul>
+<li>可以存储在cookie、localStorage、sessionStorage</li>
+</ul>
+</li>
+</ul>
+<h2 id="4、HTTP请求从产生到响应的链路"><a href="#4、HTTP请求从产生到响应的链路" class="headerlink" title="4、HTTP请求从产生到响应的链路"></a>4、HTTP请求从产生到响应的链路</h2><p><strong>简介：浏览器网络请求链路</strong></p>
+<ul>
+<li><p>考点：是否掌握http请求产生到响应的链路</p>
+</li>
+<li><p>说下常用浏览器输入一个 url 到用户看到结果，中间经过哪些流程？</p>
+<ol>
+<li>浏览器输入 url，解析 url 是否合法</li>
+<li>浏览器检查是否有缓存，如果有则直接显示；没有就进行下一步</li>
+<li>进行域名解析（DNS解析），解析获取对应的 IP 地址</li>
+<li>浏览器向服务器发送 tcp 连接，完成 tcp 三次握手</li>
+<li>握手成功后，浏览器向服务器发送 http 请求</li>
+<li>服务器收到处理的请求后，将数据返回到浏览器</li>
+<li>浏览器接受 http 响应</li>
+<li>浏览器解析响应，如果响应需要缓存，则存入到缓存中</li>
+<li>浏览器进行页面渲染</li>
+</ol>
+</li>
+</ul>
+<h2 id="5、浏览器同源策略和跨域"><a href="#5、浏览器同源策略和跨域" class="headerlink" title="5、浏览器同源策略和跨域"></a>5、浏览器同源策略和跨域</h2><p><strong>简介：什么是浏览器的同源策略和跨域知识点</strong></p>
+<ul>
+<li><p>考点：同源策略和跨域知识点</p>
+</li>
+<li><p>你是否知道什么是浏览器同源策略</p>
+<ul>
+<li><strong>同源策略</strong>：是一个重要的安全策略，它用于限制一个 origin 的文档或者它加载的脚本如何能与另一个源的资源进行交互。它能帮助阻隔恶意文档，减少可能被攻击的媒介。</li>
+</ul>
+<p>如果两个 URL 的 protocol、port(en-US)如果有指定的话) 和 host 都相同的话，则这两个 URL 是<em>同源</em>。这个方案也被称为“协议/主机/端口元组”，或者直接是 “元组”。（“元组” 是指一组项目构成的整体，双重/三重/四重/五重/等的通用形式）。</p>
+<p>下表给出了与 URL <code>http://store.company.com/dir/page.html</code> 的源进行对比的示例：</p>
+<p>| URL                                               | 结果 | 原因                                |<br>| :———————————————————————— | :—- | :————————————————— |<br>| <code>http://store.company.com/dir2/other.html</code>        | 同源 | 只有路径不同                        |<br>| <code>http://store.company.com/dir/inner/another.html</code> | 同源 | 只有路径不同                        |<br>| <code>https://store.company.com/secure.html</code>           | 失败 | 协议不同                            |<br>| <code>http://store.company.com:81/dir/etc.html</code>        | 失败 | 端口不同 ( <code>http://</code> 默认端口是 80) |<br>| <code>http://news.company.com/dir/other.html</code>          | 失败 | 主机不同                            |</p>
+<ul>
+<li>同源策略的限制<ul>
+<li>不能读写Cookie、Session Storage、Local Storage、Cache、Indexed DB</li>
+<li>DOM 和 JS对象无法获得</li>
+<li>AJAX请求不能发送</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>为什么会出现跨域，有什么常见的解决方案?</p>
+<ul>
+<li><p><strong>跨域</strong>：浏览器从一个域名的网页去请求另一个域名的资源时，域名、端口、协议任何一个不同，就属于跨域</p>
+</li>
+<li><p><strong>解决方案</strong>：</p>
+<ul>
+<li><p>JSONP</p>
+</li>
+<li><p>页面这层再包装一层服务，目前最多就是nodejs</p>
+</li>
+<li><p>Http响应头配置允许跨域</p>
+<ul>
+<li><p>nginx代理服务器</p>
+</li>
+<li><p>后端程序代码配置</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">程序代码中处理 SpringBoot 通过拦截器配置<br>     <br><span class="hljs-comment">//表示接受任意域名的请求,也可以指定域名</span><br>response.set<span class="hljs-constructor">Header(<span class="hljs-string">&quot;Access-Control-Allow-Origin&quot;</span>, <span class="hljs-params">request</span>.<span class="hljs-params">getHeader</span>(<span class="hljs-string">&quot;origin&quot;</span>)</span>);<br>     <br><span class="hljs-comment">//该字段可选，是个布尔值，表示是否可以携带cookie</span><br>response.set<span class="hljs-constructor">Header(<span class="hljs-string">&quot;Access-Control-Allow-Credentials&quot;</span>, <span class="hljs-string">&quot;true&quot;</span>)</span>;<br>     <br>response.set<span class="hljs-constructor">Header(<span class="hljs-string">&quot;Access-Control-Allow-Methods&quot;</span>, <span class="hljs-string">&quot;GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS&quot;</span>)</span>;<br>     <br>response.set<span class="hljs-constructor">Header(<span class="hljs-string">&quot;Access-Control-Allow-Headers&quot;</span>, <span class="hljs-string">&quot;*&quot;</span>)</span>;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="十三、Spring-Mybatis框架"><a href="#十三、Spring-Mybatis框架" class="headerlink" title="十三、Spring-Mybatis框架"></a>十三、Spring-Mybatis框架</h1><h2 id="1、Spring框架核心知识点"><a href="#1、Spring框架核心知识点" class="headerlink" title="1、Spring框架核心知识点"></a>1、Spring框架核心知识点</h2><p><strong>简介：常见的spring核心知识点考查</strong></p>
+<ul>
+<li><p>考点：spring的核心理念</p>
+</li>
+<li><p>能否介绍下什么是Spring框架的 IOC 和 DI </p>
+<ul>
+<li>IOC 控制反转：将对象的创建权，反转到Spring容器</li>
+<li>DI 依赖注入：Spring创建对象的过程中，将对象依赖的属性通过配置的方式进行注入，在IOC的基础上完成</li>
+</ul>
+<p>IOC 和 DI 是从不同的角度描述同样的一件事，通过引入IOC容器，利用依赖关系注入的方式，实现对象之间的解耦</p>
+</li>
+<li><p>Spring里面 bean的scope作用域有哪些，能否解释下？</p>
+<ul>
+<li><strong>singleton</strong> : 唯一 bean 实例，Spring 中的 bean 默认都是单例的，对单例设计模式的应用。</li>
+<li><strong>prototype</strong> : 每次di奥永getBean方法时都会创建不同的对象，会频繁的创建和销毁对象。</li>
+<li><strong>request</strong> : 每一次 HTTP 请求都会产生一个新的 bean，该 bean 仅在当前 HTTP request 内有效。</li>
+<li><strong>session</strong> : 每一次来自新 session 的 HTTP 请求都会产生一个新的 bean，该 bean 仅在当前 HTTP session 内有效。</li>
+<li><strong>global-session</strong> ： 全局 session 作用域，仅仅在基于 portlet 的 web 应用中才有意义，Spring5 已经没有了。Portlet 是能够生成语义代码(例如：HTML)片段的小型 Java Web 插件。它们基于 portlet 容器，可以像 servlet 一样处理 HTTP 请求。但是，与 servlet 不同，每个 portlet 都有不同的会话。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2、AOP面向切面编程"><a href="#2、AOP面向切面编程" class="headerlink" title="2、AOP面向切面编程"></a>2、AOP面向切面编程</h2><p><strong>简介：Spring常见面试题AOP</strong></p>
+<ul>
+<li><p>考点：Spring的AOP相关知识点考查</p>
+</li>
+<li><p>谈谈你对AOP的理解？</p>
+<ul>
+<li>能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任（例如事务处理、日志管理、权限控制等）封装起来，便于减少系统的重复代码，降低模块间的耦合度，并有利于未来的可拓展性和可维护性。</li>
+<li>AOP思想把功能分两个部分，分离系统中的各种关注点<ul>
+<li>核心关注点<ul>
+<li>业务的主要功能</li>
+</ul>
+</li>
+<li>横切关注点<ul>
+<li>非核心、额外增加的功能</li>
+</ul>
+</li>
+<li>用户下单为例子<ul>
+<li>核心关注点：创建订单</li>
+<li>横切关注点：记录日志、控制事务</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>好处<ul>
+<li>减少代码侵入，解耦</li>
+<li>可以统一处理横切逻辑</li>
+<li>方便添加和删除横切逻辑</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>能否解释下AOP里面常见的概念，比如 横切、通知、连接点、切入点、切面 ？</p>
+<ul>
+<li>横切关注点<ul>
+<li>对哪些方法进行拦截，拦截后怎么处理，这些就叫横切关注点</li>
+<li>比如 权限认证、日志、事务</li>
+</ul>
+</li>
+<li>通知 Advice<ul>
+<li>在特定的切入点上执行的增强处理</li>
+<li>做啥？ 比如你需要记录日志，控制事务 ，提前编写好通用的模块，需要的地方直接调用</li>
+</ul>
+</li>
+<li>连接点 JointPoint<ul>
+<li>需要用到通知的地方，业务流程在运行过程中需要插入切面的具体位置，</li>
+<li>一般是方法的调用前后，全部方法都可以是连接点</li>
+<li>只是概念，没啥特殊</li>
+</ul>
+</li>
+<li>切入点 Pointcut<ul>
+<li>不能全部方法都是连接点，通过特定的规则来筛选连接点, 就是Pointcut，选中那几个你想要的方法</li>
+<li>在程序中主要体现为书写切入点表达式（通过通配、正则表达式）过滤出特定的一组 JointPoint连接点</li>
+<li>过滤出相应的 Advice 将要发生的joinpoint地方</li>
+</ul>
+</li>
+<li>切面 Aspect<ul>
+<li>通常是一个类，里面定义 <strong>切入点+通知</strong> , 定义什么地方、 什么时间点、做什么事情</li>
+<li><strong>通知 advice指明了时间和做的事情（前置、后置等）</strong></li>
+<li><strong>切入点 pointcut 指定在什么地方干这个事情</strong></li>
+<li>web接口设计中，web层-&gt;网关层-&gt;服务层-&gt;数据层，每一层之间也是一个切面，对象和对象，方法和方法之间都是切面</li>
+</ul>
+</li>
+<li><p>目标 target</p>
+<ul>
+<li>目标类，真正的业务逻辑，可以在目标类不知情的条件下，增加新的功能到目标类的链路上</li>
+</ul>
+</li>
+<li><p>织入 Weaving</p>
+<ul>
+<li>把切面（某个类）应用到目标函数的过程称为织入</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-24.png" srcset="/img/loading.gif" lazyload alt></p>
+<h2 id="3、Spring-AOP代理模式"><a href="#3、Spring-AOP代理模式" class="headerlink" title="3、Spring AOP代理模式"></a>3、Spring AOP代理模式</h2><p><strong>简介：Spring常见面试题静态代理和动态代理</strong></p>
+<ul>
+<li><p>考点：静态代理和动态代理知识点考查</p>
+</li>
+<li><p>能否解释下什么是静态代理？</p>
+<ul>
+<li>什么是静态代理<ul>
+<li>由程序创建或特定工具自动生成源代码，在程序运行前，代理类的.class文件就已经存在</li>
+<li>通过将目标类与代理类实现同一个接口，让代理类持有真实类对象，然后在代理类方法中调用真实类方法，在调用真实类方法的前后添加我们所需要的功能扩展代码来达到增强的目的</li>
+</ul>
+</li>
+<li>优点<ul>
+<li>代理使得客户端不需要知道实现类是什么，只需知道代理即可</li>
+<li>方便增加功能，拓展业务逻辑</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>代理类中出现大量冗余的代码，非常不利于扩展和维护</li>
+<li>如果接口增加一个方法，除了所有实现类需要实现这个方法外，所有代理类也需要实现此方法。增加了代码维护的复杂度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>能否解释下什么是动态代理？</p>
+<ul>
+<li>在程序运行时，运用反射机制动态创建而成，无需手动编写代码</li>
+</ul>
+</li>
+<li>Spring AOP是用什么代理？<ul>
+<li>Spring AOP 就是基于动态代理的<ul>
+<li>如果要代理的对象，<strong>实现了某个接口</strong>，那么 Spring AOP 会使用 <strong>JDK Proxy</strong>，去创建代理对象；</li>
+<li>而对于没有实现接口的对象，就无法使用 JDK Proxy 去进行代理了，这时候 Spring AOP 会使用 <strong>Cglib</strong> 生成一个被代理对象的子类来作为代理</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-25.png" srcset="/img/loading.gif" lazyload alt></p>
+<h2 id="4、JDBC和Mybaits"><a href="#4、JDBC和Mybaits" class="headerlink" title="4、JDBC和Mybaits"></a>4、JDBC和Mybaits</h2><p><strong>简介：讲解JDBC和Mybatis基础面试题</strong></p>
+<ul>
+<li><p>考点：JDBC和Mybatis基础面试题考查</p>
+</li>
+<li><p>说下JDBC连接数据库的开发步骤</p>
+<ol>
+<li>加载数据库驱动 DriverManager</li>
+<li>获取数据连接对象 Connection</li>
+<li>获取语句对象<ul>
+<li>语句对象分为Statement和PreparedStatement两种执行语句<ul>
+<li>PreparedStatement在执行之前会进行预编译</li>
+<li>效率高于Statement，且能够有效防止SQL注入</li>
+<li>PreparedStatement支持?占位符，而不是直接拼接，提高可读性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>处理结果集 ResultSet</li>
+<li>关闭资源（需要注意关闭顺序及处理异常rs.close()、st.close()、conn.close()）</li>
+</ol>
+</li>
+<li><p>能否简单说下Mybatis的四大核心对象及流程?</p>
+<ol>
+<li><p>SqlSession对象，该对象中包含了执行SQL语句的所有方法。类似于JDBC里面的Connection</p>
+</li>
+<li><p>Executor接口，它将根据SqlSession传递的参数动态地生成需要执行的SQL语句，同时负责查询缓存的维护。类似于JDBC里面的Statement/PrepareStatement</p>
+</li>
+<li><p>MappedStatement对象，该对象是对映射SQL的封装，用于存储要映射的SQL语句的id、参数等信息</p>
+</li>
+<li><p>ResultHandler对象，用于对返回的结果进行处理，最终得到自己想要的数据格式或类型。可以自定义返回类型</p>
+</li>
+</ol>
+</li>
+</ul>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-26.png" srcset="/img/loading.gif" lazyload alt></p>
+<h2 id="5、Mybatis3-X-防止SQL注入"><a href="#5、Mybatis3-X-防止SQL注入" class="headerlink" title="5、Mybatis3.X 防止SQL注入"></a>5、Mybatis3.X 防止SQL注入</h2><p><strong>简介：mybatis3.x 防止sql注入知识点</strong></p>
+<ul>
+<li>考点：Mybatis防注入知识点考查</li>
+<li># { }和${}的区别是什么?<ul>
+<li><h1 id="是预编译处理；-是字符串替换；"><a href="#是预编译处理；-是字符串替换；" class="headerlink" title="{}是预编译处理；${}是字符串替换；"></a>{}是预编译处理；${}是字符串替换；</h1></li>
+<li>在处理#{}时，会将SQL中的#{}替换为 ? 号，调用PreparedStatement的 set 方法来赋值；</li>
+<li>在处理${}时，直接把${}替换成变量的值；</li>
+<li>使用#{}可以有效防止SQL注入，提高系统安全性</li>
+</ul>
+</li>
+</ul>
+<h2 id="6、Mybatis的多级缓存"><a href="#6、Mybatis的多级缓存" class="headerlink" title="6、Mybatis的多级缓存"></a>6、Mybatis的多级缓存</h2><p><strong>简介：讲解Mybatis多级缓存面试题</strong></p>
+<ul>
+<li>考点：Mybatis多级缓存知识点</li>
+<li>有没用过Mybatis一级缓存，能否介绍下？<ul>
+<li>简介：一级缓存的作用域是SqlSession，同一个SqlSession中执行相同的SQL查询（相同的SQL和参数），第一次回去查询数据库并写入缓存，第二次直接去缓存中获取</li>
+<li>基于PerpetualCache 的 HashMap本地缓存，默认开启一级缓存</li>
+<li><strong>失效策略</strong>：当执行SQL时两次查询的中间发生了增删改的操作，即insert、update、delete等操作，commit后会清空该SqlSession缓存；比如SqlSession关闭、清空等</li>
+</ul>
+</li>
+<li>有没用过Mybatis二级缓存，能否介绍下？<ul>
+<li>简介：当二级缓存开启后，同一个命名空间(namespace) 所有的操作语句，都影响着一个<strong>共同的 cache</strong>，也就是二级缓存被多个 SqlSession 共享，是一个<strong>全局的变量</strong>。当开启缓存后，数据的查询执行的流程就是 <strong>二级缓存 -&gt; 一级缓存 -&gt; 数据库</strong></li>
+<li>基于PerpetualCache 的 HashMap本地缓存，可自定义存储源，如 Ehcache/Redis等；默认不开启二级缓存</li>
+<li><strong>操作流程</strong>：<ul>
+<li>第一次调用某个namespace下的SQL去查询信息，查询到的信息会存放该mapper对应的二级缓存区域。</li>
+<li>第二次调用同个namespace下的mapper映射文件中，相同的sql去查询信息，会去对应的二级缓存内取结果</li>
+</ul>
+</li>
+<li><strong>失效策略</strong>：执行同个namespace下的mapepr映射文件中的增删改sql，并执行了commit操作,会清空该二级缓存</li>
+<li><strong>注意</strong>：实现二级缓存的时候，MyBatis建议返回的POJO是可序列化的， 也就是建议实现Serializable接口</li>
+<li><strong>缓存淘汰策略</strong>：会使用默认的 LRU 算法来收回（最近最少使用的）</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2022/07/01/%E5%90%8E%E7%AB%AF%E9%9D%A2%E8%AF%95/image-27.png" srcset="/img/loading.gif" lazyload alt></p>
+<h2 id="7、Mybatis3-X-懒加载"><a href="#7、Mybatis3-X-懒加载" class="headerlink" title="7、Mybatis3.X 懒加载"></a>7、Mybatis3.X 懒加载</h2><p><strong>简介：mybatis3.x懒加载面试题</strong></p>
+<ul>
+<li><p>考点：Mybatis懒加载知识点</p>
+</li>
+<li><p>什么是Mybatis3.X的懒加载？</p>
+<ul>
+<li>按需加载，先查单表，有需要再从关联表查询，能提高数据库性能（并不是所有场景都能够提高）</li>
+<li>在mybatis中，resultMap可以实现高级映射(使用association一对一、collection一对多映射)，association、collection具备延迟加载功能。</li>
+</ul>
+</li>
+</ul>
+<h1 id="十四、Redis"><a href="#十四、Redis" class="headerlink" title="十四、Redis"></a>十四、Redis</h1><h2 id="1、Redis的基础数据类型"><a href="#1、Redis的基础数据类型" class="headerlink" title="1、Redis的基础数据类型"></a>1、Redis的基础数据类型</h2><p><strong>简介：分布式缓存Redis核心基础</strong></p>
+<ul>
+<li>考点：Redis基础知识点考查</li>
+<li>你们业务用了redis，为啥不用其他缓存，比如memcached呢？<ul>
+<li>Memcached 所有的值均是简单的字符串，redis 作为其替代者，支持更为 丰富的数据类</li>
+<li>Redis 的速度比 Memcached 快很</li>
+<li>Redis 可以持久化其数据</li>
+</ul>
+</li>
+<li>你用过Redis哪些数据结构？ 说下这些结构的使用场景有哪些？<ul>
+<li>String<ul>
+<li>简单的kv存储；验证码、分布式锁、热点商品卡片</li>
+</ul>
+</li>
+<li>hash<ul>
+<li>存储对象，一个key有多个值；购物车、商品详情</li>
+</ul>
+</li>
+<li>list<ul>
+<li>列表型数据、消息队列等；最新评论列表、非实时排行榜</li>
+</ul>
+</li>
+<li>set<ul>
+<li>无序集合、去重，交集、并集等；查看共同好友，在社交关系方面、数据排重等可以使用</li>
+</ul>
+</li>
+<li>sroted set<ul>
+<li>有序集合，去重；实时排行榜</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>redis是单线程，为什么这么快？<ul>
+<li>基于内存，绝大部分请求是纯粹的内存操作</li>
+<li>避免了不必要的CPU上下文切换和其他竞争条件，比如锁操作等</li>
+<li>底层是使用多路I/O复用模型，非阻塞IO</li>
+<li>redis 利用队列技术将并发访问变为串行访问，消除了传统数据库 串行控制的开销</li>
+<li>redis6支持多线程，但只是用来处理网络数据的读写和协议解析上，<strong>底层数据操作还是单线程</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="2、Redis的持久化机制"><a href="#2、Redis的持久化机制" class="headerlink" title="2、Redis的持久化机制"></a>2、Redis的持久化机制</h2><p><strong>简介：Redis的持久化机制</strong></p>
+<ul>
+<li><p>考点：Redis的持久化机制考查</p>
+</li>
+<li><p>Redis 的持久化机制是什么？各自的优缺点？</p>
+<ul>
+<li><strong>RDB持久化</strong>：是指用数据集快照的方式半持久化存储，记录 redis 数据库的所有键值对,在某个时间点将数据写入一个临时文件，持久化结束后，用这个临时文件替换上次持久化的文件，达到数据恢复<ul>
+<li><strong>优点</strong>： <ul>
+<li>只有一个文件 dump.rdb，方便持久化。</li>
+<li>容灾性好，一个文件可以保存到安全的磁盘。</li>
+<li>性能最大化，fork 子进程来完成写操作，让主进程继续处理命令，所以 是 IO 最大化。使 用单独子进程来进行持久化，主进程不会进行任何 IO 操作，保证了 redis 的高性能</li>
+<li>相对于数据集大时，比 AOF 的启动效率更高。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>： 数据安全性低。RDB 是间隔一段时间进行持久化，如果持久化之间 redis 发生故障，会发生数据丢失。所以这种方式更适合数据要求不严谨的时候</li>
+</ul>
+</li>
+<li><strong>AOF持久化</strong>：指所有的命令行记录以 redis 命令请求协议的格式完全持久化存储，保存为 aof 文件<ul>
+<li><strong>优点</strong>：<ul>
+<li>数据安全，aof 持久化可以配置 appendfsync 属性，有 always，每进行一次命令操作就记录到 aof 文件中一次</li>
+<li>通过 append 模式写文件，即使中途服务器宕机，可以通过 redis- check-aof 工具解决数据一致性问题</li>
+<li>AOF 机制的 rewrite 模式。AOF 文件没被 rewrite 之前（文件过大时会对命令进行合并重写），可以删除其中的某些命令（比如误操作的 flushall）</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：<ul>
+<li>AOF 文件比 RDB 文件大，且恢复速慢</li>
+<li>数据集大的时候，比 rdb 启动效率低。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3、Redis的内存淘汰策略"><a href="#3、Redis的内存淘汰策略" class="headerlink" title="3、Redis的内存淘汰策略"></a>3、Redis的内存淘汰策略</h2><p><strong>简介：缓存的淘汰策略</strong></p>
+<ul>
+<li>考点：是否有看过缓存设计的知识点</li>
+<li>能分别说下FIFO、LRU、LFU这些策略不？<ul>
+<li>先进先出First In，First Out<ul>
+<li>新访问的数据插入FIFO队列尾部，数据在FIFO队列中顺序移动，淘汰FIFO队列头部的数据</li>
+</ul>
+</li>
+<li>最近最少使用算法 Least recently used<ul>
+<li>根据数据的历史访问记录来进行数据淘汰，从设置了过期时间的键中选择空转时间最长的键值对清除掉</li>
+<li>新数据插入到链表头部，每当缓存数据被访问，则将数据移到链表头部，当链表满的时候，将链表尾部的数据丢弃</li>
+</ul>
+</li>
+<li>最近使用频率最低算法 Least Frequently Used<ul>
+<li>根据数据的历史访问频率来淘汰数据，从设置了过期时间的键中选择某段时间之内使用频次最小的键值对清除掉</li>
+<li>把数据加入到链表中，按频次排序，一个数据被访问过，把它的频次+1，发生淘汰的时候，把频次低的淘汰掉</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="4、缓存穿透、击穿、雪崩"><a href="#4、缓存穿透、击穿、雪崩" class="headerlink" title="4、缓存穿透、击穿、雪崩"></a>4、缓存穿透、击穿、雪崩</h2><p><strong>简介：缓存穿透、击穿和雪崩你是否可以区分</strong></p>
+<ul>
+<li><p>考点：缓存穿透-击穿-雪崩知识点</p>
+</li>
+<li><p>能否说下缓存穿透、击穿、雪崩，及其预防方案？</p>
+<ul>
+<li><p><strong>缓存穿透</strong></p>
+<ul>
+<li><p>问题描述：</p>
+<p>大量并发查询不存在的 KEY ，在缓存和数据库中都不存在，同时给缓存和数据库带来压力。<code>如：用一个不存在的用户id获取用户信息，这也是黑客利用不存在的key频繁攻击应用的一种方式</code></p>
+</li>
+<li><p>解决方案：</p>
+<ul>
+<li>接口层增加校验，对数据的合理性进行校验。<code>如：用户鉴权校验，id 做基础校验，id&lt;=0直接拦截</code></li>
+<li>从缓存取不到的数据，在数据库中也没有取到，这时也可以将key-value对写为key-null，设置一个短的过期时间，防止同个key被一直攻击</li>
+<li>采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的bitmap中，一个一定不存在的数据会被这个bitmap拦截掉，从而避免了对底层存储系统的查询压力</li>
+</ul>
+</li>
+<li><p>SpringCache解决：</p>
+<p> 空结果也缓存，防止缓存穿透</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-comment"># 指定缓存类型</span><br>  <span class="hljs-attr">cache:</span><br>    <span class="hljs-attr">type:</span> <span class="hljs-string">redis</span><br>    <span class="hljs-attr">redis:</span><br>      <span class="hljs-comment"># 是否缓存空结果，防止缓存穿透，默认为true</span><br>      <span class="hljs-attr">cache-null-values:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>缓存击穿</strong></p>
+<ul>
+<li><p>问题描述：</p>
+<p> 缓存中没有但数据库中有的数据（一般是缓存时间到期），当这个热点key在过期的一瞬间，正好有大量的并发请求访问这个key，这些请求都会击穿到数据库，造成瞬时数据库请求量大、压力增大</p>
+</li>
+<li><p>解决方案：</p>
+<ul>
+<li>设置热点数据不过期</li>
+<li>采用定时任务定时更新缓存</li>
+<li>设置互斥锁</li>
+</ul>
+</li>
+<li><p>SpringCache解决：</p>
+<p> 缓存的同步 sync，sync 可以指示底层将缓存锁住，使只有一个线程可以进入计算，而其他线程堵塞，直到返回结果更新到缓存中</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-meta">@Cacheable</span>(<span class="hljs-keyword">sync</span>=<span class="hljs-keyword">true</span>)<br>Copy<br></code></pre></td></tr></table></figure>
+<p>@Cacheable注解中的sync属性，当设置它为true时，只有一个线程的请求会去到数据库，其他线程都会等待直到缓存可用。这个设置可以减少对数据库的瞬间并发访问</p>
+</li>
+</ul>
+</li>
+<li><p><strong>缓存雪崩</strong></p>
+<ul>
+<li><p>问题描述：</p>
+<p> 大量的key设置了相同的过期时间，导致缓存在同一时刻大面积的失效，造成大量的请求无法获取缓存，从而将流量压力传导到数据库上，引起雪崩</p>
+</li>
+<li><p>解决方案：</p>
+<ul>
+<li>在原有失效时间基础上增加一个随机值，防止同一时间大量数据过期现象发生</li>
+<li>使用的热数据尽量分散在不同的机器上</li>
+<li>设置热点数据永远不过期，定时任务定时更新</li>
+</ul>
+</li>
+<li><p>SpringCache解决：</p>
+<ul>
+<li>CacheManager配置多个不同过期时间维度</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
