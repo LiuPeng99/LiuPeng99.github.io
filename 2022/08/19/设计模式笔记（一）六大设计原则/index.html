@@ -1,0 +1,815 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="六大设计原则单一职责原则单一职责原理定义单一职责原则（Single Responsibility Principle，SRP）又称单一功能原则，是面向对象的五个基本原则（SOLID）之一。它规定一个类应该只有一个发生变化的原因。 如果需要开发的一个功能需求不是一次性的，且随着业务发展的不断变化而变化，那么当一个Class类负责超过两个及以上的职责时， 那么在需求的不断迭代、实现类持续扩张的情况下，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式笔记（一）六大设计原则">
+<meta property="og:url" content="http://yoursite.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="六大设计原则单一职责原则单一职责原理定义单一职责原则（Single Responsibility Principle，SRP）又称单一功能原则，是面向对象的五个基本原则（SOLID）之一。它规定一个类应该只有一个发生变化的原因。 如果需要开发的一个功能需求不是一次性的，且随着业务发展的不断变化而变化，那么当一个Class类负责超过两个及以上的职责时， 那么在需求的不断迭代、实现类持续扩张的情况下，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/image-1.png">
+<meta property="article:published_time" content="2022-08-19T09:36:31.428Z">
+<meta property="article:modified_time" content="2022-08-19T15:43:24.654Z">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://yoursite.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/image-1.png">
+  
+  
+  
+  <title>设计模式笔记（一）六大设计原则 - </title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="设计模式笔记（一）六大设计原则"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-08-19 17:36" pubdate>
+          2022年8月19日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          30k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          250 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">设计模式笔记（一）六大设计原则</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="六大设计原则"><a href="#六大设计原则" class="headerlink" title="六大设计原则"></a>六大设计原则</h1><h2 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h2><h3 id="单一职责原理定义"><a href="#单一职责原理定义" class="headerlink" title="单一职责原理定义"></a>单一职责原理定义</h3><p>单一职责原则（Single Responsibility Principle，SRP）又称单一功能原则，是面向对象的五个基本原则（SOLID）之一。它规定一个类应该只有一个发生变化的原因。</p>
+<p>如果需要开发的一个功能需求不是一次性的，且随着业务发展的不断变化而变化，那么当一个Class类负责超过两个及以上的职责时， 那么在需求的不断迭代、实现类持续扩张的情况下，就会出现难以维 护、不好扩展、测试难度大和上线风险高等问题。 </p>
+<p>所谓的职责就是指类变化的原因，也就是业务需求。如果一个类 有多于一个的原因被改变，那么这个类就有超过两个及以上的职责。 而单一职责约定一个类应该有且仅有一个改变类的原因。</p>
+<h3 id="模拟场景"><a href="#模拟场景" class="headerlink" title="模拟场景"></a>模拟场景</h3><p>这里通过一个视频网站用户分类的例子，来帮助大家理解单一职责原则的构建方法。当在各类视频网站看电影、电视剧时，网站针对不同的用户类型，会在用户观看时给出不同的服务反馈，如以下三种：</p>
+<ul>
+<li>访客用户，一般只可以观看480P视频，并时刻提醒用户注册会员能观看高清视频。这表示视频业务发展需要拉客，以获取更多的新注册用户</li>
+<li>普通用户，可以观看720P超清视频，但不能屏蔽视频中出现的广告。这表示视频业务发展需要盈利</li>
+<li>VIP用户（属于付费用户），既可以观看 1080P 蓝光视频，又可以关闭或跳过广告</li>
+</ul>
+<h3 id="违背原则方案"><a href="#违背原则方案" class="headerlink" title="违背原则方案"></a>违背原则方案</h3><p>下面根据需求场景直接编码，实现一个最简单的基本功能，即根 据不同的用户类型，判断用户可以观看视频的类型：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">VideoUserService</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">serveGrade</span><span class="hljs-params">(String userType)</span></span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;VIP用户&quot;</span>.equals(userType))&#123;<br>            System.out.println(<span class="hljs-string">&quot;VIP用户，视频1080P蓝光&quot;</span>);<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;普通用户&quot;</span>.equals(userType))&#123;<br>            System.out.println(<span class="hljs-string">&quot;普通用户，视频720P超清&quot;</span>);<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;访客用户&quot;</span>.equals(userType))&#123;<br>            System.out.println(<span class="hljs-string">&quot;访客用户，视频480P高清&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如上，实现业务功能逻辑的方式非常简单，暂时也不会出什么问题。但是这一个类里包含着多个不同的行为，也就是多种用户职责。如果在这样的类上继续扩展功能或添加逻辑，就会显得非常臃肿。</p>
+<p>接下来通过单元测试，再看这个类功能的使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test_serveGrade</span><span class="hljs-params">()</span> </span>&#123;<br>    VideoUserService service = <span class="hljs-keyword">new</span> VideoUserService();<br>    service.serveGrade(<span class="hljs-string">&quot;VIP用户&quot;</span>);<br>    service.serveGrade(<span class="hljs-string">&quot;普通用户&quot;</span>);<br>    service.serveGrade(<span class="hljs-string">&quot;访客用户&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight tp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tp">VIP用户，视频<span class="hljs-number">1080</span><span class="hljs-keyword">P</span>蓝光<br>普通用户，视频<span class="hljs-number">720</span><span class="hljs-keyword">P</span>超清<br>访客用户，视频<span class="hljs-number">480</span><span class="hljs-keyword">P</span>高清<br></code></pre></td></tr></table></figure>
+<p>因为上面的实现方式是在一个类中用if…else判断逻辑，所以在调用方法时是所有的职责用户都使用一个方法实现，作为程序调用入口。对于简单的或者几乎不需要迭代的功能，这种实现也未偿不可。但如果面对频繁迭代的业务需求，这样的代码结构就很难支撑系统迭代，每一次需求的实现都可能会影响其他逻辑，给整个接口服务带来不可控的风险。</p>
+<h3 id="单一职责原则改善代码"><a href="#单一职责原则改善代码" class="headerlink" title="单一职责原则改善代码"></a>单一职责原则改善代码</h3><p>视频播放是视频网站的核心功能，当核心功能开发完成后，就需要不断地完善用户权限。这样才能更好地运营一家视频网站。 </p>
+<p>在模拟用户场景中，其实就是在不断地建设用户权益。针对不同的用户类型提供差异化服务，既满足获客需求，又可以让部分用户选择付费。 </p>
+<p>为了满足这样不断迭代的需求，就不能使用一个类把所有职责行为混为一谈，而是需要提供一个上层的接口类，对不同的差异化用户给出单独的实现类，拆分各自的职责边界。</p>
+<p><img src="/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/image-1.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><strong>定义出上层接口 IVideoUserService</strong>，统一定义需要实现的功能，包括：视频清晰级别接口definition（）、广告播放方式接口advertisement（）。三种不同类型的用户就可以分别实现自己的服务类，做到职责统一：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">IVideoUserService</span> </span>&#123;<br>    <span class="hljs-comment">//视频清晰级别：480P、720P、1080P</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">definition</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-comment">//广告播放方式：无广告、有广告</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">advertisement</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>实现类，访客用户</strong>。这个类实现的是访客用户在视频网站中的形态，比如这类用户只能观看480P高清视频，同时需要观看广告：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GuestVideoUserService</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IVideoUserService</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">definition</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;访客用户，视频480P高清&quot;</span>);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">advertisement</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;访客用户，视频有广告&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>实现类，普通用户</strong>。这个类实现的是普通用户在视频网站中的形态，也就是注册用户可以观看720P超清视频，另外也需要观看广告：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrdinaryVideoUserService</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IVideoUserService</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">definition</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;普通用户，视频720P超清&quot;</span>);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">advertisement</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;普通用户，视频有广告&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>实现类，VIP用户</strong>。这个类实现的是VIP用户在视频网站中的形态。因为这类用户已经是付费用户，所以可以观看更高清的视频，同时不需要观看广告：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">VipVideoUserService</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IVideoUserService</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">definition</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;VIP用户，视频1080P蓝光&quot;</span>);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">advertisement</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;VIP用户，视频无广告&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>综上，每种用户对应的服务职责都有对应的类实现，不会互相干扰。当某一类用户需要添加新的运营规则时，操作起来也可以非常方便。比如，所有的注册用户（即普通用户和VIP用户）可以发弹幕、付费用户可以点播等</p>
+<p><strong>单元测试</strong>。接下来再看现在的类服务的使用方式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test_VideoUserService</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-comment">//访问用户</span><br>    GuestVideoUserService guest = <span class="hljs-keyword">new</span> GuestVideoUserService();<br>    guest.definition();<br>    guest.advertisement();<br>    <span class="hljs-comment">//普通会员</span><br>    OrdinaryVideoUserService ordinary = <span class="hljs-keyword">new</span> OrdinaryVideoUserService();<br>    ordinary.definition();<br>    ordinary.advertisement();<br>    <span class="hljs-comment">//VIP用户</span><br>    VipVideoUserService vip = <span class="hljs-keyword">new</span> VipVideoUserService();<br>    vip.definition();<br>    vip.advertisement();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight tp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs tp">访客用户，视频<span class="hljs-number">480</span><span class="hljs-keyword">P</span>高清<br>访客用户，视频有广告<br>普通用户，视频<span class="hljs-number">720</span><span class="hljs-keyword">P</span>超清<br>普通用户，视频有广告<br>VIP用户，视频<span class="hljs-number">1080</span><span class="hljs-keyword">P</span>蓝光<br>VIP用户，视频无广告<br></code></pre></td></tr></table></figure>
+<p>通过利用单一职责原则的代码优化后，现在每个类都只负责自己的用户行为。后续无论扩展新的功能还是需要在某个时刻修改某个用户行为类，都可以非常方便地开发和维护。 </p>
+<p>在项目开发的过程中，尽可能保证接口的定义、类的实现以及方法开发保持单一职责，对项目后期的迭代和维护会有很大的帮助。</p>
+<h2 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h2><h3 id="开闭原则定义"><a href="#开闭原则定义" class="headerlink" title="开闭原则定义"></a>开闭原则定义</h3><p> 在面向对象编程领域中，开闭原则规定软件中的对象、类、模块和函数对扩展应该是开放的，但对于修改是封闭的。这意味着应该用抽象定义结构，用具体实现扩展细节，以此确保软件系统开发和维护过程的可靠性。 </p>
+<p>开闭原则的核心思想也可以理解为面向抽象编程。</p>
+<h3 id="模拟场景-1"><a href="#模拟场景-1" class="headerlink" title="模拟场景"></a>模拟场景</h3><p>对于外部的调用方来说，只要能体现出面向抽象编程，定义出接口并实现其方法，即不修改原有方法体，只通过继承方式进行扩展，都可以体现出开闭原则。</p>
+<p>这里计算三种形状的面积，如长方形、三角形、圆形，它们在类中已经按照固定的公式实现，其中圆形面积公式中π=3.14。但后续由于π值取的精度对于某些场景是不足的，需要扩展，接下来就通过模拟这个场景体现开闭原则。</p>
+<p><strong>定义接口</strong>。分别定义了三种求面积的接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ICalculationArea</span> </span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 计算面积，长方形</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> x 长</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> y 宽</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 面积</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">rectangle</span><span class="hljs-params">(<span class="hljs-keyword">double</span> x, <span class="hljs-keyword">double</span> y)</span></span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 计算面积，三角形</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> x 边长x</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> y 边长y</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> z 边长z</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span>  面积</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * 海伦公式：S=√[p(p-a)(p-b)(p-c)] 其中：p=(a+b+c)/2</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">triangle</span><span class="hljs-params">(<span class="hljs-keyword">double</span> x, <span class="hljs-keyword">double</span> y, <span class="hljs-keyword">double</span> z)</span></span>;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 计算面积，圆形</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> r 半径</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 面积</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * 圆面积公式：S=πr²</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">circular</span><span class="hljs-params">(<span class="hljs-keyword">double</span> r)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>实现类</strong>。在实现类中，分别实现三种类型的面积计算，长方形（rectangle）、三角形（triangle）、圆形（circular）。其中，圆形面积的 π 值取的是 3.14D，这也是要扩展精度的方法和体现开闭原则的地方。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CalculationArea</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ICalculationArea</span> </span>&#123;<br>    <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> π = <span class="hljs-number">3.14D</span>;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">rectangle</span><span class="hljs-params">(<span class="hljs-keyword">double</span> x, <span class="hljs-keyword">double</span> y)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> x * y;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">triangle</span><span class="hljs-params">(<span class="hljs-keyword">double</span> x, <span class="hljs-keyword">double</span> y, <span class="hljs-keyword">double</span> z)</span> </span>&#123;<br>        <span class="hljs-keyword">double</span> p = (x + y + z) / <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">return</span> Math.sqrt(p * (p - x) * (p - y) * (p - z));<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">circular</span><span class="hljs-params">(<span class="hljs-keyword">double</span> r)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> π * r * r;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="违背原则方案-1"><a href="#违背原则方案-1" class="headerlink" title="违背原则方案"></a>违背原则方案</h3><p>如果不考虑开闭原则，也不思考这种方法在整个工程服务中的使用情况，那么直接修改π值就可以了；但这样做就会破坏整个工程服务的稳定性，也会造成一些风险。</p>
+<p>例如，用原来精度的π值计算出的圆形面积本可以满足需求，但是因为精度加长破坏了原有精度下的稳定性，就像齿轮间的啮合程度、方向盘的间隙等。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> π = <span class="hljs-number">3.141592653D</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">circular</span><span class="hljs-params">(<span class="hljs-keyword">double</span> r)</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> π * r * r;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="开闭原则改善代码"><a href="#开闭原则改善代码" class="headerlink" title="开闭原则改善代码"></a>开闭原则改善代码</h3><p>按照开闭原则方式实现起来并不复杂，它的主要目的是不能因为个例需求的变化而改变预定的实现类，除非预定的实现类有错误。</p>
+<p>实现过程是继承父类扩展需要的方法，同时可以保留原有的方法，新增自己需要的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CalculationAreaExt</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CalculationArea</span> </span>&#123;<br>    <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">double</span> π = <span class="hljs-number">3.141592653D</span>;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">circular</span><span class="hljs-params">(<span class="hljs-keyword">double</span> r)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> π * r * r;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>扩展后的方法已经把求圆形面积的精度增长，需要使用此方法的用户可以直接调用。而其他的方法，如长方形面积、三角形面积，则可以继续使用。</p>
+<p>单元测试，直接调用更新Π值后扩展的类来计算圆形面积</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test_CalculationAreaExt</span><span class="hljs-params">()</span></span>&#123;<br>    ICalculationArea area = <span class="hljs-keyword">new</span> CalculationAreaExt();<br>    System.out.println(<span class="hljs-string">&quot;需要用更新后的Π值来计算圆形面积&quot;</span>);<br>    <span class="hljs-keyword">double</span> circular = area.circular(<span class="hljs-number">10</span>);<br>    System.out.println(circular);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dns">直接调用更新Π值后扩展的类来计算圆形面积<br><span class="hljs-number">314</span>.<span class="hljs-number">1592653</span><br></code></pre></td></tr></table></figure>
+<h2 id="里氏替换原则"><a href="#里氏替换原则" class="headerlink" title="里氏替换原则"></a>里氏替换原则</h2><h3 id="里氏替换原则定义"><a href="#里氏替换原则定义" class="headerlink" title="里氏替换原则定义"></a>里氏替换原则定义</h3><p>继承必须确保超类所拥有的性质在子类中仍然成立。</p>
+<ol>
+<li><p>里氏替换原则</p>
+<p>如果S是T的子类型，那么所有T类型的对象都可以在不破坏程序的情况下被S类型的对象替换。</p>
+<p>简单来说，子类可以扩展父类的功能，但不能改变父类原有的功能。也就是说：当子类继承父类时，除了添加新的方法且完成新增功能外，尽量不要重写父类的方法。这句话包括了四点含义：</p>
+<ul>
+<li>子类可以实现父类的抽象方法，但不能覆盖父类的非抽象方法。</li>
+<li>子类可以增加自己特有的方法。</li>
+<li>当子类的方法重载父类的方法时，方法的前置条件（即方法的输入参数）要比父类的方法更宽松。</li>
+<li>当子类的方法实现父类的方法（重写、重载或实现抽象方法） 时，方法的后置条件（即方法的输出或返回值）要比父类的方法更严格或与父类的方法相等。</li>
+</ul>
+</li>
+<li><p>里氏替换原则的作用</p>
+<ul>
+<li>里氏替换原则是实现开闭原则的重要方式之一。</li>
+<li>解决了继承中重写父类造成的可复用性变差的问题。</li>
+<li>是动作正确性的保证，即类的扩展不会给已有的系统引入新的错误，降低了代码出错的可能性。</li>
+<li>加强程序的健壮性，同时在变更时可以做到非常好的兼容性，提高程序的维护性、可扩展性，降低需求变更时引入的风险。</li>
+</ul>
+</li>
+</ol>
+<h3 id="模拟场景-2"><a href="#模拟场景-2" class="headerlink" title="模拟场景"></a>模拟场景</h3><p>关于里氏替换的场景，最有名的就是“正方形不是长方形”。同时还有一些关于动物的例子，比如鸵鸟、企鹅都是鸟，但是却不能飞。这样的例子可以非常形象地帮助我们理解里氏替换中关于两个类的继承不能破坏原有特性的含义。</p>
+<p>为了从真实的开发场景感受里氏替换原则，这里选择不同种类的银行卡作为场景对象进行学习。</p>
+<p>我们会使用各种类型的银行卡，例如储蓄卡、信用卡，还有一些其他特性的银行卡。储蓄卡和信用卡都具备一定的消费功能，但又有 一些不同。例如信用卡不宜提现，如果提现可能会产生高额的利息。</p>
+<p>下面构建这样一个模拟场景，假设在构建银行系统时，储蓄卡是第一个类，信用卡是第二个类。为了让信用卡可以使用储蓄卡的一些方法，选择由信用卡类继承储蓄卡类，讨论是否满足里氏替换原则产生的一些要点。</p>
+<h3 id="违背原则方案-2"><a href="#违背原则方案-2" class="headerlink" title="违背原则方案"></a>违背原则方案</h3><p>储蓄卡和信用卡在使用功能上类似，都有支付、提现、还款、充值等功能，也有些许不同，例如支付，储蓄卡做的是账户扣款动作，信用卡做的是生成贷款单动作。下面这里模拟先有储蓄卡的类，之后继承这个类的基本功能，以实现信用卡的功能。</p>
+<p><strong>储蓄卡类：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CashCard</span> </span>&#123;<br>    <br>    <span class="hljs-keyword">private</span> Logger logger = LoggerFactory.getLogger(CashCard.class);<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 提现</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> orderId 单号</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> amount  金额</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 状态码 0000成功、0001失败、0002重复</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">withdrawal</span><span class="hljs-params">(String orderId, BigDecimal amount)</span> </span>&#123;<br>        <span class="hljs-comment">// 模拟支付成功</span><br>        logger.info(<span class="hljs-string">&quot;提现成功，单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, orderId, amount);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;0000&quot;</span>;<br>    &#125;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 储蓄</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> orderId 单号</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> amount  金额</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">recharge</span><span class="hljs-params">(String orderId, BigDecimal amount)</span> </span>&#123;<br>        <span class="hljs-comment">// 模拟充值成功</span><br>        logger.info(<span class="hljs-string">&quot;储蓄成功，单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, orderId, amount);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;0000&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 交易流水查询</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 交易流水</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">tradeFlow</span><span class="hljs-params">()</span> </span>&#123;<br>        logger.info(<span class="hljs-string">&quot;交易流水查询成功&quot;</span>);<br>        List&lt;String&gt; tradeList = <span class="hljs-keyword">new</span> ArrayList&lt;String&gt;();<br>        tradeList.add(<span class="hljs-string">&quot;100001,100.00&quot;</span>);<br>        tradeList.add(<span class="hljs-string">&quot;100001,80.00&quot;</span>);<br>        tradeList.add(<span class="hljs-string">&quot;100001,76.50&quot;</span>);<br>        tradeList.add(<span class="hljs-string">&quot;100001,126.00&quot;</span>);<br>        <span class="hljs-keyword">return</span> tradeList;<br>    &#125;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在储蓄卡的功能实现中包括了三个方法：提现、储蓄、交易流水查询，这些是模拟储蓄卡的基本功能。接下来通过继承储蓄卡的功能，实现信用卡服务。</p>
+<p><strong>信用卡类：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CreditCard</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CashCard</span> </span>&#123;<br>    <br>    <span class="hljs-keyword">private</span> Logger logger = LoggerFactory.getLogger(CashCard.class);<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">withdrawal</span><span class="hljs-params">(String orderId, BigDecimal amount)</span> </span>&#123;<br>        <span class="hljs-comment">// 校验</span><br>        <span class="hljs-keyword">if</span> (amount.compareTo(<span class="hljs-keyword">new</span> BigDecimal(<span class="hljs-number">1000</span>)) &gt;= <span class="hljs-number">0</span>)&#123;<br>            logger.info(<span class="hljs-string">&quot;贷款金额校验(限额1000元)，单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, orderId, amount);<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;0001&quot;</span>;<br>        &#125;<br>        <span class="hljs-comment">// 模拟生成贷款单</span><br>        logger.info(<span class="hljs-string">&quot;生成贷款单，单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, orderId, amount);<br>        <span class="hljs-comment">// 模拟支付成功</span><br>        logger.info(<span class="hljs-string">&quot;贷款成功，单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, orderId, amount);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;0000&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">recharge</span><span class="hljs-params">(String orderId, BigDecimal amount)</span> </span>&#123;<br>        <span class="hljs-comment">// 模拟生成还款单</span><br>        logger.info(<span class="hljs-string">&quot;生成还款单，单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, orderId, amount);<br>        <span class="hljs-comment">// 模拟还款成功</span><br>        logger.info(<span class="hljs-string">&quot;还款成功，单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, orderId, amount);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;0000&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">tradeFlow</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.tradeFlow();<br>    &#125;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+<p>信用卡的功能实现是在继承了储蓄卡类后，进行方法重写：支付withdrawal（）、还款recharge（）。其实交易流水可以复用，也可以不用重写这个类。</p>
+<p>这种继承父类方式的优点是复用了父类的核心功能逻辑，但是也破坏了原有的方法。此时继承父类实现的信用卡类并不满足里氏替换原则，也就是说，此时的子类不能承担原父类的功能，直接给储蓄卡使用。</p>
+<h3 id="里氏替换原则改善代码"><a href="#里氏替换原则改善代码" class="headerlink" title="里氏替换原则改善代码"></a>里氏替换原则改善代码</h3><p>储蓄卡和信用卡在功能使用上有些许类似，在实际的开发过程中也有很多共同可复用的属性及逻辑。实现这样的类的最好方式是提取出一个抽象类，由抽象类定义所有卡的共用核心属性、逻辑，把卡的支付和还款等动作抽象成正向和逆向操作。</p>
+<ol>
+<li><p><strong>抽象银行卡类</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BankCard</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> Logger logger = LoggerFactory.getLogger(BankCard.class);<br><br>    <span class="hljs-keyword">private</span> String cardNo;   <span class="hljs-comment">// 卡号</span><br>    <span class="hljs-keyword">private</span> String cardDate; <span class="hljs-comment">// 开卡时间</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">BankCard</span><span class="hljs-params">(String cardNo, String cardDate)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.cardNo = cardNo;<br>        <span class="hljs-keyword">this</span>.cardDate = cardDate;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">rule</span><span class="hljs-params">(BigDecimal amount)</span></span>;<br><br>    <span class="hljs-comment">// 正向入账，+ 钱</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">positive</span><span class="hljs-params">(String orderId, BigDecimal amount)</span> </span>&#123;<br>        <span class="hljs-comment">// 入款成功，存款、还款</span><br>        logger.info(<span class="hljs-string">&quot;卡号&#123;&#125; 入款成功，单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, cardNo, orderId, amount);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;0000&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// 逆向入账，- 钱</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">negative</span><span class="hljs-params">(String orderId, BigDecimal amount)</span> </span>&#123;<br>        <span class="hljs-comment">// 入款成功，存款、还款</span><br>        logger.info(<span class="hljs-string">&quot;卡号&#123;&#125; 出款成功，单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, cardNo, orderId, amount);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;0000&quot;</span>;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 交易流水查询</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 交易流水</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title">tradeFlow</span><span class="hljs-params">()</span> </span>&#123;<br>        logger.info(<span class="hljs-string">&quot;交易流水查询成功&quot;</span>);<br>        List&lt;String&gt; tradeList = <span class="hljs-keyword">new</span> ArrayList&lt;String&gt;();<br>        tradeList.add(<span class="hljs-string">&quot;100001,100.00&quot;</span>);<br>        tradeList.add(<span class="hljs-string">&quot;100001,80.00&quot;</span>);<br>        tradeList.add(<span class="hljs-string">&quot;100001,76.50&quot;</span>);<br>        tradeList.add(<span class="hljs-string">&quot;100001,126.00&quot;</span>);<br>        <span class="hljs-keyword">return</span> tradeList;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getCardNo</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> cardNo;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getCardDate</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> cardDate;<br>    &#125;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在抽象银行卡类中，提供了基本的卡属性，包括卡号、开卡时间及三个核心方法。①正向入账，加钱；②逆向入账，减钱；③交易流水查询。当然，实际的业务开发抽象出来的逻辑会比模拟场景多一些。接下来继承这个抽象类，实现储蓄卡的功能逻辑。</p>
+</li>
+<li><p><strong>储蓄卡类实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CashCard</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BankCard</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> Logger logger = LoggerFactory.getLogger(CashCard.class);<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CashCard</span><span class="hljs-params">(String cardNo, String cardDate)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>(cardNo, cardDate);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">rule</span><span class="hljs-params">(BigDecimal amount)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 提现</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> orderId 单号</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> amount  金额</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 状态码 0000成功、0001失败、0002重复</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">withdrawal</span><span class="hljs-params">(String orderId, BigDecimal amount)</span> </span>&#123;<br>        <span class="hljs-comment">// 模拟支付成功</span><br>        logger.info(<span class="hljs-string">&quot;提现成功，单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, orderId, amount);<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.negative(orderId, amount);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 储蓄</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> orderId 单号</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> amount  金额</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">recharge</span><span class="hljs-params">(String orderId, BigDecimal amount)</span> </span>&#123;<br>        <span class="hljs-comment">// 模拟充值成功</span><br>        logger.info(<span class="hljs-string">&quot;储蓄成功，单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, orderId, amount);<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.positive(orderId, amount);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 风险校验</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> cardNo  卡号</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> orderId 单号</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> amount  金额</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 状态</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">checkRisk</span><span class="hljs-params">(String cardNo, String orderId, BigDecimal amount)</span> </span>&#123;<br>        <span class="hljs-comment">// 模拟风控校验</span><br>        logger.info(<span class="hljs-string">&quot;风控校验，卡号：&#123;&#125; 单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, cardNo, orderId, amount);<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>    &#125;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+<p>储蓄卡类中继承抽象银行卡父类 BankCard，实现的核心功能包括规则过滤rule、提现withdrawal、储蓄recharge和新增的扩展方法，即风控校验 checkRisk。</p>
+<p>这样的实现方式满足了里氏替换的基本原则，既实现抽象类的抽象方法，又没有破坏父类中的原有方法。接下来实现信用卡的功能，信用卡的功能可以继承于储蓄卡，也可以继承抽象银行卡父类。但无论哪种实现方式，都需要遵从里氏替换原则，不可以破坏父类原有的方法。</p>
+</li>
+<li><p><strong>信用卡类实现</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CreditCard</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">CashCard</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> Logger logger = LoggerFactory.getLogger(CreditCard.class);<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">CreditCard</span><span class="hljs-params">(String cardNo, String cardDate)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>(cardNo, cardDate);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">rule2</span><span class="hljs-params">(BigDecimal amount)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> amount.compareTo(<span class="hljs-keyword">new</span> BigDecimal(<span class="hljs-number">1000</span>)) &lt;= <span class="hljs-number">0</span>;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 提现，信用卡贷款</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> orderId 单号</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> amount  金额</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 状态码</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">loan</span><span class="hljs-params">(String orderId, BigDecimal amount)</span> </span>&#123;<br>        <span class="hljs-keyword">boolean</span> rule = rule2(amount);<br>        <span class="hljs-keyword">if</span> (!rule) &#123;<br>            logger.info(<span class="hljs-string">&quot;生成贷款单失败，金额超限。单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, orderId, amount);<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;0001&quot;</span>;<br>        &#125;<br>        <span class="hljs-comment">// 模拟生成贷款单</span><br>        logger.info(<span class="hljs-string">&quot;生成贷款单，单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, orderId, amount);<br>        <span class="hljs-comment">// 模拟支付成功</span><br>        logger.info(<span class="hljs-string">&quot;贷款成功，单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, orderId, amount);<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.negative(orderId, amount);<br><br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 还款，信用卡还款</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> orderId 单号</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> amount  金额</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 状态码</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">repayment</span><span class="hljs-params">(String orderId, BigDecimal amount)</span> </span>&#123;<br>        <span class="hljs-comment">// 模拟生成还款单</span><br>        logger.info(<span class="hljs-string">&quot;生成还款单，单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, orderId, amount);<br>        <span class="hljs-comment">// 模拟还款成功</span><br>        logger.info(<span class="hljs-string">&quot;还款成功，单号：&#123;&#125; 金额：&#123;&#125;&quot;</span>, orderId, amount);<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.positive(orderId, amount);<br>    &#125;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+<p>信用卡类在继承父类后，使用了公用的属性，即卡号 cardNo、开卡时间 cardDate，同时新增了符合信用卡功能的新方法，即贷款loan、还款repayment，并在两个方法中都使用了抽象类的核心功能。</p>
+</li>
+<li><p><strong>功能测试</strong></p>
+<p><strong>测试信用卡</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test_CreditCard</span><span class="hljs-params">()</span></span>&#123;<br>    CreditCard creditCard = <span class="hljs-keyword">new</span> CreditCard(<span class="hljs-string">&quot;6214567800989876&quot;</span>, <span class="hljs-string">&quot;2022-03-05&quot;</span>);<br>    <span class="hljs-comment">// 支付，贷款</span><br>    creditCard.loan(<span class="hljs-string">&quot;100001&quot;</span>, <span class="hljs-keyword">new</span> BigDecimal(<span class="hljs-number">100</span>));<br>    <span class="hljs-comment">// 还款</span><br>    creditCard.repayment(<span class="hljs-string">&quot;100001&quot;</span>, <span class="hljs-keyword">new</span> BigDecimal(<span class="hljs-number">100</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-number">22</span>:<span class="hljs-number">17</span>:<span class="hljs-number">00.924</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.CreditCard</span> - 生成贷款单，单号：<span class="hljs-number">100001</span> 金额：<span class="hljs-number">100</span><br><span class="hljs-number">22</span>:<span class="hljs-number">17</span>:<span class="hljs-number">00.927</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.CreditCard</span> - 贷款成功，单号：<span class="hljs-number">100001</span> 金额：<span class="hljs-number">100</span><br><span class="hljs-number">22</span>:<span class="hljs-number">17</span>:<span class="hljs-number">00.927</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.BankCard</span> - 卡号<span class="hljs-number">6214567800989876</span> 出款成功，单号：<span class="hljs-number">100001</span> 金额：<span class="hljs-number">100</span><br><span class="hljs-number">22</span>:<span class="hljs-number">17</span>:<span class="hljs-number">00.927</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.CreditCard</span> - 生成还款单，单号：<span class="hljs-number">100001</span> 金额：<span class="hljs-number">100</span><br><span class="hljs-number">22</span>:<span class="hljs-number">17</span>:<span class="hljs-number">00.927</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.CreditCard</span> - 还款成功，单号：<span class="hljs-number">100001</span> 金额：<span class="hljs-number">100</span><br><span class="hljs-number">22</span>:<span class="hljs-number">17</span>:<span class="hljs-number">00.927</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.BankCard</span> - 卡号<span class="hljs-number">6214567800989876</span> 入款成功，单号：<span class="hljs-number">100001</span> 金额：<span class="hljs-number">100</span><br></code></pre></td></tr></table></figure>
+<p><strong>测试储蓄卡</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test_bankCard</span><span class="hljs-params">()</span> </span>&#123;<br>    logger.info(<span class="hljs-string">&quot;里氏替换前，CashCard类：&quot;</span>);<br>    CashCard bankCard = <span class="hljs-keyword">new</span> CashCard(<span class="hljs-string">&quot;6214567800989876&quot;</span>, <span class="hljs-string">&quot;2022-03-05&quot;</span>);<br>    <span class="hljs-comment">// 提现</span><br>    bankCard.withdrawal(<span class="hljs-string">&quot;100001&quot;</span>, <span class="hljs-keyword">new</span> BigDecimal(<span class="hljs-number">100</span>));<br>    <span class="hljs-comment">// 储蓄</span><br>    bankCard.recharge(<span class="hljs-string">&quot;100001&quot;</span>, <span class="hljs-keyword">new</span> BigDecimal(<span class="hljs-number">100</span>));<br><br>    logger.info(<span class="hljs-string">&quot;里氏替换后，CreditCard类：&quot;</span>);<br>    CashCard creditCard = <span class="hljs-keyword">new</span> CreditCard(<span class="hljs-string">&quot;6214567800989876&quot;</span>, <span class="hljs-string">&quot;2022-03-05&quot;</span>);<br>    <span class="hljs-comment">// 提现</span><br>    creditCard.withdrawal(<span class="hljs-string">&quot;100001&quot;</span>, <span class="hljs-keyword">new</span> BigDecimal(<span class="hljs-number">1000000</span>));<br>    <span class="hljs-comment">// 储蓄</span><br>    creditCard.recharge(<span class="hljs-string">&quot;100001&quot;</span>, <span class="hljs-keyword">new</span> BigDecimal(<span class="hljs-number">100</span>));<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-number">22</span>:<span class="hljs-number">18</span>:<span class="hljs-number">47.660</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.test</span><span class="hljs-selector-class">.ApiTest</span> - 里氏替换前，CashCard类：<br><span class="hljs-number">22</span>:<span class="hljs-number">18</span>:<span class="hljs-number">47.664</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.CashCard</span> - 提现成功，单号：<span class="hljs-number">100001</span> 金额：<span class="hljs-number">100</span><br><span class="hljs-number">22</span>:<span class="hljs-number">18</span>:<span class="hljs-number">47.664</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.BankCard</span> - 卡号<span class="hljs-number">6214567800989876</span> 出款成功，单号：<span class="hljs-number">100001</span> 金额：<span class="hljs-number">100</span><br><span class="hljs-number">22</span>:<span class="hljs-number">18</span>:<span class="hljs-number">47.664</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.CashCard</span> - 储蓄成功，单号：<span class="hljs-number">100001</span> 金额：<span class="hljs-number">100</span><br><span class="hljs-number">22</span>:<span class="hljs-number">18</span>:<span class="hljs-number">47.664</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.BankCard</span> - 卡号<span class="hljs-number">6214567800989876</span> 入款成功，单号：<span class="hljs-number">100001</span> 金额：<span class="hljs-number">100</span><br><span class="hljs-number">22</span>:<span class="hljs-number">18</span>:<span class="hljs-number">47.664</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.test</span><span class="hljs-selector-class">.ApiTest</span> - 里氏替换后，CreditCard类：<br><span class="hljs-number">22</span>:<span class="hljs-number">18</span>:<span class="hljs-number">47.665</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.CashCard</span> - 提现成功，单号：<span class="hljs-number">100001</span> 金额：<span class="hljs-number">1000000</span><br><span class="hljs-number">22</span>:<span class="hljs-number">18</span>:<span class="hljs-number">47.665</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.BankCard</span> - 卡号<span class="hljs-number">6214567800989876</span> 出款成功，单号：<span class="hljs-number">100001</span> 金额：<span class="hljs-number">1000000</span><br><span class="hljs-number">22</span>:<span class="hljs-number">18</span>:<span class="hljs-number">47.665</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.CashCard</span> - 储蓄成功，单号：<span class="hljs-number">100001</span> 金额：<span class="hljs-number">100</span><br><span class="hljs-number">22</span>:<span class="hljs-number">18</span>:<span class="hljs-number">47.665</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.BankCard</span> - 卡号<span class="hljs-number">6214567800989876</span> 入款成功，单号：<span class="hljs-number">100001</span> 金额：<span class="hljs-number">100</span><br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>通过以上两个测试结果可以看到，储蓄卡功能正常，继承储蓄卡实现的信用卡功能也正常。同时，原有储蓄卡类的功能可以由信用卡类支持，即 CashCard creditCard=new CreditCard（…）。</p>
+<p>继承作为面向对象的重要特征，虽然给程序开发带来了非常大的便利，但也引入了一些弊端。继承的开发方式会给代码带来侵入性，可移植能力降低，类之间的耦合度较高。当对父类修改时，就要考虑一整套子类的实现是否有风险，测试成本较高。</p>
+<p>里氏替换原则的目的是使用约定的方式，让使用继承后的代码具备良好的扩展性和兼容性。</p>
+<p>在日常开发中使用继承的地方并不多，在有些公司的代码规范中也不会允许多层继承，尤其是一些核心服务的扩展。而继承大多数用在系统架构初期定义好的逻辑上或抽象出的核心功能里。如果使用了继承，就一定要遵从里氏替换原则，否则会让代码出现问题的概率变得更大。</p>
+<h2 id="迪米特法则原则"><a href="#迪米特法则原则" class="headerlink" title="迪米特法则原则"></a>迪米特法则原则</h2><h3 id="迪米特法则定义"><a href="#迪米特法则定义" class="headerlink" title="迪米特法则定义"></a>迪米特法则定义</h3><p>迪米特法则（Law of Demeter，LoD）又称为最少知道原则（Least Knowledge Principle，LKP），是指一个对象类对于其他对象类来说，知道得越少越好。也就是说，两个类之间不要有过多的耦合关系，保持最少关联性。</p>
+<p>迪米特法则有一句经典语录：只和朋友通信，不和陌生人说话。也就是说，有内在关联的类要内聚，没有直接关系的类要低耦合。这样的例子在我们生活中也随处可见，就像家里的水管装修，有洗衣机地漏、卫生间地漏、厨房地漏，但它们最终都汇到同一个污水处理系统里。在平常使用时，我们不会考虑这些水管是怎么关联流向的，只需要考虑最上层的使用即可。</p>
+<h3 id="模拟场景-3"><a href="#模拟场景-3" class="headerlink" title="模拟场景"></a>模拟场景</h3><p>本书通过模拟学生、老师、校长之间关系的例子来说明迪米特法则。老师需要负责具体某一个学生的学习情况，而校长只会关心老师所在班级的总体成绩，不会去过问具体某一个学生的学习情况。</p>
+<p>下面模拟这样的例子，如果校长想知道一个班级的总分和平均分，是应该找老师要，还是跟每一个学生要再进行统计呢？显然是应该找具体的班主任老师。我们在实际开发时，容易忽略这样的真实情况，开发出逻辑错误的程序。</p>
+<h3 id="违背原则方案-3"><a href="#违背原则方案-3" class="headerlink" title="违背原则方案"></a>违背原则方案</h3><p>首先定义一个学生信息类，这个类比较简单，包括学生姓名、考试排名、总分。在实际的业务开发中会更复杂，这里只是简化后的类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> String name;    <span class="hljs-comment">// 学生姓名</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> rank;       <span class="hljs-comment">// 考试排名(总排名)</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> grade;   <span class="hljs-comment">// 考试分数(总分)</span><br>    <br>    <span class="hljs-comment">// get/set...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>之后再定义出老师类，在老师类里初始化学生的信息，以及提供基本的信息获取接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Teacher</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> String name;                <span class="hljs-comment">// 老师名称</span><br>    <span class="hljs-keyword">private</span> String clazz;               <span class="hljs-comment">// 班级</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> List&lt;Student&gt; studentList;  <span class="hljs-comment">// 学生</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Teacher</span><span class="hljs-params">()</span> </span>&#123;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Teacher</span><span class="hljs-params">(String name, String clazz)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.name = name;<br>        <span class="hljs-keyword">this</span>.clazz = clazz;<br>    &#125;<br><br>    <span class="hljs-keyword">static</span> &#123;<br>        studentList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>        studentList.add(<span class="hljs-keyword">new</span> Student(<span class="hljs-string">&quot;花花&quot;</span>, <span class="hljs-number">10</span>, <span class="hljs-number">589</span>));<br>        studentList.add(<span class="hljs-keyword">new</span> Student(<span class="hljs-string">&quot;豆豆&quot;</span>, <span class="hljs-number">54</span>, <span class="hljs-number">356</span>));<br>        studentList.add(<span class="hljs-keyword">new</span> Student(<span class="hljs-string">&quot;秋雅&quot;</span>, <span class="hljs-number">23</span>, <span class="hljs-number">439</span>));<br>        studentList.add(<span class="hljs-keyword">new</span> Student(<span class="hljs-string">&quot;皮皮&quot;</span>, <span class="hljs-number">2</span>, <span class="hljs-number">665</span>));<br>        studentList.add(<span class="hljs-keyword">new</span> Student(<span class="hljs-string">&quot;蛋蛋&quot;</span>, <span class="hljs-number">19</span>, <span class="hljs-number">502</span>));<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;Student&gt; <span class="hljs-title">getStudentList</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> studentList;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> name;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getClazz</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> clazz;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>接下来定义校长类，校长管理全局，并在校长类中获取学生人数、总分、平均分等。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Principal</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> Teacher teacher = <span class="hljs-keyword">new</span> Teacher(<span class="hljs-string">&quot;丽华&quot;</span>, <span class="hljs-string">&quot;3年1班&quot;</span>);<br><br>    <span class="hljs-comment">// 查询班级信息，学生人数、总分数、平均分</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Map&lt;String, Object&gt; <span class="hljs-title">queryClazzInfo</span><span class="hljs-params">(String clazzId)</span> </span>&#123;<br>        <span class="hljs-comment">// 获取班级信息；学生总人数、总分、平均分</span><br>        <span class="hljs-keyword">int</span> stuCount = clazzStudentCount();<br>        <span class="hljs-keyword">double</span> totalScore = clazzTotalScore();<br>        <span class="hljs-keyword">double</span> averageScore = clazzAverageScore();<br><br>        <span class="hljs-comment">// 组装对象，实际业务开发会有对应的类</span><br>        Map&lt;String, Object&gt; mapObj = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();<br>        mapObj.put(<span class="hljs-string">&quot;班级&quot;</span>, teacher.getClazz());<br>        mapObj.put(<span class="hljs-string">&quot;老师&quot;</span>, teacher.getName());<br>        mapObj.put(<span class="hljs-string">&quot;学生人数&quot;</span>, stuCount);<br>        mapObj.put(<span class="hljs-string">&quot;班级总分数&quot;</span>, totalScore);<br>        mapObj.put(<span class="hljs-string">&quot;班级平均分&quot;</span>, averageScore);<br>        <span class="hljs-keyword">return</span> mapObj;<br>    &#125;<br><br>    <span class="hljs-comment">// 总分</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">clazzTotalScore</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">double</span> totalScore = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (Student stu : Teacher.getStudentList()) &#123;<br>            totalScore += stu.getGrade();<br>        &#125;<br>        <span class="hljs-keyword">return</span> totalScore;<br>    &#125;<br><br>    <span class="hljs-comment">// 平均分</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">clazzAverageScore</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">double</span> totalScore = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (Student stu : Teacher.getStudentList()) &#123;<br>            totalScore += stu.getGrade();<br>        &#125;<br>        <span class="hljs-keyword">return</span> totalScore / Teacher.getStudentList().size();<br>    &#125;<br><br>    <span class="hljs-comment">// 班级人数</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">clazzStudentCount</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> Teacher.getStudentList().size();<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>以上就是通过校长管理所有学生，老师只提供了非常简单的信息。虽然可以查询到结果，但是违背了迪米特法则，因为校长需要了解每个学生的情况，如果所有班级都让校长类统计，代码就会变得非常臃肿，也不易于维护和扩展。</p>
+<h3 id="迪米特法则改善代码"><a href="#迪米特法则改善代码" class="headerlink" title="迪米特法则改善代码"></a>迪米特法则改善代码</h3><p>从以上的实现方式我们发现，不该让校长直接管理学生，应该让校长管理老师，再由老师提供相应的学生信息查询服务。那么，接下来我们就把校长要的信息交给老师类去处理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Teacher</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> String name;                <span class="hljs-comment">// 老师名称</span><br>    <span class="hljs-keyword">private</span> String clazz;               <span class="hljs-comment">// 班级</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> List&lt;Student&gt; studentList;  <span class="hljs-comment">// 学生</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Teacher</span><span class="hljs-params">()</span> </span>&#123;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Teacher</span><span class="hljs-params">(String name, String clazz)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.name = name;<br>        <span class="hljs-keyword">this</span>.clazz = clazz;<br>    &#125;<br><br>    <span class="hljs-keyword">static</span> &#123;<br>        studentList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>        studentList.add(<span class="hljs-keyword">new</span> Student(<span class="hljs-string">&quot;花花&quot;</span>, <span class="hljs-number">10</span>, <span class="hljs-number">589</span>));<br>        studentList.add(<span class="hljs-keyword">new</span> Student(<span class="hljs-string">&quot;豆豆&quot;</span>, <span class="hljs-number">54</span>, <span class="hljs-number">356</span>));<br>        studentList.add(<span class="hljs-keyword">new</span> Student(<span class="hljs-string">&quot;秋雅&quot;</span>, <span class="hljs-number">23</span>, <span class="hljs-number">439</span>));<br>        studentList.add(<span class="hljs-keyword">new</span> Student(<span class="hljs-string">&quot;皮皮&quot;</span>, <span class="hljs-number">2</span>, <span class="hljs-number">665</span>));<br>        studentList.add(<span class="hljs-keyword">new</span> Student(<span class="hljs-string">&quot;蛋蛋&quot;</span>, <span class="hljs-number">19</span>, <span class="hljs-number">502</span>));<br>    &#125;<br><br>    <span class="hljs-comment">// 总分</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">clazzTotalScore</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">double</span> totalScore = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (Student stu : studentList) &#123;<br>            totalScore += stu.getGrade();<br>        &#125;<br>        <span class="hljs-keyword">return</span> totalScore;<br>    &#125;<br><br>    <span class="hljs-comment">// 平均分</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">clazzAverageScore</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">double</span> totalScore = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (Student stu : studentList) &#123;<br>            totalScore += stu.getGrade();<br>        &#125;<br>        <span class="hljs-keyword">return</span> totalScore / studentList.size();<br>    &#125;<br><br>    <span class="hljs-comment">// 班级人数</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">clazzStudentCount</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> studentList.size();<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;Student&gt; <span class="hljs-title">getStudentList</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> studentList;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> name;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getClazz</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> clazz;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在使用迪米特法则后，把原来违背迪米特法则的服务接口交给老师类处理。这样每一位老师都会提供相应的功能，校长类只需要调用使用即可，而不需要了解每一位学生的分数。</p>
+<p>接下来再看校长类是如何使用的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Principal</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> Teacher teacher = <span class="hljs-keyword">new</span> Teacher(<span class="hljs-string">&quot;丽华&quot;</span>, <span class="hljs-string">&quot;3年1班&quot;</span>);<br><br>    <span class="hljs-comment">// 查询班级信息，总分数、学生人数、平均值</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Map&lt;String, Object&gt; <span class="hljs-title">queryClazzInfo</span><span class="hljs-params">(String clazzId)</span> </span>&#123;<br>        <span class="hljs-comment">// 获取班级信息；学生总人数、总分、平均分</span><br>        <span class="hljs-keyword">int</span> stuCount = teacher.clazzStudentCount();<br>        <span class="hljs-keyword">double</span> totalScore = teacher.clazzTotalScore();<br>        <span class="hljs-keyword">double</span> averageScore = teacher.clazzAverageScore();<br><br>        <span class="hljs-comment">// 组装对象，实际业务开发会有对应的类</span><br>        Map&lt;String, Object&gt; mapObj = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();<br>        mapObj.put(<span class="hljs-string">&quot;班级&quot;</span>, teacher.getClazz());<br>        mapObj.put(<span class="hljs-string">&quot;老师&quot;</span>, teacher.getName());<br>        mapObj.put(<span class="hljs-string">&quot;学生人数&quot;</span>, stuCount);<br>        mapObj.put(<span class="hljs-string">&quot;班级总分数&quot;</span>, totalScore);<br>        mapObj.put(<span class="hljs-string">&quot;班级平均分&quot;</span>, averageScore);<br>        <span class="hljs-keyword">return</span> mapObj;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>校长类直接调用老师类的接口，并获取相应的信息。这样一来，整个功能逻辑就非常清晰了。</p>
+<p>使用单元测试验证程序结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ApiTest</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> Logger logger = LoggerFactory.getLogger(ApiTest.class);<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test_Principal</span><span class="hljs-params">()</span> </span>&#123;<br>        Principal principal = <span class="hljs-keyword">new</span> Principal();<br>        Map&lt;String, Object&gt; map = principal.queryClazzInfo(<span class="hljs-string">&quot;3年1班&quot;</span>);<br>        logger.info(<span class="hljs-string">&quot;查询结果：&#123;&#125;&quot;</span>, JSON.toJSONString(map));<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-number">22</span>:<span class="hljs-number">39</span>:<span class="hljs-number">53.624</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.test</span><span class="hljs-selector-class">.ApiTest</span> - 查询结果：&#123;<span class="hljs-string">&quot;学生人数&quot;</span>:<span class="hljs-number">5</span>,<span class="hljs-string">&quot;班级平均分&quot;</span>:<span class="hljs-number">510.2</span>,<span class="hljs-string">&quot;班级&quot;</span>:<span class="hljs-string">&quot;3年1班&quot;</span>,<span class="hljs-string">&quot;老师&quot;</span>:<span class="hljs-string">&quot;丽华&quot;</span>,<span class="hljs-string">&quot;班级总分数&quot;</span>:<span class="hljs-number">2551.0</span>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h2><h3 id="接口隔离原则定义"><a href="#接口隔离原则定义" class="headerlink" title="接口隔离原则定义"></a>接口隔离原则定义</h3><p>接口隔离原则（Interface Segregation Principle，ISP）要求程序员尽量将臃肿庞大的接口拆分成更小的和更具体的接口，让接口中只包含客户感兴趣的方法。</p>
+<p>接口隔离是为了高内聚、低耦合。在实际的业务开发中，通常会先定义好需要开发的接口，并由各个服务类实现。但如果没有经过考虑和设计，就很可能造成一个接口中包括众多的接口方法，而这些接口并不一定在每一个类中都需要实现。这样的接口很难维护，也不易于扩展，每一次修改验证都有潜在的风险。</p>
+<p>在具体应用接口隔离原则时，应该根据以下几个规则衡量：</p>
+<ul>
+<li>接口尽量小，但是要有限度。一个接口只服务于一个子模块或业务逻辑。</li>
+<li>为依赖接口的类定制服务。只提供调用者需要的方法，屏蔽不需要的方法。</li>
+<li>了解环境，拒绝盲从。每个项目或产品都有选定的环境因素，环境不同，接口拆分的标准就不同，要深入了解业务逻辑。</li>
+<li>提高内聚，减少对外交互。让接口用最少的方法完成最多的事情。</li>
+</ul>
+<h3 id="模拟场景-4"><a href="#模拟场景-4" class="headerlink" title="模拟场景"></a>模拟场景</h3><p>对于接口隔离的场景，在平时简单的业务开发中可能不会遇到，也可能体现得不明显。为了让大家更好地理解，举一个《王者荣耀》中英雄技能的例子，如果由你来开发这样的功能，会怎样设计？</p>
+<p>《王者荣耀》里有很多英雄，可以分为射手、战士、刺客等，每个英雄有三种技能。这些技能该如何定义，让每个英雄实现相应的技能效果呢？接下来就分别使用两种不同的方式实现，来体现设计原则的应用。</p>
+<h3 id="违背原则方案-4"><a href="#违背原则方案-4" class="headerlink" title="违背原则方案"></a>违背原则方案</h3><p>首先定义一个技能接口，所有的英雄都需要实现这个接口，进而实现自己的技能。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ISkill</span> </span>&#123;<br>    <span class="hljs-comment">// 射箭</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">doArchery</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-comment">// 隐袭</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">doInvisible</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-comment">// 沉默</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">doSilent</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-comment">// 眩晕</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">doVertigo</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这里提供了四个技能的接口，包括射箭、隐袭、沉默、眩晕，每个英雄都实现这个接口。接下来实现两个英雄：后羿和廉颇。当然，这里为了说明问题而进行了简化，英雄技能只有三个，与真实游戏中有所差别。</p>
+<p>英雄后裔，在英雄后羿的类中，实现了三个技能，最后一个眩晕的技能是不需要实现的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HeroHouYi</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ISkill</span></span>&#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doArchery</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;后裔的灼日之矢&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doInvisible</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;后裔的隐身技能&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doSilent</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;后裔的沉默技能&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doVertigo</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">// 无此技能的实现</span><br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>英雄廉颇，在英雄廉颇的类中，同样只实现了三个技能，第一个射箭的技能没有实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HeroLianPo</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ISkill</span></span>&#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doArchery</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">// 无此技能的实现</span><br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doInvisible</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;廉颇的隐身技能&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doSilent</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;廉颇的沉默技能&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doVertigo</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;廉颇的眩晕技能&quot;</span>);<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>综上，每个英雄的实现类里都有一个和自己无关的接口实现类，非常不符合设计模式，也不易于维护。因为不仅无法控制外部的调用，还需要维护对应的文档，来说明这个接口不需要实现。如果有更多这样的接口，就会变得非常麻烦。</p>
+<h3 id="接口隔离原则改善代码"><a href="#接口隔离原则改善代码" class="headerlink" title="接口隔离原则改善代码"></a>接口隔离原则改善代码</h3><p>按照接口隔离原则的约定，应该在确保合理的情况下，把接口细分。保证一个松散的结构，也就是把技能拆分出来，每个英雄都可以按需继承实现。</p>
+<p>接下来分别定义四个技能接口，包括射箭（ISkillArchery）、隐身（ISkillInvisible）、沉默（ISkillSilent）、眩晕（ISkillVertigo）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ISkillArchery</span> </span>&#123;<br>    <span class="hljs-comment">// 射箭</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">doArchery</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ISkillInvisible</span> </span>&#123;<br>    <span class="hljs-comment">// 隐袭</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">doInvisible</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ISkillSilent</span> </span>&#123;<br>    <span class="hljs-comment">// 沉默</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">doSilent</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ISkillVertigo</span> </span>&#123;<br>    <span class="hljs-comment">// 眩晕</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">doVertigo</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>有了四个技能细分的接口，英雄的类就可以自由地组合了。</p>
+<p>英雄后羿的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HeroHouYi</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ISkillArchery</span>, <span class="hljs-title">ISkillInvisible</span>, <span class="hljs-title">ISkillSilent</span> </span>&#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doArchery</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;后裔的灼日之矢&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doInvisible</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;后裔的隐身技能&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doSilent</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;后裔的沉默技能&quot;</span>);<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>英雄廉颇的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HeroLianPo</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ISkillInvisible</span>, <span class="hljs-title">ISkillSilent</span>, <span class="hljs-title">ISkillVertigo</span> </span>&#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doInvisible</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;廉颇的隐身技能&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doSilent</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;廉颇的沉默技能&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doVertigo</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;廉颇的眩晕技能&quot;</span>);<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>现在可以看到这两个英雄的类都按需实现了自己需要的技能接口。这样的实现方式就可以避免一些本身不属于自己的技能还需要不断地用文档的方式进行维护，同时提高了代码的可靠性，在别人接手或者修改时，可以降低开发成本和维护风险。</p>
+<h2 id="依赖倒置原则"><a href="#依赖倒置原则" class="headerlink" title="依赖倒置原则"></a>依赖倒置原则</h2><h3 id="依赖倒置原则定义"><a href="#依赖倒置原则定义" class="headerlink" title="依赖倒置原则定义"></a>依赖倒置原则定义</h3><p>依赖倒置原则（Dependence Inversion Principle，DIP）是指在设计代码架构时，高层模块不应该依赖于底层模块，二者都应该依赖于抽象。抽象不应该依赖于细节，而细节应该依赖于抽象。</p>
+<p>依赖倒置原则是实现开闭原则的重要途径之一，它降低了类之间的耦合，提高了系统的稳定性和可维护性，同时这样的代码一般更易读，且便于传承。</p>
+<h3 id="模拟场景-5"><a href="#模拟场景-5" class="headerlink" title="模拟场景"></a>模拟场景</h3><p>在互联网的营销活动中，经常为了拉新和促活，会做一些抽奖活动。这些抽奖活动的规则会随着业务的不断发展而调整，如随机抽奖、权重抽奖等。其中，权重是指用户在当前系统中的一个综合排名，比如活跃度、贡献度等。</p>
+<p>下面模拟出抽奖的一个系统服务，如果是初次搭建这样的系统会怎么实现？这个系统是否有良好的扩展性和可维护性，同时在变动和新增业务时测试的复杂度是否高？这些都是在系统服务设计时需要考虑的问题。</p>
+<h3 id="违背原则方案-5"><a href="#违背原则方案-5" class="headerlink" title="违背原则方案"></a>违背原则方案</h3><p>下面先用最直接的方式，即按照不同的抽奖逻辑定义出不同的接口，让外部的服务调用。</p>
+<p>定义抽奖用户类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BetUser</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> String userName;  <span class="hljs-comment">// 用户姓名</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> userWeight;   <span class="hljs-comment">// 用户权重</span><br><br>    <span class="hljs-comment">// get/set...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这个类就是一个普通的对象类，其中包括了用户姓名和对应的权重，方便满足不同的抽奖方式。</p>
+<p>接下来实现两种不同的抽奖逻辑，在一个类中用两个接口实现， 如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DrawControl</span> </span>&#123;<br><br>    <span class="hljs-comment">// 随机抽取指定数量的用户，作为中奖用户</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;BetUser&gt; <span class="hljs-title">doDrawRandom</span><span class="hljs-params">(List&lt;BetUser&gt; list, <span class="hljs-keyword">int</span> count)</span> </span>&#123;<br>        <span class="hljs-comment">// 集合数量很小直接返回</span><br>        <span class="hljs-keyword">if</span> (list.size() &lt;= count) <span class="hljs-keyword">return</span> list;<br>        <span class="hljs-comment">// 乱序集合</span><br>        Collections.shuffle(list);<br>        <span class="hljs-comment">// 取出指定数量的中奖用户</span><br>        List&lt;BetUser&gt; prizeList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(count);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; count; i++) &#123;<br>            prizeList.add(list.get(i));<br>        &#125;<br>        <span class="hljs-keyword">return</span> prizeList;<br>    &#125;<br><br>    <span class="hljs-comment">// 权重排名获取指定数量的用户，作为中奖用户</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;BetUser&gt; <span class="hljs-title">doDrawWeight</span><span class="hljs-params">(List&lt;BetUser&gt; list, <span class="hljs-keyword">int</span> count)</span> </span>&#123;<br>        <span class="hljs-comment">// 按照权重排序</span><br>        list.sort((o1, o2) -&gt; &#123;<br>            <span class="hljs-keyword">int</span> e = o2.getUserWeight() - o1.getUserWeight();<br>            <span class="hljs-keyword">if</span> (<span class="hljs-number">0</span> == e) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">return</span> e &gt; <span class="hljs-number">0</span> ? <span class="hljs-number">1</span> : -<span class="hljs-number">1</span>;<br>        &#125;);<br>        <span class="hljs-comment">// 取出指定数量的中奖用户</span><br>        List&lt;BetUser&gt; prizeList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(count);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; count; i++) &#123;<br>            prizeList.add(list.get(i));<br>        &#125;<br>        <span class="hljs-keyword">return</span> prizeList;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在这个抽奖逻辑类中包括了两个接口，一个是随机抽奖，另一个是按照权重排序。</p>
+<ul>
+<li>随机抽取好理解，把集合中的元素使用工具包Collections.shuffle() 进行乱序，之后选取三个元素。当然，除了这样的随机抽取方式，还有其他方式。</li>
+<li>按照权重排序，这里使用了list.sort的方法，并按排序逻辑的方式进行自定义排序。最终选择权重最高的前三名作为中奖用户。</li>
+</ul>
+<p>这里使用单元测试的方式，在初始化数据后分别调用两个接口方法进行测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ApiTest</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> Logger logger = LoggerFactory.getLogger(ApiTest.class);<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test_DrawControl</span><span class="hljs-params">()</span></span>&#123;<br>        List&lt;BetUser&gt; betUserList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>        betUserList.add(<span class="hljs-keyword">new</span> BetUser(<span class="hljs-string">&quot;花花&quot;</span>, <span class="hljs-number">65</span>));<br>        betUserList.add(<span class="hljs-keyword">new</span> BetUser(<span class="hljs-string">&quot;豆豆&quot;</span>, <span class="hljs-number">43</span>));<br>        betUserList.add(<span class="hljs-keyword">new</span> BetUser(<span class="hljs-string">&quot;小白&quot;</span>, <span class="hljs-number">72</span>));<br>        betUserList.add(<span class="hljs-keyword">new</span> BetUser(<span class="hljs-string">&quot;笨笨&quot;</span>, <span class="hljs-number">89</span>));<br>        betUserList.add(<span class="hljs-keyword">new</span> BetUser(<span class="hljs-string">&quot;丑蛋&quot;</span>, <span class="hljs-number">10</span>));<br><br>        DrawControl drawControl = <span class="hljs-keyword">new</span> DrawControl();<br>        List&lt;BetUser&gt; prizeRandomUserList = drawControl.doDrawRandom(betUserList, <span class="hljs-number">3</span>);<br>        logger.info(<span class="hljs-string">&quot;随机抽奖，中奖用户名单：&#123;&#125;&quot;</span>, JSON.toJSON(prizeRandomUserList));<br><br>        List&lt;BetUser&gt; prizeWeightUserList = drawControl.doDrawWeight(betUserList, <span class="hljs-number">3</span>);<br>        logger.info(<span class="hljs-string">&quot;权重抽奖，中奖用户名单：&#123;&#125;&quot;</span>, JSON.toJSON(prizeWeightUserList));<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-number">23</span>:<span class="hljs-number">23</span>:<span class="hljs-number">47.933</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.test</span><span class="hljs-selector-class">.ApiTest</span> - 随机抽奖，中奖用户名单：<span class="hljs-selector-attr">[&#123;<span class="hljs-string">&quot;userWeight&quot;</span>:43,<span class="hljs-string">&quot;userName&quot;</span>:<span class="hljs-string">&quot;豆豆&quot;</span>&#125;,&#123;<span class="hljs-string">&quot;userWeight&quot;</span>:10,<span class="hljs-string">&quot;userName&quot;</span>:<span class="hljs-string">&quot;丑蛋&quot;</span>&#125;,&#123;<span class="hljs-string">&quot;userWeight&quot;</span>:89,<span class="hljs-string">&quot;userName&quot;</span>:<span class="hljs-string">&quot;笨笨&quot;</span>&#125;]</span><br><span class="hljs-number">23</span>:<span class="hljs-number">23</span>:<span class="hljs-number">47.973</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.test</span><span class="hljs-selector-class">.ApiTest</span> - 权重抽奖，中奖用户名单：<span class="hljs-selector-attr">[&#123;<span class="hljs-string">&quot;userWeight&quot;</span>:89,<span class="hljs-string">&quot;userName&quot;</span>:<span class="hljs-string">&quot;笨笨&quot;</span>&#125;,&#123;<span class="hljs-string">&quot;userWeight&quot;</span>:72,<span class="hljs-string">&quot;userName&quot;</span>:<span class="hljs-string">&quot;小白&quot;</span>&#125;,&#123;<span class="hljs-string">&quot;userWeight&quot;</span>:65,<span class="hljs-string">&quot;userName&quot;</span>:<span class="hljs-string">&quot;花花&quot;</span>&#125;]</span><br></code></pre></td></tr></table></figure>
+<p>从测试结果上看，程序没有问题，验证结果正常。但是这样实现有什么问题呢？</p>
+<p>如果程序是一次性的、几乎不变的，那么可以不考虑很多的扩展性和可维护性因素；但如果这些程序具有不确定性，或者当业务发展时需要不断地调整和新增，那么这样的实现方式就很不友好了。</p>
+<p>首先，这样的实现方式扩展起来很麻烦，每次扩展都需要新增接口，同时对于调用方来说需要新增调用接口的代码。其次，对于这个服务类来说，随着接口数量的增加，代码行数会不断地暴增，最后难以维护。</p>
+<h3 id="依赖倒置原则改善代码"><a href="#依赖倒置原则改善代码" class="headerlink" title="依赖倒置原则改善代码"></a>依赖倒置原则改善代码</h3><p>既然上述方式不具备良好的扩展性，那么用依赖倒置、面向抽象编程的方式来实现。</p>
+<p>首先定义抽奖功能的接口，任何一个实现方都可以实现自己的抽奖逻辑。</p>
+<p><strong>抽奖接口</strong>：这里只有一个抽奖接口，接口中包括了需要传输的 list 集合，以及中奖用户数量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">IDraw</span> </span>&#123;<br>    <span class="hljs-function">List&lt;BetUser&gt; <span class="hljs-title">prize</span><span class="hljs-params">(List&lt;BetUser&gt; list, <span class="hljs-keyword">int</span> count)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>随机抽奖实现</strong>：这部分随机抽奖逻辑与上面的抽奖方式逻辑是一样的，只不过放到接口实现中了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DrawRandom</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IDraw</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;BetUser&gt; <span class="hljs-title">prize</span><span class="hljs-params">(List&lt;BetUser&gt; list, <span class="hljs-keyword">int</span> count)</span> </span>&#123;<br>        <span class="hljs-comment">// 集合数量很小直接返回</span><br>        <span class="hljs-keyword">if</span> (list.size() &lt;= count) <span class="hljs-keyword">return</span> list;<br>        <span class="hljs-comment">// 乱序集合</span><br>        Collections.shuffle(list);<br>        <span class="hljs-comment">// 取出指定数量的中奖用户</span><br>        List&lt;BetUser&gt; prizeList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(count);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; count; i++) &#123;<br>            prizeList.add(list.get(i));<br>        &#125;<br>        <span class="hljs-keyword">return</span> prizeList;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>权重抽奖实现</strong>：权重抽奖也是一样，把这些都放到自己的接口实现中。这样一来，任何一种抽奖都有自己的实现类，既可以不断地完善，也可以新增。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DrawWeightRank</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IDraw</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;BetUser&gt; <span class="hljs-title">prize</span><span class="hljs-params">(List&lt;BetUser&gt; list, <span class="hljs-keyword">int</span> count)</span> </span>&#123;<br>        <span class="hljs-comment">// 按照权重排序</span><br>        list.sort((o1, o2) -&gt; &#123;<br>            <span class="hljs-keyword">int</span> e = o2.getUserWeight() - o1.getUserWeight();<br>            <span class="hljs-keyword">if</span> (<span class="hljs-number">0</span> == e) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">return</span> e &gt; <span class="hljs-number">0</span> ? <span class="hljs-number">1</span> : -<span class="hljs-number">1</span>;<br>        &#125;);<br>        <span class="hljs-comment">// 取出指定数量的中奖用户</span><br>        List&lt;BetUser&gt; prizeList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(count);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; count; i++) &#123;<br>            prizeList.add(list.get(i));<br>        &#125;<br>        <span class="hljs-keyword">return</span> prizeList;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>创建抽奖服务</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DrawControl</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> IDraw draw;<br><br>    <span class="hljs-comment">//通过构造方法传递依赖关系 </span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">DrawControl</span><span class="hljs-params">(IDraw draw)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.draw = draw;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;BetUser&gt; <span class="hljs-title">doDraw</span><span class="hljs-params">(List&lt;BetUser&gt; betUserList, <span class="hljs-keyword">int</span> count)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> draw.prize(betUserList, count);<br>    &#125;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在这个类中体现了依赖倒置的重要性，可以把任何一种抽奖逻辑传递给这个类。这样实现的好处是可以不断地扩展，但是不需要在外部新增调用接口，降低了一套代码的维护成本，并提高了可扩展性及可维护性。</p>
+<p>单元测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ApiTest</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> Logger logger = LoggerFactory.getLogger(ApiTest.class);<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test_DrawControl</span><span class="hljs-params">()</span> </span>&#123;<br>        List&lt;BetUser&gt; betUserList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br>        betUserList.add(<span class="hljs-keyword">new</span> BetUser(<span class="hljs-string">&quot;花花&quot;</span>, <span class="hljs-number">65</span>));<br>        betUserList.add(<span class="hljs-keyword">new</span> BetUser(<span class="hljs-string">&quot;豆豆&quot;</span>, <span class="hljs-number">43</span>));<br>        betUserList.add(<span class="hljs-keyword">new</span> BetUser(<span class="hljs-string">&quot;小白&quot;</span>, <span class="hljs-number">72</span>));<br>        betUserList.add(<span class="hljs-keyword">new</span> BetUser(<span class="hljs-string">&quot;笨笨&quot;</span>, <span class="hljs-number">89</span>));<br>        betUserList.add(<span class="hljs-keyword">new</span> BetUser(<span class="hljs-string">&quot;丑蛋&quot;</span>, <span class="hljs-number">10</span>));<br><br>        DrawControl drawControl = <span class="hljs-keyword">new</span> DrawControl(<span class="hljs-keyword">new</span> DrawRandom());<br>        List&lt;BetUser&gt; prizeRandomUserList = drawControl.doDraw(betUserList, <span class="hljs-number">3</span>);<br>        logger.info(<span class="hljs-string">&quot;随机抽奖，中奖用户名单：&#123;&#125;&quot;</span>, JSON.toJSON(prizeRandomUserList));<br><br>        drawControl = <span class="hljs-keyword">new</span> DrawControl(<span class="hljs-keyword">new</span> DrawWeightRank());<br>        List&lt;BetUser&gt; prizeWeightUserList = drawControl.doDraw(betUserList, <span class="hljs-number">3</span>);<br>        logger.info(<span class="hljs-string">&quot;权重抽奖，中奖用户名单：&#123;&#125;&quot;</span>, JSON.toJSON(prizeWeightUserList));<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-number">23</span>:<span class="hljs-number">41</span>:<span class="hljs-number">37.070</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.test</span><span class="hljs-selector-class">.ApiTest</span> - 随机抽奖，中奖用户名单：<span class="hljs-selector-attr">[&#123;<span class="hljs-string">&quot;userWeight&quot;</span>:89,<span class="hljs-string">&quot;userName&quot;</span>:<span class="hljs-string">&quot;笨笨&quot;</span>&#125;,&#123;<span class="hljs-string">&quot;userWeight&quot;</span>:72,<span class="hljs-string">&quot;userName&quot;</span>:<span class="hljs-string">&quot;小白&quot;</span>&#125;,&#123;<span class="hljs-string">&quot;userWeight&quot;</span>:10,<span class="hljs-string">&quot;userName&quot;</span>:<span class="hljs-string">&quot;丑蛋&quot;</span>&#125;]</span><br><span class="hljs-number">23</span>:<span class="hljs-number">41</span>:<span class="hljs-number">37.125</span> <span class="hljs-selector-attr">[main]</span> INFO  cn<span class="hljs-selector-class">.bugstack</span><span class="hljs-selector-class">.design</span><span class="hljs-selector-class">.test</span><span class="hljs-selector-class">.ApiTest</span> - 权重抽奖，中奖用户名单：<span class="hljs-selector-attr">[&#123;<span class="hljs-string">&quot;userWeight&quot;</span>:89,<span class="hljs-string">&quot;userName&quot;</span>:<span class="hljs-string">&quot;笨笨&quot;</span>&#125;,&#123;<span class="hljs-string">&quot;userWeight&quot;</span>:72,<span class="hljs-string">&quot;userName&quot;</span>:<span class="hljs-string">&quot;小白&quot;</span>&#125;,&#123;<span class="hljs-string">&quot;userWeight&quot;</span>:65,<span class="hljs-string">&quot;userName&quot;</span>:<span class="hljs-string">&quot;花花&quot;</span>&#125;]</span><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>设计模式笔记（一）六大设计原则</div>
+      <div>http://yoursite.com/2022/08/19/设计模式笔记（一）六大设计原则/</div>
+    </div>
+    <div class="license-meta">
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年8月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" title="设计模式笔记（二）创建型模式">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">设计模式笔记（二）创建型模式</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/14/JDK8%E6%96%B0%E7%89%B9%E6%80%A7%E7%AC%94%E8%AE%B0/" title="JDK8新特性笔记">
+                        <span class="hidden-mobile">JDK8新特性笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
