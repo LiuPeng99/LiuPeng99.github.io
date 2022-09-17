@@ -23,11 +23,11 @@
 <meta property="og:site_name">
 <meta property="og:description" content="​    Sentinel解决了主从架构故障自动迁移的问题，但是Master主节点的写能力和存储能力依旧受限。 使用Redis的集群cluster就是为了解决单机Redis容量有限的问题，将数据按一定的规则分配到多台机器 一、什么是集群Cluster 集群Cluster介绍： 是一组相互独立的、通过高速网络互联的计算机，它们构成了一个组，并以单一系统的模式加以管理 采用无中心结构，每个节点保存数据">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/image-1.png">
+<meta property="og:image" content="http://yoursite.com/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/Redis集群Cluster/image-1.png">
 <meta property="article:published_time" content="2022-03-22T10:17:27.896Z">
 <meta property="article:modified_time" content="2022-03-23T08:05:43.999Z">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://yoursite.com/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/image-1.png">
+<meta name="twitter:image" content="http://yoursite.com/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/Redis集群Cluster/image-1.png">
   
   
   
@@ -69,7 +69,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"JAVA"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MktjiUfWXW9zem7A0x05gCWO-gzGzoHsz","app_key":"lEDgafWi9K8r0wRObdJ78mOw","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -79,6 +79,23 @@
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
 
 
   
@@ -324,7 +341,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
+<p><img src="Redis集群Cluster/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
 <ul>
 <li>使用哈希槽的好处就在于可以方便的添加或移除节点。<ul>
 <li>当需要增加节点时，只需要把其他节点的某些哈希槽挪到新节点就可以了</li>
@@ -674,6 +691,8 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

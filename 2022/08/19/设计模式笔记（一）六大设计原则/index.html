@@ -23,11 +23,11 @@
 <meta property="og:site_name">
 <meta property="og:description" content="六大设计原则单一职责原则单一职责原理定义单一职责原则（Single Responsibility Principle，SRP）又称单一功能原则，是面向对象的五个基本原则（SOLID）之一。它规定一个类应该只有一个发生变化的原因。 如果需要开发的一个功能需求不是一次性的，且随着业务发展的不断变化而变化，那么当一个Class类负责超过两个及以上的职责时， 那么在需求的不断迭代、实现类持续扩张的情况下，">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/image-1.png">
+<meta property="og:image" content="http://yoursite.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/设计模式笔记（一）六大设计原则/image-1.png">
 <meta property="article:published_time" content="2022-08-19T09:36:31.428Z">
-<meta property="article:modified_time" content="2022-08-19T15:43:24.654Z">
+<meta property="article:modified_time" content="2022-08-20T03:16:11.299Z">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://yoursite.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/image-1.png">
+<meta name="twitter:image" content="http://yoursite.com/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/设计模式笔记（一）六大设计原则/image-1.png">
   
   
   
@@ -69,7 +69,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"JAVA"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MktjiUfWXW9zem7A0x05gCWO-gzGzoHsz","app_key":"lEDgafWi9K8r0wRObdJ78mOw","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -79,6 +79,23 @@
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
 
 
   
@@ -283,7 +300,7 @@
 <li>VIP用户（属于付费用户），既可以观看 1080P 蓝光视频，又可以关闭或跳过广告</li>
 </ul>
 <h3 id="违背原则方案"><a href="#违背原则方案" class="headerlink" title="违背原则方案"></a>违背原则方案</h3><p>下面根据需求场景直接编码，实现一个最简单的基本功能，即根 据不同的用户类型，判断用户可以观看视频的类型：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">VideoUserService</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">serveGrade</span><span class="hljs-params">(String userType)</span></span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;VIP用户&quot;</span>.equals(userType))&#123;<br>            System.out.println(<span class="hljs-string">&quot;VIP用户，视频1080P蓝光&quot;</span>);<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;普通用户&quot;</span>.equals(userType))&#123;<br>            System.out.println(<span class="hljs-string">&quot;普通用户，视频720P超清&quot;</span>);<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;访客用户&quot;</span>.equals(userType))&#123;<br>            System.out.println(<span class="hljs-string">&quot;访客用户，视频480P高清&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">VideoUserService</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">serveGrade</span><span class="hljs-params">(String userType)</span></span>&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;VIP用户&quot;</span>.equals(userType))&#123;<br>            System.out.println(<span class="hljs-string">&quot;VIP用户，视频1080P蓝光&quot;</span>);<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;普通用户&quot;</span>.equals(userType))&#123;<br>            System.out.println(<span class="hljs-string">&quot;普通用户，视频720P超清&quot;</span>);<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;访客用户&quot;</span>.equals(userType))&#123;<br>            System.out.println(<span class="hljs-string">&quot;访客用户，视频480P高清&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>如上，实现业务功能逻辑的方式非常简单，暂时也不会出什么问题。但是这一个类里包含着多个不同的行为，也就是多种用户职责。如果在这样的类上继续扩展功能或添加逻辑，就会显得非常臃肿。</p>
 <p>接下来通过单元测试，再看这个类功能的使用：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test_serveGrade</span><span class="hljs-params">()</span> </span>&#123;<br>    VideoUserService service = <span class="hljs-keyword">new</span> VideoUserService();<br>    service.serveGrade(<span class="hljs-string">&quot;VIP用户&quot;</span>);<br>    service.serveGrade(<span class="hljs-string">&quot;普通用户&quot;</span>);<br>    service.serveGrade(<span class="hljs-string">&quot;访客用户&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -293,7 +310,7 @@
 <h3 id="单一职责原则改善代码"><a href="#单一职责原则改善代码" class="headerlink" title="单一职责原则改善代码"></a>单一职责原则改善代码</h3><p>视频播放是视频网站的核心功能，当核心功能开发完成后，就需要不断地完善用户权限。这样才能更好地运营一家视频网站。 </p>
 <p>在模拟用户场景中，其实就是在不断地建设用户权益。针对不同的用户类型提供差异化服务，既满足获客需求，又可以让部分用户选择付费。 </p>
 <p>为了满足这样不断迭代的需求，就不能使用一个类把所有职责行为混为一谈，而是需要提供一个上层的接口类，对不同的差异化用户给出单独的实现类，拆分各自的职责边界。</p>
-<p><img src="/2022/08/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E5%85%AD%E5%A4%A7%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/image-1.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="设计模式笔记（一）六大设计原则/image-1.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p><strong>定义出上层接口 IVideoUserService</strong>，统一定义需要实现的功能，包括：视频清晰级别接口definition（）、广告播放方式接口advertisement（）。三种不同类型的用户就可以分别实现自己的服务类，做到职责统一：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">IVideoUserService</span> </span>&#123;<br>    <span class="hljs-comment">//视频清晰级别：480P、720P、1080P</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">definition</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-comment">//广告播放方式：无广告、有广告</span><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">advertisement</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><strong>实现类，访客用户</strong>。这个类实现的是访客用户在视频网站中的形态，比如这类用户只能观看480P高清视频，同时需要观看广告：</p>
@@ -794,6 +811,8 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

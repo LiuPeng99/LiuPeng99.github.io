@@ -67,7 +67,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"JAVA"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MktjiUfWXW9zem7A0x05gCWO-gzGzoHsz","app_key":"lEDgafWi9K8r0wRObdJ78mOw","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -77,6 +77,23 @@
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
 
 
   
@@ -310,7 +327,7 @@
 </li>
 <li><h3 id="持久化加载规则："><a href="#持久化加载规则：" class="headerlink" title="持久化加载规则："></a>持久化加载规则：</h3><p>​    如果只开启了 <code>RDB</code> 持久化，<code>Redis</code> 启动时只会加载 <code>RDB</code> 文件（<code>dump.rdb</code>），进行数据恢复。</p>
 </li>
-<li><h3 id="核心配置redis-conf"><a href="#核心配置redis-conf" class="headerlink" title="核心配置redis.conf"></a>核心配置redis.conf</h3><figure class="highlight vala"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></div></td><td class="code"><pre><code class="hljs vala"><span class="hljs-meta">#任何ip可以访问</span><br>bind <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><br><br><span class="hljs-meta">#守护进程</span><br>daemonize yes<br><br><span class="hljs-meta">#密码</span><br>requirepass <span class="hljs-number">123456</span><br><br><span class="hljs-meta">#日志文件</span><br>logfile <span class="hljs-string">&quot;/usr/local/redis/log/redis.log&quot;</span><br><br><span class="hljs-meta">#持久化文件名称</span><br>dbfilename persistence.rdb<br><br><span class="hljs-meta">#持久化文件存储路径</span><br>dir /usr/local/redis/data<br><br><span class="hljs-meta">#持久化策略, 10秒内有个1个key改动，执⾏快照</span><br>save <span class="hljs-number">10</span> <span class="hljs-number">1</span><br><br><span class="hljs-meta">#导出rdb数据库文件压缩字符串和对象,默认是yes，会浪费CPU但是节省空间</span><br>rdbcompression yes<br><br><span class="hljs-meta">#导入时是否检查</span><br>rdbchecksum yes<br></code></pre></td></tr></table></figure>
+<li><h3 id="核心配置redis-conf"><a href="#核心配置redis-conf" class="headerlink" title="核心配置redis.conf"></a>核心配置redis.conf</h3><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs vala"><span class="hljs-meta">#任何ip可以访问</span><br>bind <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><br><br><span class="hljs-meta">#守护进程</span><br>daemonize yes<br><br><span class="hljs-meta">#密码</span><br>requirepass <span class="hljs-number">123456</span><br><br><span class="hljs-meta">#日志文件</span><br>logfile <span class="hljs-string">&quot;/usr/local/redis/log/redis.log&quot;</span><br><br><span class="hljs-meta">#持久化文件名称</span><br>dbfilename persistence.rdb<br><br><span class="hljs-meta">#持久化文件存储路径</span><br>dir /usr/local/redis/data<br><br><span class="hljs-meta">#持久化策略, 10秒内有个1个key改动，执⾏快照</span><br>save <span class="hljs-number">10</span> <span class="hljs-number">1</span><br><br><span class="hljs-meta">#导出rdb数据库文件压缩字符串和对象,默认是yes，会浪费CPU但是节省空间</span><br>rdbcompression yes<br><br><span class="hljs-meta">#导入时是否检查</span><br>rdbchecksum yes<br></code></pre></td></tr></table></figure>
 </li>
 </ul>
 <h1 id="三、AOF持久化"><a href="#三、AOF持久化" class="headerlink" title="三、AOF持久化"></a>三、AOF持久化</h1><ul>
@@ -714,6 +731,8 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

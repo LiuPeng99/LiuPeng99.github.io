@@ -67,7 +67,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"JAVA"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MktjiUfWXW9zem7A0x05gCWO-gzGzoHsz","app_key":"lEDgafWi9K8r0wRObdJ78mOw","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -77,6 +77,23 @@
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
 
 
   
@@ -294,7 +311,7 @@
 </tr>
 <tr>
 <td style="text-align:left">TTL key</td>
-<td style="text-align:left">以秒为单位返回 <code>key</code> 的剩余过期时间<br>用户客户端检查 <code>key</code> 还可以存在多久</td>
+<td style="text-align:left">以秒为单位返回 <code>key</code> 的剩余过期时间<br />用户客户端检查 <code>key</code> 还可以存在多久</td>
 </tr>
 </tbody>
 </table>
@@ -417,15 +434,15 @@
 </tr>
 <tr>
 <td>LRANGE key start stop</td>
-<td>返回列表中指定区间内的元素，区间以偏移量 START 和 END 指定。<br>其中 0 表示列表的第一个元素，-1 表示列表的最后一个元素</td>
+<td>返回列表中指定区间内的元素，区间以偏移量 START 和 END 指定。<br />其中 0 表示列表的第一个元素，-1 表示列表的最后一个元素</td>
 </tr>
 <tr>
 <td>BRPOP key [key …] timeout</td>
-<td>从给的列表参数中按顺序检查第一个不空的列表，然后从该列表的尾部移除元素。<br>如果列表中没有元素则会阻塞列表直到等待超时或发现可弹出的元素为止。</td>
+<td>从给的列表参数中按顺序检查第一个不空的列表，然后从该列表的尾部移除元素。<br />如果列表中没有元素则会阻塞列表直到等待超时或发现可弹出的元素为止。</td>
 </tr>
 <tr>
 <td>LREM key count element</td>
-<td>从列表 key 中删除前 count 个值等于 <code>element</code> 的元素<br>count &gt; 0: 从头到尾删除值为 value 的元素<br> count &lt; 0: 从尾到头删除值为 value 的元素<br> count = 0: 移除所有值为 value 的元素</td>
+<td>从列表 key 中删除前 count 个值等于 <code>element</code> 的元素<br />count &gt; 0: 从头到尾删除值为 value 的元素<br /> count &lt; 0: 从尾到头删除值为 value 的元素<br /> count = 0: 移除所有值为 value 的元素</td>
 </tr>
 </tbody>
 </table>
@@ -467,11 +484,11 @@
 <tbody>
 <tr>
 <td>HSET key field value [field value …]</td>
-<td>将哈希表 <code>key</code> 中的 <code>field</code> 域的值设置为 <code>value</code><br>从 Redis 4.0 起，HSET 可以一次设置一个或多个 <code>field</code>/<code>value</code> 对</td>
+<td>将哈希表 <code>key</code> 中的 <code>field</code> 域的值设置为 <code>value</code><br />从 Redis 4.0 起，HSET 可以一次设置一个或多个 <code>field</code>/<code>value</code> 对</td>
 </tr>
 <tr>
 <td>HMSET key field value [field value …]</td>
-<td>同时将多个 <code>field-value</code> (域-值)对设置到哈希表 <code>key</code> 中<br>此命令会覆盖哈希表中已存在的域</td>
+<td>同时将多个 <code>field-value</code> (域-值)对设置到哈希表 <code>key</code> 中<br />此命令会覆盖哈希表中已存在的域</td>
 </tr>
 <tr>
 <td>HGET key field</td>
@@ -970,6 +987,8 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

@@ -23,23 +23,23 @@
 <meta property="og:site_name">
 <meta property="og:description" content="一、运行时数据区JVM的内存区域是如何划分的？ 内存区域一共分为5个区域，其中方法区和堆是所有线程共享的区域，随着虚拟机的创建而创建，虚拟机的结束而销毁，而虚拟机栈、本地方法栈、程序计数器都是线程之间相互隔离的，每个线程都有一个自己的区域，并且线程启动时会自动创建，结束之后会自动销毁。内存划分完成之后，我们的JVM执行引擎和本地库接口，也就是Java程序开始运行之后就会根据分区合理地使用对应区域的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-1.png">
-<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-2.png">
-<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-3.png">
-<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-4.png">
-<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-5.png">
-<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-6.png">
-<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-7.png">
-<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-8.png">
-<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-9.png">
-<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-10.png">
-<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-11.png">
-<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-12.png">
-<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-13.png">
+<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM内存区域/image-1.png">
+<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM内存区域/image-2.png">
+<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM内存区域/image-3.png">
+<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM内存区域/image-4.png">
+<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM内存区域/image-5.png">
+<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM内存区域/image-6.png">
+<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM内存区域/image-7.png">
+<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM内存区域/image-8.png">
+<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM内存区域/image-9.png">
+<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM内存区域/image-10.png">
+<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM内存区域/image-11.png">
+<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM内存区域/image-12.png">
+<meta property="og:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM内存区域/image-13.png">
 <meta property="article:published_time" content="2022-07-23T15:55:51.048Z">
 <meta property="article:modified_time" content="2022-07-24T08:49:50.585Z">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-1.png">
+<meta name="twitter:image" content="http://yoursite.com/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/JVM内存区域/image-1.png">
   
   
   
@@ -81,7 +81,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"JAVA"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MktjiUfWXW9zem7A0x05gCWO-gzGzoHsz","app_key":"lEDgafWi9K8r0wRObdJ78mOw","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -91,6 +91,23 @@
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
 
 
   
@@ -285,7 +302,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="一、运行时数据区"><a href="#一、运行时数据区" class="headerlink" title="一、运行时数据区"></a>一、运行时数据区</h1><h2 id="JVM的内存区域是如何划分的？"><a href="#JVM的内存区域是如何划分的？" class="headerlink" title="JVM的内存区域是如何划分的？"></a>JVM的内存区域是如何划分的？</h2><p><img src="/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-1.png" srcset="/img/loading.gif" lazyload alt></p>
+                <h1 id="一、运行时数据区"><a href="#一、运行时数据区" class="headerlink" title="一、运行时数据区"></a>一、运行时数据区</h1><h2 id="JVM的内存区域是如何划分的？"><a href="#JVM的内存区域是如何划分的？" class="headerlink" title="JVM的内存区域是如何划分的？"></a>JVM的内存区域是如何划分的？</h2><p><img src="JVM内存区域/image-1.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p>内存区域一共分为5个区域，其中方法区和堆是所有线程共享的区域，随着虚拟机的创建而创建，虚拟机的结束而销毁，而虚拟机栈、本地方法栈、程序计数器都是线程之间相互隔离的，每个线程都有一个自己的区域，并且线程启动时会自动创建，结束之后会自动销毁。内存划分完成之后，我们的JVM执行引擎和本地库接口，也就是Java程序开始运行之后就会根据分区合理地使用对应区域的内存了。</p>
 <h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>​    程序计数器是一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器；</p>
 <p>​    字节码解释器工作时通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等功能都需要依赖这个计数器来完成</p>
@@ -300,13 +317,13 @@
 <h3 id="Java虚拟机栈"><a href="#Java虚拟机栈" class="headerlink" title="Java虚拟机栈"></a>Java虚拟机栈</h3><p>​    Java虚拟机栈是JVM运行时数据区域的一个核心，除了Native方法外，其他所有的Java方法都是通过Java虚拟机栈来实现的；</p>
 <p>​    方法调用的数据需要通过Java虚拟机栈进行传递，每次方法时调用都会有一个对应的栈帧被压入栈，每个方法调用结束后，都会有一个栈帧被弹出；</p>
 <p>​    栈由一个个栈帧组成，而每个栈帧中都拥有：局部变量表、操作数栈、动态链接、方法返回地址。和数据结构上的栈类似，两者都是先进后出的数据结构，只支持出栈和入栈两种操作</p>
-<p><img src="/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-2.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="JVM内存区域/image-2.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <ul>
 <li><strong>局部变量表</strong> 主要存放了编译期可知的各种数据类型（byte、short、int、long、float、double、char、boolean）、对象引用（reference 类型，它不同于对象本身，可能是一个指向对象起始地址的引用指针，也可能是指向一个代表对象的句柄或其他与此对象相关的位置）</li>
 <li><strong>操作数栈</strong> 主要作为方法调用的中转站使用，用于存放方法执行过程中产生的中间计算结果。另外，计算过程中产生的临时变量也会放在操作数栈中</li>
 <li><strong>动态链接</strong> 主要服务一个方法需要调用其他方法的场景。在Java源文件被编译成字节码文件时，所有的变量和方法引用都作为符号引用（Symbilic Reference）保证在Class 文件的常量池里。当一个方法要调用其他方法时，需要将常量池中指向方法的符号引用转换为其在内存地址中的直接引用。动态链接的作用就是为了将符号引用转换为调用方法的直接引用</li>
 </ul>
-<p><img src="/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-3.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="JVM内存区域/image-3.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <ul>
 <li><strong>方法出口</strong> Java 方法有两种返回方式，一种是 return 语句正常返回，一种是抛出异常。不管哪种返回方式，都会导致栈帧被弹出。也就是说， <strong>栈帧随着方法调用而创建，随着方法结束而销毁。无论方法正常完成还是异常完成都算作方法结束。</strong></li>
 </ul>
@@ -339,7 +356,7 @@
 <li>永久代(Permanent Generation)</li>
 </ol>
 <p>下图所示的 Eden 区、两个 Survivor 区 S0 和 S1 都属于新生代，中间一层属于老年代，最下面一层属于永久代。</p>
-<p><img src="/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-4.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="JVM内存区域/image-4.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p><strong>JDK 8 版本之后 PermGen(永久代) 已被 Metaspace(元空间) 取代，元空间使用的是直接内存</strong></p>
 <blockquote>
 <p>堆这里最容易出现的就是 <code>OutOfMemoryError</code> 错误，并且出现这种错误之后的表现形式还会有几种，比如：</p>
@@ -350,13 +367,13 @@
 </ol>
 </blockquote>
 <h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>​    方法区是各个线程共享的内存区域，在虚拟机启动时创建。当虚拟机要使用一个类时，它需要读取并解析 Class 文件获取相关信息，再将信息存入到方法区。方法区会存储已被虚拟机加载的 <strong>类信息、字段信息、方法信息、常量、静态变量、JIT代码缓存等数据</strong>。</p>
-<p><img src="/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-5.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="JVM内存区域/image-5.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p>​    <strong>虽然Java虚拟机规范把方法区描述为堆的一个逻辑部分，但是它却有一个别名叫做Non-Heap(非堆)，目的是与Java堆进行区分。</strong></p>
 <p>​    <strong>方法区和永久代以及元空间是什么关系呢？</strong> 方法区和永久代以及元空间的关系很像 Java 中接口和类的关系，类实现了接口，这里的类就可以看作是永久代和元空间，接口可以看作是方法区，也就是说永久代以及元空间是 HotSpot 虚拟机对虚拟机规范中方法区的两种实现方式。</p>
 <blockquote>
 <p><strong>注意</strong>：永久代是 JDK 1.8 之前的方法区实现，JDK 1.8 及以后方法区的实现变成了元空间。</p>
 </blockquote>
-<p><img src="/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-6.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="JVM内存区域/image-6.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p><strong>为什么要将永久代 (PermGen) 替换为元空间 (MetaSpace) 呢?</strong></p>
 <p>1、整个永久代有一个 JVM 本身设置的固定大小上限，无法进行调整，而元空间使用的是直接内存，受本机可用内存的限制，虽然元空间仍旧可能溢出，但是比原来出现的几率会更小。</p>
 <blockquote>
@@ -367,7 +384,7 @@
 <p>3、在 JDK8，合并 HotSpot 和 JRockit 的代码时, JRockit 从来没有一个叫永久代的东西, 合并之后就没有必要额外的设置这么一个永久代的地方了。</p>
 <p><strong>方法区常用参数有哪些？</strong></p>
 <p>JDK 1.8 之前永久代还没被彻底移除的时候通常通过下面这些参数来调节方法区大小。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs java">-XX:PermSize=N <span class="hljs-comment">//方法区 (永久代) 初始大小</span><br>-XX:MaxPermSize=N <span class="hljs-comment">//方法区 (永久代) 最大大小,超过这个值将会抛出 OutOfMemoryError 异常:java.lang.OutOfMemoryError: PermGen</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">-XX:PermSize=N <span class="hljs-comment">//方法区 (永久代) 初始大小</span><br>-XX:MaxPermSize=N <span class="hljs-comment">//方法区 (永久代) 最大大小,超过这个值将会抛出 OutOfMemoryError 异常:java.lang.OutOfMemoryError: PermGen</span><br></code></pre></td></tr></table></figure>
 <p>相对而言，垃圾收集行为在这个区域是比较少出现的，但并非数据进入方法区后就“永久存在”了。</p>
 <p>JDK 1.8 的时候，方法区（HotSpot 的永久代）被彻底移除了（JDK1.7 就已经开始了），取而代之是元空间，元空间使用的是直接内存。下面是一些常用参数：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">-XX:MetaspaceSize=N <span class="hljs-comment">//设置 Metaspace 的初始（和最小大小）</span><br>-XX:MaxMetaspaceSize=N <span class="hljs-comment">//设置 Metaspace 的最大大小</span><br></code></pre></td></tr></table></figure>
@@ -388,13 +405,13 @@
 <ul>
 <li><strong>JDK1.6 字符串常量池存放在永久代。</strong></li>
 </ul>
-<p><img src="/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-7.png" srcset="/img/loading.gif" lazyload alt="image-7"></p>
+<p><img src="JVM内存区域/image-7.png" srcset="/img/loading.gif" lazyload alt="image-7"></p>
 <ul>
 <li><strong>JDK1.7 字符串常量池和静态变量从永久代移动了 Java 堆中。</strong></li>
 </ul>
-<p><img src="/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-8.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="JVM内存区域/image-8.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p><strong>JDK1.8 放弃永久代，采用元空间。</strong></p>
-<p><img src="/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-9.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="JVM内存区域/image-9.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p><strong>JDK 1.7 为什么要将字符串常量池移动到堆中？</strong></p>
 <p>主要是因为永久代（方法区实现）的 GC 回收效率太低，只有在整堆收集 (Full GC)的时候才会被执行 GC。Java 程序中通常会有大量的被创建的字符串等待回收，将字符串常量池放到堆中，能够更高效及时地回收字符串内存。</p>
 <h3 id="直接内存"><a href="#直接内存" class="headerlink" title="直接内存"></a>直接内存</h3><p>直接内存（堆外内存）并不是虚拟机运行时数据区的一部分，也不是虚拟机规范中定义的内存区域，但是这部分内存也被频繁地使用。需要我们自行去申请和释放，而且也可能导致 <code>OutOfMemoryError</code> 错误出现。</p>
@@ -402,7 +419,7 @@
 <p>JDK1.4 中新加入的 <strong>NIO(New Input/Output) 类</strong>，引入了一种基于<strong>通道（Channel）与缓存区（Buffer）的 I/O 方式，它可以直接使用 Native 函数库直接分配堆外内存，然后通过一个存储在 Java 堆中的 DirectByteBuffer 对象作为这块内存的引用进行操作。这样就能在一些场景中显著提高性能，因为避免了在 Java 堆和 Native 堆之间来回复制数据</strong>。</p>
 <p>本机直接内存的分配不会受到 Java 堆的限制，但是，既然作为内存就会受到本机总内存大小以及处理器寻址空间的限制。</p>
 <h1 id="二、HotSpot-虚拟机对象"><a href="#二、HotSpot-虚拟机对象" class="headerlink" title="二、HotSpot 虚拟机对象"></a>二、HotSpot 虚拟机对象</h1><h2 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h2><p>对象创建的流程图如下：</p>
-<p><img src="/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-10.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="JVM内存区域/image-10.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <ol>
 <li><p><strong>类加载检查</strong></p>
 <p>虚拟机遇到一条new指令时，首先检查这个指令的参数是否能在常量池中定位到这个类的符号引用，并且检查这个符号引用代表的类是否已经被加载、解析、初始化。如果没有，则必须先执行相应的类加载过程。</p>
@@ -443,7 +460,7 @@
 </li>
 </ol>
 <h2 id="对象的内存布局"><a href="#对象的内存布局" class="headerlink" title="对象的内存布局"></a>对象的内存布局</h2><p>对象在内存中存储布局主要分为对象头，实例数据和对齐填充三部分。</p>
-<p><img src="/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-11.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="JVM内存区域/image-11.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <ul>
 <li><p><strong>对象头</strong></p>
 <p>对象头主要包含对象自身的<strong>运行时数据</strong>(也就是图中Mark Word)，<strong>类型指针</strong>(图中的Class Pointer，指向对象所属的类)。如果对象是数组，还需要包含数组长度(否则无法确定数组对象的大小)。</p>
@@ -464,11 +481,11 @@
 <ul>
 <li><p><strong>句柄</strong></p>
 <p>如果使用句柄，那么 Java 堆中将会划分出一块内存来作为句柄池，reference 中存储的就是对象的句柄地址，而句柄中包含了对象实例数据与对象类型数据各自的具体地址信息。</p>
-<p><img src="/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-12.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="JVM内存区域/image-12.png" srcset="/img/loading.gif" lazyload alt=""></p>
 </li>
 <li><p><strong>直接指针</strong></p>
 <p>如果使用直接指针，那么 reference 中存储的直接就是对象的地址</p>
-<p><img src="/2022/07/23/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/image-13.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="JVM内存区域/image-13.png" srcset="/img/loading.gif" lazyload alt=""></p>
 </li>
 </ul>
 <p>两种方式的对比：</p>
@@ -793,6 +810,8 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

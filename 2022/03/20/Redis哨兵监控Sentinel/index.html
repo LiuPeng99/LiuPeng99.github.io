@@ -23,15 +23,15 @@
 <meta property="og:site_name">
 <meta property="og:description" content="在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费时费力，还会造成一段时间内服务不可用。 一、什么是Sentinel哨兵模式 Sentinel哨兵模式介绍：  哨兵是Redis的一种运行模式，它专注于对Redis实例（主节点、从节点）运行状态的监控，并能够在主节点发生故障时通过一系列的机制实现选主及主从切换，实现故障转移，确保整个Redis系统的可用性。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-1.png">
-<meta property="og:image" content="http://yoursite.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-2.png">
-<meta property="og:image" content="http://yoursite.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-3.png">
-<meta property="og:image" content="http://yoursite.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-4.png">
-<meta property="og:image" content="http://yoursite.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-5.png">
+<meta property="og:image" content="http://yoursite.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/Redis哨兵监控Sentinel/image-1.png">
+<meta property="og:image" content="http://yoursite.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/Redis哨兵监控Sentinel/image-2.png">
+<meta property="og:image" content="http://yoursite.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/Redis哨兵监控Sentinel/image-3.png">
+<meta property="og:image" content="http://yoursite.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/Redis哨兵监控Sentinel/image-4.png">
+<meta property="og:image" content="http://yoursite.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/Redis哨兵监控Sentinel/image-5.png">
 <meta property="article:published_time" content="2022-03-20T05:29:49.335Z">
 <meta property="article:modified_time" content="2022-03-20T12:39:16.701Z">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://yoursite.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-1.png">
+<meta name="twitter:image" content="http://yoursite.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/Redis哨兵监控Sentinel/image-1.png">
   
   
   
@@ -73,7 +73,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"JAVA"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MktjiUfWXW9zem7A0x05gCWO-gzGzoHsz","app_key":"lEDgafWi9K8r0wRObdJ78mOw","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -83,6 +83,23 @@
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
 
 
   
@@ -296,7 +313,7 @@
 </li>
 </ul>
 <p>一般是使用多个哨兵进行监控，各个哨兵之间还会进行监控，形成多哨兵模式</p>
-<p><img src="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
+<p><img src="Redis哨兵监控Sentinel/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
 <h2 id="二、多哨兵模式介绍："><a href="#二、多哨兵模式介绍：" class="headerlink" title="二、多哨兵模式介绍："></a>二、多哨兵模式介绍：</h2><ul>
 <li>主观下线（Subjectively Down， 简称 SDOWN）<ul>
 <li>是单个 Sentinel 实例对服务器做出的下线判断，比如网络问题接收不到通知等</li>
@@ -304,7 +321,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-2.png" srcset="/img/loading.gif" lazyload alt="image-2"></p>
+<p><img src="Redis哨兵监控Sentinel/image-2.png" srcset="/img/loading.gif" lazyload alt="image-2"></p>
 <ul>
 <li>客观下线（Objectively Down， 简称 ODOWN）<ul>
 <li>指的是多个 Sentinel 实例在对同一个服务器做出 SDOWN 判断， 并且通过 SENTINEL is-master-down-by-addr 命令互相交流之后， 得出的服务器下线判断</li>
@@ -313,7 +330,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-3.png" srcset="/img/loading.gif" lazyload alt="image-3"></p>
+<p><img src="Redis哨兵监控Sentinel/image-3.png" srcset="/img/loading.gif" lazyload alt="image-3"></p>
 <ul>
 <li>仲裁 quorum<ul>
 <li>Sentinel 在给定的时间范围内， 从其他 Sentinel 那里接收到了【足够数量】的主服务器下线报告， 那么 Sentinel 就会将<strong>主服务器</strong>的状态从主观下线改变为客观下线</li>
@@ -331,11 +348,11 @@
 </ul>
 </li>
 </ul>
-<p><img src="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-4.png" srcset="/img/loading.gif" lazyload alt="image-4"></p>
+<p><img src="Redis哨兵监控Sentinel/image-4.png" srcset="/img/loading.gif" lazyload alt="image-4"></p>
 <ul>
 <li><strong>那么sentinel是如何选择到底让哪一个从节点成为新的主节点呢？</strong></li>
 </ul>
-<p><img src="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-5.png" srcset="/img/loading.gif" lazyload alt="image-5"></p>
+<p><img src="Redis哨兵监控Sentinel/image-5.png" srcset="/img/loading.gif" lazyload alt="image-5"></p>
 
                 
               </div>
@@ -651,6 +668,8 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

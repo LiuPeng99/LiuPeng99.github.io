@@ -67,7 +67,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"JAVA"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MktjiUfWXW9zem7A0x05gCWO-gzGzoHsz","app_key":"lEDgafWi9K8r0wRObdJ78mOw","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -77,6 +77,23 @@
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
 
 
   
@@ -281,7 +298,7 @@
 </li>
 <li><h2 id="配置锁过期时间-EXPIRE-key-seconds"><a href="#配置锁过期时间-EXPIRE-key-seconds" class="headerlink" title="配置锁过期时间 EXPIRE key seconds"></a>配置锁过期时间 EXPIRE key seconds</h2><p>客户端奔溃或者网络中断，资源将会永远被锁住,即死锁，因此需要给key配置过期时间，以保证即使没有被显式释放，这把锁也要在一定时间后自动释放</p>
 </li>
-<li><h2 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h2><figure class="highlight processing"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><pre><code class="hljs processing">lockA()&#123;<br>	<span class="hljs-keyword">String</span> <span class="hljs-built_in">key</span> = <span class="hljs-string">&quot;lock_01&quot;</span><br>	<span class="hljs-keyword">if</span>（setnx（<span class="hljs-built_in">key</span>，value） == <span class="hljs-number">1</span>）&#123;<br>		<span class="hljs-comment">//设置锁的过期时间为60秒</span><br>    	expire(<span class="hljs-built_in">key</span>,<span class="hljs-number">60</span>,TimeUnit.MILLISECONDS)<br>    	<span class="hljs-keyword">try</span> &#123;<br>        	<span class="hljs-comment">//做对应的业务逻辑</span><br>    	&#125; <span class="hljs-keyword">finally</span> &#123;<br>			del(<span class="hljs-built_in">key</span>)<br>    	&#125;<br>	&#125;<span class="hljs-keyword">else</span>&#123;<br>  		<span class="hljs-comment">//睡眠100毫秒，然后自旋调用本方法</span><br>  		lockA()<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<li><h2 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h2><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs processing">lockA()&#123;<br>	<span class="hljs-keyword">String</span> <span class="hljs-built_in">key</span> = <span class="hljs-string">&quot;lock_01&quot;</span><br>	<span class="hljs-keyword">if</span>（setnx（<span class="hljs-built_in">key</span>，value） == <span class="hljs-number">1</span>）&#123;<br>		<span class="hljs-comment">//设置锁的过期时间为60秒</span><br>    	expire(<span class="hljs-built_in">key</span>,<span class="hljs-number">60</span>,TimeUnit.MILLISECONDS)<br>    	<span class="hljs-keyword">try</span> &#123;<br>        	<span class="hljs-comment">//做对应的业务逻辑</span><br>    	&#125; <span class="hljs-keyword">finally</span> &#123;<br>			del(<span class="hljs-built_in">key</span>)<br>    	&#125;<br>	&#125;<span class="hljs-keyword">else</span>&#123;<br>  		<span class="hljs-comment">//睡眠100毫秒，然后自旋调用本方法</span><br>  		lockA()<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
 </ul>
 <h2 id="思考：上述过程存在什么问题？🤔"><a href="#思考：上述过程存在什么问题？🤔" class="headerlink" title="思考：上述过程存在什么问题？🤔"></a>思考：上述过程存在什么问题？🤔</h2><h3 id="问题1-多命令之间不是原子性操作"><a href="#问题1-多命令之间不是原子性操作" class="headerlink" title="问题1.多命令之间不是原子性操作"></a>问题1.多命令之间不是原子性操作</h3><p>如果在 setnx 之后执行 expire 之前进程意外 crash 或者要重启维护了，则这个资源就是死锁。</p>
@@ -626,6 +643,8 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
