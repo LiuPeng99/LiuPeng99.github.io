@@ -16,19 +16,19 @@
   <meta name="author" content="">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一、RabbitMQ的集群模式 单机模式 单机模式，就是 Demo 级别的，一般就是你本地启动了玩玩儿的，没人生产用单机模式。    &lt;&#x2F;br&gt;  普通集群模式（无高可用性）  普通集群模式，意思就是在多台机器上启动多个 RabbitMQ 实例，每个机器启动一个。你创建的 queue，只会放在一个 RabbitMQ 实例上，但是每个实例都同步 queue 的元数据（元数据可以认为是 q">
+    <meta name="description" content="一、RabbitMQ的集群模式  单机模式  单机模式，就是 Demo 级别的，一般就是你本地启动了玩玩儿的，没人生产用单机模式。       普通集群模式（无高可用性）  普通集群模式，意思就是在多台机器上启动多个 RabbitMQ 实例，每个机器启动一个。你创建的 queue，只会放在一个 RabbitMQ 实例上，但是每个实例都同步 queue 的元数据（元数据可以认为是 queue 的一些">
 <meta property="og:type" content="article">
 <meta property="og:title" content="消息队列RabbitMQ的集群模式">
 <meta property="og:url" content="http://yoursite.com/2022/03/30/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="一、RabbitMQ的集群模式 单机模式 单机模式，就是 Demo 级别的，一般就是你本地启动了玩玩儿的，没人生产用单机模式。    &lt;&#x2F;br&gt;  普通集群模式（无高可用性）  普通集群模式，意思就是在多台机器上启动多个 RabbitMQ 实例，每个机器启动一个。你创建的 queue，只会放在一个 RabbitMQ 实例上，但是每个实例都同步 queue 的元数据（元数据可以认为是 q">
+<meta property="og:description" content="一、RabbitMQ的集群模式  单机模式  单机模式，就是 Demo 级别的，一般就是你本地启动了玩玩儿的，没人生产用单机模式。       普通集群模式（无高可用性）  普通集群模式，意思就是在多台机器上启动多个 RabbitMQ 实例，每个机器启动一个。你创建的 queue，只会放在一个 RabbitMQ 实例上，但是每个实例都同步 queue 的元数据（元数据可以认为是 queue 的一些">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2022/03/30/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/消息队列RabbitMQ的集群模式/image-1.png">
-<meta property="og:image" content="http://yoursite.com/2022/03/30/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/消息队列RabbitMQ的集群模式/image-2.png">
+<meta property="og:image" content="http://yoursite.com/2022/03/30/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-1.png">
+<meta property="og:image" content="http://yoursite.com/2022/03/30/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-2.png">
 <meta property="article:published_time" content="2022-03-30T07:41:56.321Z">
 <meta property="article:modified_time" content="2022-03-30T08:16:19.186Z">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://yoursite.com/2022/03/30/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/消息队列RabbitMQ的集群模式/image-1.png">
+<meta name="twitter:image" content="http://yoursite.com/2022/03/30/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-1.png">
   
   
   
@@ -248,7 +248,7 @@
         
         
         
-          11 分钟
+          10 分钟
         
       </span>
     
@@ -307,19 +307,22 @@
             
               <div class="markdown-body">
                 
-                <h1 id="一、RabbitMQ的集群模式"><a href="#一、RabbitMQ的集群模式" class="headerlink" title="一、RabbitMQ的集群模式"></a>一、RabbitMQ的集群模式</h1><ul>
-<li><strong>单机模式</strong><ul>
+                <h1>一、RabbitMQ的集群模式</h1>
+<ul>
+<li><strong>单机模式</strong>
+<ul>
 <li>单机模式，就是 Demo 级别的，一般就是你本地启动了玩玩儿的，没人生产用单机模式。</li>
 </ul>
 </li>
 </ul>
-<p>&lt;/br&gt;</p>
+<br>
 <ul>
-<li><p><strong>普通集群模式（无高可用性）</strong></p>
+<li>
+<p><strong>普通集群模式（无高可用性）</strong></p>
 <ul>
 <li>普通集群模式，意思就是在多台机器上启动多个 RabbitMQ 实例，每个机器启动一个。你创建的 queue，只会放在一个 RabbitMQ 实例上，但是每个实例都同步 queue 的元数据（元数据可以认为是 queue 的一些配置信息，通过元数据，可以找到 queue 所在实例）。你消费的时候，实际上如果连接到了另外一个实例，那么那个实例会从 queue 所在实例上拉取数据过来。</li>
 </ul>
-<p><img src="消息队列RabbitMQ的集群模式/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
+<p><img src="/2022/03/30/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
 <ul>
 <li>这种方式确实很麻烦，也不怎么好，没做到所谓的分布式，就是个普通集群。因为这导致你要么消费者每次随机连接一个实例然后拉取数据，要么固定连接那个 queue 所在实例消费数据，前者有数据拉取的开销，后者导致单实例性能瓶颈。</li>
 <li>而且如果那个放 queue 的实例宕机了，会导致接下来其他实例就无法从那个实例拉取，如果你开启了消息持久化，让 RabbitMQ 落地存储消息的话，消息不一定会丢，得等这个实例恢复了，然后才可以继续从这个 queue 拉取数据。</li>
@@ -327,20 +330,23 @@
 </ul>
 </li>
 </ul>
-<p>&lt;/br&gt;</p>
+<br>
 <ul>
-<li><p><strong>镜像集群模式（高可用性）</strong></p>
+<li>
+<p><strong>镜像集群模式（高可用性）</strong></p>
 <ul>
 <li>这种模式，才是所谓的 RabbitMQ 的高可用模式。跟普通集群模式不一样的是，在镜像集群模式下，你创建的 queue，无论元数据还是 queue 里的消息都会存在于多个实例上，就是说，每个 RabbitMQ 节点都有这个 queue 的一个完整镜像，包含 queue 的全部数据的意思。然后每次你写消息到 queue 的时候，都会自动把消息同步到多个实例的 queue 上。</li>
 </ul>
-<p><img src="消息队列RabbitMQ的集群模式/image-2.png" srcset="/img/loading.gif" lazyload alt="image-2"></p>
+<p><img src="/2022/03/30/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F/image-2.png" srcset="/img/loading.gif" lazyload alt="image-2"></p>
 <ul>
-<li><strong>那么如何开启这个镜像集群模式呢？</strong>其实很简单，RabbitMQ 有很好的管理控制台，就是在后台新增一个策略，这个策略是镜像集群模式的策略，指定的时候是可以要求数据同步到所有节点的，也可以要求同步到指定数量的节点，再次创建 queue 的时候，应用这个策略，就会自动将数据同步到其他的节点上去了。</li>
-<li><strong>镜像集群的好处：</strong><ul>
+<li>**那么如何开启这个镜像集群模式呢？**其实很简单，RabbitMQ 有很好的管理控制台，就是在后台新增一个策略，这个策略是镜像集群模式的策略，指定的时候是可以要求数据同步到所有节点的，也可以要求同步到指定数量的节点，再次创建 queue 的时候，应用这个策略，就会自动将数据同步到其他的节点上去了。</li>
+<li><strong>镜像集群的好处：</strong>
+<ul>
 <li>你任何一个机器宕机了，没事儿，其它机器（节点）还包含了这个 queue 的完整数据，别的 consumer 都可以到其它节点上去消费数据。</li>
 </ul>
 </li>
-<li><strong>镜像集群的坏处：</strong><ul>
+<li><strong>镜像集群的坏处：</strong>
+<ul>
 <li>第一，这个性能开销也太大了吧，消息需要同步到所有机器上，导致网络带宽压力和消耗很重！</li>
 <li>第二，这么玩儿，不是分布式的，就没有扩展性可言了，如果某个 queue 负载很重，你加机器，新增的机器也包含了这个 queue 的所有数据，并没有办法线性扩展你的 queue。你想，如果这个 queue 的数据量很大，大到这个机器上的容量无法容纳了，此时该怎么办呢？</li>
 </ul>
@@ -348,8 +354,9 @@
 </ul>
 </li>
 </ul>
-<p>&lt;/br&gt;</p>
-<h1 id="二、集群中的节点类型"><a href="#二、集群中的节点类型" class="headerlink" title="二、集群中的节点类型"></a>二、集群中的节点类型</h1><ul>
+<br>
+<h1>二、集群中的节点类型</h1>
+<ul>
 <li>内存节点：ram,保存状态到内存，但持久化的队列和消息还是会保存到磁盘；</li>
 <li>磁盘节点：disc,保存状态到内存和磁盘，一个集群中至少需要一个磁盘节点；</li>
 </ul>

@@ -16,18 +16,18 @@
   <meta name="author" content="">
   <meta name="keywords" content="">
   
-    <meta name="description" content="支持多线程 redis6多线程只是用来处理网络数据的读写和协议解析上，底层数据操作还是单线程  执行命令仍然是单线程，之所以这么设计是不想因为多线程而变得复杂，需要去控制 key、lua、事务，LPUSH&#x2F;LPOP 等等的并发问题  默认不开启   12io-threads-do-reads yesio-threads 线程数  官方建议 ( 线程数小于机器核数 ) 4 核的机器建议设置为 2">
+    <meta name="description" content="支持多线程   redis6多线程只是用来处理网络数据的读写和协议解析上，底层数据操作还是单线程   执行命令仍然是单线程，之所以这么设计是不想因为多线程而变得复杂，需要去控制 key、lua、事务，LPUSH&#x2F;LPOP 等等的并发问题   默认不开启   12io-threads-do-reads yesio-threads 线程数  官方建议 ( 线程数小于机器核数 )  4 核的机器建议">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis6.X新特性">
 <meta property="og:url" content="http://yoursite.com/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="支持多线程 redis6多线程只是用来处理网络数据的读写和协议解析上，底层数据操作还是单线程  执行命令仍然是单线程，之所以这么设计是不想因为多线程而变得复杂，需要去控制 key、lua、事务，LPUSH&#x2F;LPOP 等等的并发问题  默认不开启   12io-threads-do-reads yesio-threads 线程数  官方建议 ( 线程数小于机器核数 ) 4 核的机器建议设置为 2">
+<meta property="og:description" content="支持多线程   redis6多线程只是用来处理网络数据的读写和协议解析上，底层数据操作还是单线程   执行命令仍然是单线程，之所以这么设计是不想因为多线程而变得复杂，需要去控制 key、lua、事务，LPUSH&#x2F;LPOP 等等的并发问题   默认不开启   12io-threads-do-reads yesio-threads 线程数  官方建议 ( 线程数小于机器核数 )  4 核的机器建议">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/Redis6.X新特性/image-1.png">
+<meta property="og:image" content="http://yoursite.com/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/image-1.png">
 <meta property="article:published_time" content="2022-03-23T09:03:56.256Z">
 <meta property="article:modified_time" content="2022-03-23T11:38:25.878Z">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://yoursite.com/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/Redis6.X新特性/image-1.png">
+<meta name="twitter:image" content="http://yoursite.com/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/image-1.png">
   
   
   
@@ -307,37 +307,45 @@
               <div class="markdown-body">
                 
                 <ul>
-<li><h4 id="支持多线程"><a href="#支持多线程" class="headerlink" title="支持多线程"></a>支持多线程</h4><ul>
-<li><p>redis6多线程只是用来处理网络数据的读写和协议解析上，<strong>底层数据操作还是单线程</strong></p>
+<li>
+<h4 id="支持多线程">支持多线程</h4>
+<ul>
+<li>
+<p>redis6多线程只是用来处理网络数据的读写和协议解析上，<strong>底层数据操作还是单线程</strong></p>
 </li>
-<li><p>执行命令仍然是单线程，之所以这么设计是不想因为多线程而变得复杂，需要去控制 key、lua、事务，LPUSH/LPOP 等等的并发问题</p>
+<li>
+<p>执行命令仍然是单线程，之所以这么设计是不想因为多线程而变得复杂，需要去控制 key、lua、事务，LPUSH/LPOP 等等的并发问题</p>
 </li>
-<li><p>默认不开启</p>
+<li>
+<p>默认不开启</p>
 </li>
 </ul>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-built_in">io</span>-threads-<span class="hljs-keyword">do</span>-reads yes<br><span class="hljs-built_in">io</span>-threads 线程数<br></code></pre></td></tr></table></figure>
 <ul>
-<li>官方建议 ( 线程数小于机器核数 )<ul>
+<li>官方建议 ( 线程数小于机器核数 )
+<ul>
 <li>4 核的机器建议设置为 2 或 3 个线程</li>
 <li>8 核的建议设置为 4或6个线程</li>
 </ul>
 </li>
-<li>开启多线程后，是否会存在线程并发安全问题？<ul>
+<li>开启多线程后，是否会存在线程并发安全问题？
+<ul>
 <li>不会有安全问题，Redis 的多线程部分只是用来处理网络数据的读写和协议解析，执行命令仍然是单线程顺序执行</li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
+<li>
+<h4 id="引入了-ACL（Access-Control-List">引入了 ACL（Access Control List)</h4>
 <ul>
-<li><h4 id="引入了-ACL（Access-Control-List"><a href="#引入了-ACL（Access-Control-List" class="headerlink" title="引入了 ACL（Access Control List)"></a>引入了 ACL（Access Control List)</h4><ul>
 <li>之前的redis没有用户的概念，redis6引入了acl</li>
 <li>可以给每个用户分配不同的权限来控制权限</li>
 <li>通过限制对命令和密钥的访问来提高安全性，以使不受信任的客户端无法访问</li>
 <li>提高操作安全性，以防止由于软件错误或人为错误而导致进程或人员访问 Redis，从而损坏数据或配置</li>
 </ul>
 </li>
-<li><p>常用命令</p>
+<li>
+<p>常用命令</p>
 <ul>
 <li>acl list 当前启用的 ACL 规则</li>
 <li>acl cat 支持的权限分类列表</li>
@@ -348,7 +356,6 @@
 </li>
 </ul>
 <figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs pf">+<span class="hljs-variable">&lt;command&gt;</span> 将命令添加到用户可以调用的命令列表中，如+@hash<br>-<span class="hljs-variable">&lt;command&gt;</span> 将命令从用户可以调用的命令列表中移除<br><br><span class="hljs-comment">#切换默认用户</span><br>auth <span class="hljs-keyword">default</span> <span class="hljs-number">123456</span><br><br><br><span class="hljs-comment">#例子 密码 123 ，全部key，全部权限</span><br>acl setuser jack <span class="hljs-keyword">on</span> &gt;<span class="hljs-number">123</span> ~* +@<span class="hljs-literal">all</span><br><br><span class="hljs-comment">#例子 密码 123 ，全部key，get权限</span><br>acl setuser jack <span class="hljs-keyword">on</span> &gt;<span class="hljs-number">123</span> ~* +get<br></code></pre></td></tr></table></figure>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -383,10 +390,12 @@
 </tr>
 </tbody>
 </table>
-</div>
 <ul>
-<li><h4 id="client-side-caching客户端缓存"><a href="#client-side-caching客户端缓存" class="headerlink" title="client side caching客户端缓存"></a>client side caching客户端缓存</h4><ul>
-<li>类似浏览器缓存一样<ul>
+<li>
+<h4 id="client-side-caching客户端缓存">client side caching客户端缓存</h4>
+<ul>
+<li>类似浏览器缓存一样
+<ul>
 <li>在服务器端更新了静态文件（如css、js、图片），能够在客户端得到及时的更新，但又不想让浏览器每次请求都从服务器端获取静态资源</li>
 <li>类似前端的-Expires、Last-Modified、Etag缓存控制</li>
 </ul>
@@ -394,21 +403,24 @@
 </ul>
 </li>
 </ul>
-<p><img src="Redis6.X新特性/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
+<p><img src="/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
 <figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gauss">redis在服务端记录访问的连接和相关的<span class="hljs-built_in">key</span>， 当<span class="hljs-built_in">key</span>有变化时通知相应的应用<br>应用收到请求后自行处理有变化的<span class="hljs-built_in">key</span>, 进而实现client cache与redis的一致<br>这需要客户端实现，目前lettuce对其进行了支持<br></code></pre></td></tr></table></figure>
 <p>client side caching的两种模式：</p>
 <ul>
-<li>默认模式<ul>
-<li>Server 端全局唯一的表（<strong>Invalidation Table</strong>）记录每个Client访问的Key，当发生变更时，向client推送数据过期消息。<ul>
+<li>
+<p>默认模式</p>
+<ul>
+<li>Server 端全局唯一的表（<strong>Invalidation Table</strong>）记录每个Client访问的Key，当发生变更时，向client推送数据过期消息。
+<ul>
 <li>优点：只对Client发送其访问过的被修改的数据</li>
 <li>缺点：Server端需要额外存储较大的数据量</li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
+<li>
+<p>广播模式</p>
 <ul>
-<li>广播模式<ul>
 <li>客户端订阅key前缀的广播，服务端记录key前缀与client的对应关系。当相匹配的key发生变化时通知client。</li>
 <li>优点：服务端记录信息比较少</li>
 <li>缺点：client会收到自己未访问过的key的失效通知</li>

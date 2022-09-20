@@ -16,12 +16,12 @@
   <meta name="author" content="">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一、simple简单（最简单的收发模式） 一个生产、一个消费，不用指定交换机，使用默认交换机  二、work工作队列（资源的竞争） 一个生产，多个消费，有轮询策略和公平策略，不用指定交换机，使用默认交换机 轮询：一个消费者消费一条，直至消息消费完，平均分配 公平：根据消费者的消费能力进行公平分发，处理得快的分得多，处理的慢的分得少，能者多劳 将消息置为手动确认模式，且将预置队列数为1（prefet">
+    <meta name="description" content="一、simple简单（最简单的收发模式）  一个生产、一个消费，不用指定交换机，使用默认交换机  二、work工作队列（资源的竞争）  一个生产，多个消费，有轮询策略和公平策略，不用指定交换机，使用默认交换机  轮询：一个消费者消费一条，直至消息消费完，平均分配 公平：根据消费者的消费能力进行公平分发，处理得快的分得多，处理的慢的分得少，能者多劳  将消息置为手动确认模式，且将预置队列数为1（pr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="消息队列RabbitMQ的五种工作模式">
 <meta property="og:url" content="http://yoursite.com/2022/03/26/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E4%BA%94%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="一、simple简单（最简单的收发模式） 一个生产、一个消费，不用指定交换机，使用默认交换机  二、work工作队列（资源的竞争） 一个生产，多个消费，有轮询策略和公平策略，不用指定交换机，使用默认交换机 轮询：一个消费者消费一条，直至消息消费完，平均分配 公平：根据消费者的消费能力进行公平分发，处理得快的分得多，处理的慢的分得少，能者多劳 将消息置为手动确认模式，且将预置队列数为1（prefet">
+<meta property="og:description" content="一、simple简单（最简单的收发模式）  一个生产、一个消费，不用指定交换机，使用默认交换机  二、work工作队列（资源的竞争）  一个生产，多个消费，有轮询策略和公平策略，不用指定交换机，使用默认交换机  轮询：一个消费者消费一条，直至消息消费完，平均分配 公平：根据消费者的消费能力进行公平分发，处理得快的分得多，处理的慢的分得少，能者多劳  将消息置为手动确认模式，且将预置队列数为1（pr">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-26T07:50:48.483Z">
 <meta property="article:modified_time" content="2022-03-26T08:31:39.509Z">
@@ -304,27 +304,35 @@
             
               <div class="markdown-body">
                 
-                <h1 id="一、simple简单（最简单的收发模式）"><a href="#一、simple简单（最简单的收发模式）" class="headerlink" title="一、simple简单（最简单的收发模式）"></a>一、simple简单（最简单的收发模式）</h1><ul>
+                <h1>一、simple简单（最简单的收发模式）</h1>
+<ul>
 <li>一个生产、一个消费，不用指定交换机，使用默认交换机</li>
 </ul>
-<h1 id="二、work工作队列（资源的竞争）"><a href="#二、work工作队列（资源的竞争）" class="headerlink" title="二、work工作队列（资源的竞争）"></a>二、work工作队列（资源的竞争）</h1><ul>
-<li>一个生产，多个消费，有轮询策略和公平策略，不用指定交换机，使用默认交换机<ul>
+<h1>二、work工作队列（资源的竞争）</h1>
+<ul>
+<li>一个生产，多个消费，有轮询策略和公平策略，不用指定交换机，使用默认交换机
+<ul>
 <li>轮询：一个消费者消费一条，直至消息消费完，<strong>平均分配</strong></li>
-<li>公平：根据消费者的消费能力进行公平分发，处理得快的分得多，处理的慢的分得少，<strong>能者多劳</strong><ul>
+<li>公平：根据消费者的消费能力进行公平分发，处理得快的分得多，处理的慢的分得少，<strong>能者多劳</strong>
+<ul>
 <li>将消息置为手动确认模式，且将预置队列数为1（prefetchCount=1）</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<h1 id="三、publish-subscribe发布订阅（共享资源）"><a href="#三、publish-subscribe发布订阅（共享资源）" class="headerlink" title="三、publish/subscribe发布订阅（共享资源）"></a>三、publish/subscribe发布订阅（共享资源）</h1><ul>
+<h1>三、publish/subscribe发布订阅（共享资源）</h1>
+<ul>
 <li>fanout类型交换机，通过交换机和队列绑定，<strong>不用指定绑定的路由健</strong>，生产者将消息发送给broker，由交换机将消息转发到绑定此交换机的每个队列，所有绑定同一个fanout交换机的队列都将接收到消息</li>
 </ul>
-<h1 id="四、routing路由"><a href="#四、routing路由" class="headerlink" title="四、routing路由"></a>四、routing路由</h1><ul>
+<h1>四、routing路由</h1>
+<ul>
 <li>direct类型交换机，通过交换机和队列绑定，<strong>需要指定绑定的路由健</strong>，生产者发送消息到broker，由交换机根据消息的RoutingKey转发到对应的队列，对应的消费者才能接收到消息</li>
 </ul>
-<h1 id="五、topic主题（通配符）"><a href="#五、topic主题（通配符）" class="headerlink" title="五、topic主题（通配符）"></a>五、topic主题（通配符）</h1><ul>
-<li>topic交换机，通过交换机和队列绑定，<strong>指定绑定的【通配符路由健】</strong>，生产者发送消息到broker，由交换机根据消息的RoutingKey转发到对应的队列，对应的消费者才能接收到消息<ul>
+<h1>五、topic主题（通配符）</h1>
+<ul>
+<li>topic交换机，通过交换机和队列绑定，<strong>指定绑定的【通配符路由健】</strong>，生产者发送消息到broker，由交换机根据消息的RoutingKey转发到对应的队列，对应的消费者才能接收到消息
+<ul>
 <li>* 代表一个词，#代表1个或多个词，一般用#作为通配符居多</li>
 <li>比如 #.order 会匹配 info.order 、sys.error.order, 而 *.order 只会匹配 info.order  词之间是使用 . 点进行分割</li>
 <li>如果只使用点 . 则info.order、error.order都会匹配</li>
