@@ -247,7 +247,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/03/24/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97MQ%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BC%98%E7%BC%BA%E7%82%B9/" target="_self">
         <div>
-          一、什么是消息队列 MQ：MessageQueue 消息队列。队列是一种FIFO先进先出的数据结构。消息由生产者发送到MQ进行排队，然后由消费者对消息进行处理。 二、消息队列有什么优点和缺点   MQ的优点：   异步：  能提高系统的响应速度、吞吐量。    解耦：  服务之间进行解耦，可以减少服务之间的影响。提高系统整体的稳定性以及可扩展性。 解耦后可以实现数据分发。生产者发送一个消息后，可以
+          一、什么是消息队列MQ：MessageQueue 消息队列。队列是一种FIFO先进先出的数据结构。消息由生产者发送到MQ进行排队，然后由消费者对消息进行处理。 二、消息队列有什么优点和缺点 MQ的优点： 异步：  能提高系统的响应速度、吞吐量。   解耦：  服务之间进行解耦，可以减少服务之间的影响。提高系统整体的稳定性以及可扩展性。 解耦后可以实现数据分发。生产者发送一个消息后，可以由一个或者多
         </div>
       </a>
 
@@ -280,7 +280,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/03/23/Redis6.X%E6%96%B0%E7%89%B9%E6%80%A7/" target="_self">
         <div>
-          支持多线程   redis6多线程只是用来处理网络数据的读写和协议解析上，底层数据操作还是单线程   执行命令仍然是单线程，之所以这么设计是不想因为多线程而变得复杂，需要去控制 key、lua、事务，LPUSH/LPOP 等等的并发问题   默认不开启   12io-threads-do-reads yesio-threads 线程数  官方建议 ( 线程数小于机器核数 )  4 核的机器建议
+          支持多线程 redis6多线程只是用来处理网络数据的读写和协议解析上，底层数据操作还是单线程  执行命令仍然是单线程，之所以这么设计是不想因为多线程而变得复杂，需要去控制 key、lua、事务，LPUSH&#x2F;LPOP 等等的并发问题  默认不开启   12io-threads-do-reads yesio-threads 线程数   官方建议 ( 线程数小于机器核数 ) 4 核的机器建议
         </div>
       </a>
 
@@ -313,7 +313,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/03/22/Redis%E9%9B%86%E7%BE%A4Cluster/" target="_self">
         <div>
-          ​	Sentinel解决了主从架构故障自动迁移的问题，但是Master主节点的写能力和存储能力依旧受限。 使用Redis的集群cluster就是为了解决单机Redis容量有限的问题，将数据按一定的规则分配到多台机器 一、什么是集群Cluster  集群Cluster介绍：  是一组相互独立的、通过高速网络互联的计算机，它们构成了一个组，并以单一系统的模式加以管理 采用无中心结构，每个节点保存数据和
+          ​	Sentinel解决了主从架构故障自动迁移的问题，但是Master主节点的写能力和存储能力依旧受限。 使用Redis的集群cluster就是为了解决单机Redis容量有限的问题，将数据按一定的规则分配到多台机器 一、什么是集群Cluster 集群Cluster介绍： 是一组相互独立的、通过高速网络互联的计算机，它们构成了一个组，并以单一系统的模式加以管理 采用无中心结构，每个节点保存数据和整个
         </div>
       </a>
 
@@ -346,7 +346,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/" target="_self">
         <div>
-          在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费时费力，还会造成一段时间内服务不可用。 一、什么是Sentinel哨兵模式   Sentinel哨兵模式介绍：  哨兵是Redis的一种运行模式，它专注于对Redis实例（主节点、从节点）运行状态的监控，并能够在主节点发生故障时通过一系列的机制实现选主及主从切换，实现故障转移，确保整个Redis系统的可用性
+          在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费时费力，还会造成一段时间内服务不可用。 一、什么是Sentinel哨兵模式 Sentinel哨兵模式介绍：  哨兵是Redis的一种运行模式，它专注于对Redis实例（主节点、从节点）运行状态的监控，并能够在主节点发生故障时通过一系列的机制实现选主及主从切换，实现故障转移，确保整个Redis系统的可用性。
         </div>
       </a>
 
@@ -379,7 +379,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/03/17/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" target="_self">
         <div>
-          一、什么是Redis主从复制  Redis主从复制介绍：  主从复制是指将一台Redis服务器（主节点master）的数据，复制到其他的Redis服务器（从节点slave），数据的复制只能从master到slave，一个master可以有多个slave，但一个slave只能有一个master。 主从模式下，Redis采用读写分离：  读操作：master和slave均可执行读操作，主要以slave
+          一、什么是Redis主从复制 Redis主从复制介绍： 主从复制是指将一台Redis服务器（主节点master）的数据，复制到其他的Redis服务器（从节点slave），数据的复制只能从master到slave，一个master可以有多个slave，但一个slave只能有一个master。 主从模式下，Redis采用读写分离： 读操作：master和slave均可执行读操作，主要以slave为主。
         </div>
       </a>
 
@@ -412,7 +412,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/03/15/Redis%E7%9A%84%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/" target="_self">
         <div>
-          Redis的内存淘汰策略介绍： ​	redis在占用的内存超过指定的maxmemory之后，通过maxmemory_policy确定redis是否释放内存以及如何释放内存，提供了多种策略。   淘汰策略：  volatile-lru(least recently used)  最近最少使用算法，从设置了过期时间的键中选择空转时间最长的键值对清除掉；   volatile-lfu(least f
+          Redis的内存淘汰策略介绍：​	redis在占用的内存超过指定的maxmemory之后，通过maxmemory_policy确定redis是否释放内存以及如何释放内存，提供了多种策略。  淘汰策略： volatile-lru(least recently used) 最近最少使用算法，从设置了过期时间的键中选择空转时间最长的键值对清除掉；   volatile-lfu(least freque
         </div>
       </a>
 
@@ -445,7 +445,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/03/14/Redis%E8%BF%87%E6%9C%9F%E9%94%AE%E7%9A%84%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5/" target="_self">
         <div>
-          一、Redis过期键的删除策略是什么？   Redis过期删除策略介绍： ​	Redis是key-value数据库，可以设置Redis中缓存的key的过期时间。Redis过期键的删除策略就是指当Redis中缓存的key过期了，Redis如何处理。   Redis过期删除策略方式：  定期删除 惰性删除    二、定期删除  每隔一段时间，会扫描一定数量的数据库的expires字典中一定数量的key
+          一、Redis过期键的删除策略是什么？ Redis过期删除策略介绍：​	Redis是key-value数据库，可以设置Redis中缓存的key的过期时间。Redis过期键的删除策略就是指当Redis中缓存的key过期了，Redis如何处理。  Redis过期删除策略方式： 定期删除 惰性删除    二、定期删除 每隔一段时间，会扫描一定数量的数据库的expires字典中一定数量的key，并清除其中
         </div>
       </a>
 
@@ -478,7 +478,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/03/10/Redis%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6%E4%B9%8BRDB%E5%92%8CAOF/" target="_self">
         <div>
-          一、Redis的持久化机制是什么？   Redis持久化机制介绍： ​	Redis的数据全部在内存里，如果突然宕机，数据就会全部丢失，因此必须有一种机制来保证Redis的数据不会因为故障而丢失。   Redis的持久化方式：  RDB(Redis DataBase)持久化 AOF(Append Only File)持久化    二、RDB持久化   RDB持久化介绍：  将某个时间点上的数据库状态
+          一、Redis的持久化机制是什么？ Redis持久化机制介绍：​	Redis的数据全部在内存里，如果突然宕机，数据就会全部丢失，因此必须有一种机制来保证Redis的数据不会因为故障而丢失。  Redis的持久化方式： RDB(Redis DataBase)持久化 AOF(Append Only File)持久化    二、RDB持久化 RDB持久化介绍： 将某个时间点上的数据库状态保存到一个RDB
         </div>
       </a>
 
@@ -511,7 +511,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/03/09/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%E3%80%81%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E5%8F%8A%E5%85%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_self">
         <div>
-          1.缓存穿透（查询不存在数据）   问题描述： ​	大量并发查询不存在的 KEY ，在缓存和数据库中都不存在，同时给缓存和数据库带来压力。如：用一个不存在的用户id获取用户信息，这也是黑客利用不存在的key频繁攻击应用的一种方式   解决方案：  接口层增加校验，对数据的合理性进行校验。如：用户鉴权校验，id 做基础校验，id&lt;=0直接拦截 从缓存取不到的数据，在数据库中也没有取到，这时也可
+          1.缓存穿透（查询不存在数据） 问题描述： ​	大量并发查询不存在的 KEY ，在缓存和数据库中都不存在，同时给缓存和数据库带来压力。如：用一个不存在的用户id获取用户信息，这也是黑客利用不存在的key频繁攻击应用的一种方式  解决方案：  接口层增加校验，对数据的合理性进行校验。如：用户鉴权校验，id 做基础校验，id&lt;=0直接拦截 从缓存取不到的数据，在数据库中也没有取到，这时也可以将k
         </div>
       </a>
 
@@ -544,7 +544,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/02/27/Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81+Lua%E8%84%9A%E6%9C%AC/" target="_self">
         <div>
-          基于Redis实现分布式锁+Lua脚本   加锁 SETNX key value SETNX key value 将key设置值为value SETNX是”SET if Not eXists”的简写 若key不存在，则设置当前key成功，返回 1 若当前key已经存在，则设置失败，返回 0   解锁 DEL key 得到锁的线程执行完任务，需要释放锁，以便其他线程可以进入,调用 DEL (key)
+          基于Redis实现分布式锁+Lua脚本 加锁 SETNX key valueSETNX key value 将key设置值为value  SETNX是”SET if Not eXists”的简写 若key不存在，则设置当前key成功，返回 1 若当前key已经存在，则设置失败，返回 0  解锁 DEL key得到锁的线程执行完任务，需要释放锁，以便其他线程可以进入,调用 DEL (key)  配置
         </div>
       </a>
 

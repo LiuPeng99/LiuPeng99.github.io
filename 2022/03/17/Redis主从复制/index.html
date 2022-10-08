@@ -16,12 +16,12 @@
   <meta name="author" content="">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一、什么是Redis主从复制  Redis主从复制介绍：  主从复制是指将一台Redis服务器（主节点master）的数据，复制到其他的Redis服务器（从节点slave），数据的复制只能从master到slave，一个master可以有多个slave，但一个slave只能有一个master。 主从模式下，Redis采用读写分离：  读操作：master和slave均可执行读操作，主要以slave">
+    <meta name="description" content="一、什么是Redis主从复制 Redis主从复制介绍： 主从复制是指将一台Redis服务器（主节点master）的数据，复制到其他的Redis服务器（从节点slave），数据的复制只能从master到slave，一个master可以有多个slave，但一个slave只能有一个master。 主从模式下，Redis采用读写分离： 读操作：master和slave均可执行读操作，主要以slave为主。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis主从复制">
 <meta property="og:url" content="http://yoursite.com/2022/03/17/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="一、什么是Redis主从复制  Redis主从复制介绍：  主从复制是指将一台Redis服务器（主节点master）的数据，复制到其他的Redis服务器（从节点slave），数据的复制只能从master到slave，一个master可以有多个slave，但一个slave只能有一个master。 主从模式下，Redis采用读写分离：  读操作：master和slave均可执行读操作，主要以slave">
+<meta property="og:description" content="一、什么是Redis主从复制 Redis主从复制介绍： 主从复制是指将一台Redis服务器（主节点master）的数据，复制到其他的Redis服务器（从节点slave），数据的复制只能从master到slave，一个master可以有多个slave，但一个slave只能有一个master。 主从模式下，Redis采用读写分离： 读操作：master和slave均可执行读操作，主要以slave为主。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/2022/03/17/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/image-1.png">
 <meta property="og:image" content="http://yoursite.com/2022/03/17/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/image-2.png">
@@ -322,13 +322,10 @@
             
               <div class="markdown-body">
                 
-                <h2 id="一、什么是Redis主从复制">一、什么是Redis主从复制</h2>
-<ul>
-<li>Redis主从复制介绍：
-<ul>
+                <h2 id="一、什么是Redis主从复制"><a href="#一、什么是Redis主从复制" class="headerlink" title="一、什么是Redis主从复制"></a>一、什么是Redis主从复制</h2><ul>
+<li>Redis主从复制介绍：<ul>
 <li>主从复制是指将一台Redis服务器（主节点master）的数据，复制到其他的Redis服务器（从节点slave），数据的复制只能从master到slave，一个master可以有多个slave，但一个slave只能有一个master。</li>
-<li>主从模式下，Redis采用读写分离：
-<ul>
+<li>主从模式下，Redis采用读写分离：<ul>
 <li>读操作：master和slave均可执行读操作，主要以slave为主。</li>
 <li>写操作：master执行写操作，然后把数据同步到各个slave，保证主从数据一致性。</li>
 </ul>
@@ -336,12 +333,9 @@
 </ul>
 </li>
 </ul>
-<h2 id="二、Redis主从复制实现原理">二、Redis主从复制实现原理</h2>
-<ul>
-<li>主从复制分两种（主从刚连接的时候，进行全量同步；全量同步结束后，进行增量同步）
-<ul>
-<li>全量复制：
-<ul>
+<h2 id="二、Redis主从复制实现原理"><a href="#二、Redis主从复制实现原理" class="headerlink" title="二、Redis主从复制实现原理"></a>二、Redis主从复制实现原理</h2><ul>
+<li>主从复制分两种（主从刚连接的时候，进行全量同步；全量同步结束后，进行增量同步）<ul>
+<li>全量复制：<ul>
 <li>master服务器会开启一个后台进程用于将redis中的数据生成一个rdb文件</li>
 <li>服务器会缓存所有接收到的来自客户端的写命令（包含增、删、改），当后台保存进程处理完毕后，会将该rdb 文件传递给slave 服务器</li>
 <li>slave 服务器会将rdb 文件保存在磁盘并通过读取该文件将数据加载到内存</li>
@@ -349,8 +343,7 @@
 <li>然后slave 服务器将这些命令依次作用于自己本地的数据集上最终达到数据的一致性</li>
 </ul>
 </li>
-<li>增量复制：
-<ul>
+<li>增量复制：<ul>
 <li>从redis 2.8 版本以前，并不支持部分同步，当主从服务器之间的连接断掉之后，master 服务器和slave 服务器之间都是进行全量数据同步。</li>
 <li>从redis 2.8 开始，即使主从连接中途断掉，也不需要进行全量同步，因为从这个版本开始融入了部分同步的概念。部分同步的实现依赖于在master 服务器内存中给每个slave 服务器维护了一份同步日志和同步标识，每个slave 服务器在跟master 服务器进行同步时都会携带自己的同步标识和上次同步的最后位置。当主从连接断掉之后，slave 服务器隔断时间（默认1s）主动尝试和master 服务器进行连接，如果从服务器携带的偏移量标识还在master 服务器上的同步备份日志中，那么就从slave 发送的偏移量开始继续上次的同步操作，如果slave 发送的偏移量已经不再master 的同步备份日志中（可能由于主从之间断掉的时间比较长或者在断掉的短暂时间内master 服务器接收到大量的写操作），则必须进行一次全量更新。在部分同步过程中，master 会将本地记录的同步备份日志中记录的指令依次发送给slave 服务器从而达到数据一致。</li>
 </ul>
@@ -361,12 +354,10 @@
 <p>从Redis 2.8版本开始，Redis使用<code>PSYNC</code>命令代替<code>SYNC</code>命令来执行复制时的同步操作。</p>
 <p><code>PSYNC</code>命令有以下2种场景：</p>
 <ol>
-<li>
-<p>完整重同步</p>
+<li><p>完整重同步</p>
 <p>完整重同步用于处理<strong>初次复制</strong>，执行步骤和<code>SYNC</code>命令的执行步骤基本一样。</p>
 </li>
-<li>
-<p>部分重同步</p>
+<li><p>部分重同步</p>
 <p>部分重同步用于处理<strong>断线后重复制</strong>，当从服务器在断线后重新连接主服务器时，如果条件允许，主服务器可以将主从服务器连接断开期间执行的写命发送给从服务器，从服务器只要接收并执行这些写命令，就可以将数据库更新至主服务器当前所处的状态。</p>
 </li>
 </ol>
@@ -380,8 +371,7 @@
 <li>主服务器的复制积压缓冲区</li>
 <li>服务器的运行ID</li>
 </ol>
-<h3 id="1、复制偏移量">1、复制偏移量</h3>
-<p>执行复制的主服务器和从服务器会分别维护一个复制偏移量：</p>
+<h3 id="1、复制偏移量"><a href="#1、复制偏移量" class="headerlink" title="1、复制偏移量"></a>1、复制偏移量</h3><p>执行复制的主服务器和从服务器会分别维护一个复制偏移量：</p>
 <ol>
 <li>主服务器每次向从服务器传播N个字节的数据时，就将自己的复制偏移量的值加上N。</li>
 <li>从服务器每次收到主服务器传播来的N个字节的数据时，就将自己的复制偏移量的值加上N。</li>
@@ -400,8 +390,7 @@
 <li>如果执行部分重同步，主服务器从哪里获取到断线期间从服务器A丢失的数据？</li>
 </ol>
 <p>带着这2个问题，我们看下复制积压缓冲区。</p>
-<h3 id="2、复制积压缓冲区">2、复制积压缓冲区</h3>
-<p>复制积压缓冲区是主服务器维护的一个<strong>固定长度先进先出队列</strong>，默认大小为1MB。</p>
+<h3 id="2、复制积压缓冲区"><a href="#2、复制积压缓冲区" class="headerlink" title="2、复制积压缓冲区"></a>2、复制积压缓冲区</h3><p>复制积压缓冲区是主服务器维护的一个<strong>固定长度先进先出队列</strong>，默认大小为1MB。</p>
 <p>当主服务器进行命令传播时，它不仅会将写命令发送给所有从服务器，还会将写命令入队到复制积压缓冲区，如下图所示：</p>
 <p><img src="/2022/03/17/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/image-4.png" srcset="/img/loading.gif" lazyload alt="image-4"></p>
 <p>所以，主服务器的复制积压缓冲区会保存着一部分最近传播的写命令，并且为队列中的每个字节记录相应的复制偏移量，如下所示：</p>
@@ -418,8 +407,7 @@
 <th>…</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>字节值</td>
 <td>…</td>
 <td>‘*’</td>
@@ -429,8 +417,7 @@
 <td>‘$’</td>
 <td>…</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>当从服务器重新连接上主服务器时，会通过<code>PSYNC</code>命令将自己的复制偏移量offset发送给主服务器，主服务器会根据以下规则来决定对从服务器执行何种同步操作：</p>
 <ul>
 <li>如果offset偏移量之后的数据仍然存在于复制积压缓冲区，那么主服务器将对从服务器执行部分重同步操作。</li>
@@ -444,8 +431,7 @@
 <li>从服务器A接收这33字节的缺失数据，就回到与主服务器一致的状态。</li>
 </ol>
 <p><img src="/2022/03/17/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/image-5.png" srcset="/img/loading.gif" lazyload alt="image-5"></p>
-<h3 id="3、服务器运行ID">3、服务器运行ID</h3>
-<p>每个Redis服务器，不论主服务器还是从服务器，都会有自己的运行ID，运行ID在服务器启动时自动生成，由40个十六进制字符组成，如下图所示：</p>
+<h3 id="3、服务器运行ID"><a href="#3、服务器运行ID" class="headerlink" title="3、服务器运行ID"></a>3、服务器运行ID</h3><p>每个Redis服务器，不论主服务器还是从服务器，都会有自己的运行ID，运行ID在服务器启动时自动生成，由40个十六进制字符组成，如下图所示：</p>
 <p><img src="/2022/03/17/Redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/image-6.png" srcset="/img/loading.gif" lazyload alt="image-6"></p>
 <p>当从服务器对主服务器进行<strong>初次复制</strong>时，主服务器会将自己的运行ID传送给从服务器，从服务器会将这个运行ID保存起来。</p>
 <p>当从服务器断线并重新连接上主服务器时，从服务器会把之前保存的运行ID发送给当前连接的主服务器：</p>
@@ -453,14 +439,11 @@
 <li>如果从服务器之前保存的运行ID和当前连接的主服务器的运行ID相同，说明从服务器断线前后复制的是同一台主服务器，主服务器可以继续尝试执行部分重同步操作。</li>
 <li>如果从服务器之前保存的运行ID和当前连接的主服务器的运行ID不相同，说明从服务器断线前后复制的不是同一台主服务器，主服务器将对从服务器执行完整重同步操作。</li>
 </ul>
-<h3 id="4、PSYNC命令执行细节">4、PSYNC命令执行细节</h3>
-<p>对于从服务器来说，调用<code>PSYNC</code>命令有以下2种情况：</p>
+<h3 id="4、PSYNC命令执行细节"><a href="#4、PSYNC命令执行细节" class="headerlink" title="4、PSYNC命令执行细节"></a>4、PSYNC命令执行细节</h3><p>对于从服务器来说，调用<code>PSYNC</code>命令有以下2种情况：</p>
 <ol>
-<li>
-<p>如果从服务器以前没有复制过任何主服务器，或者之前执行过<code>SLAVEOF on one</code>命令，那么从服务器在开始一次新的复制时将向主服务器发送<code>PSYNC ? -1</code>命令，主动请求主服务器进行完整重同步。</p>
+<li><p>如果从服务器以前没有复制过任何主服务器，或者之前执行过<code>SLAVEOF on one</code>命令，那么从服务器在开始一次新的复制时将向主服务器发送<code>PSYNC ? -1</code>命令，主动请求主服务器进行完整重同步。</p>
 </li>
-<li>
-<p>如果从服务器已经复制过某个主服务器，那么从服务器在开始一次新的复制时将向主服务器发送</p>
+<li><p>如果从服务器已经复制过某个主服务器，那么从服务器在开始一次新的复制时将向主服务器发送</p>
 <p><code>PSYNC &#123;runid&#125; &#123;offset&#125;</code>命令，其中runid是上一次复制的主服务器的运行ID，offset是从服务器当前的复制偏移量。</p>
 </li>
 </ol>

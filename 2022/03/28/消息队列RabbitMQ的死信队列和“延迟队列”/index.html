@@ -16,12 +16,12 @@
   <meta name="author" content="">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一、RabbitMQ的死信队列 TTL是什么？  TTL（Time To Live），即存活时间 RabbitMQ支持两种方式设置TTL  单独对消息本身设置，每条消息的 TTL 可以不同。  expiration 单位ms(毫秒)   通过队列属性设置，队列中所有消息都有相同的存活时间。  x-message-ttl 单位ms(毫秒)     注意：如果两种方式同时使用，则消息的 TTL 以两者">
+    <meta name="description" content="一、RabbitMQ的死信队列TTL是什么？  TTL（Time To Live），即存活时间 RabbitMQ支持两种方式设置TTL 单独对消息本身设置，每条消息的 TTL 可以不同。 expiration 单位ms(毫秒)   通过队列属性设置，队列中所有消息都有相同的存活时间。 x-message-ttl 单位ms(毫秒)     注意：如果两种方式同时使用，则消息的 TTL 以两者之间较小">
 <meta property="og:type" content="article">
 <meta property="og:title" content="消息队列RabbitMQ的死信队列和“延迟队列”">
 <meta property="og:url" content="http://yoursite.com/2022/03/28/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97%E5%92%8C%E2%80%9C%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97%E2%80%9D/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="一、RabbitMQ的死信队列 TTL是什么？  TTL（Time To Live），即存活时间 RabbitMQ支持两种方式设置TTL  单独对消息本身设置，每条消息的 TTL 可以不同。  expiration 单位ms(毫秒)   通过队列属性设置，队列中所有消息都有相同的存活时间。  x-message-ttl 单位ms(毫秒)     注意：如果两种方式同时使用，则消息的 TTL 以两者">
+<meta property="og:description" content="一、RabbitMQ的死信队列TTL是什么？  TTL（Time To Live），即存活时间 RabbitMQ支持两种方式设置TTL 单独对消息本身设置，每条消息的 TTL 可以不同。 expiration 单位ms(毫秒)   通过队列属性设置，队列中所有消息都有相同的存活时间。 x-message-ttl 单位ms(毫秒)     注意：如果两种方式同时使用，则消息的 TTL 以两者之间较小">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/2022/03/28/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ%E7%9A%84%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97%E5%92%8C%E2%80%9C%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97%E2%80%9D/image-1.png">
 <meta property="article:published_time" content="2022-03-28T12:30:14.333Z">
@@ -316,19 +316,15 @@
             
               <div class="markdown-body">
                 
-                <h1>一、RabbitMQ的死信队列</h1>
-<p><strong>TTL是什么？</strong></p>
+                <h1 id="一、RabbitMQ的死信队列"><a href="#一、RabbitMQ的死信队列" class="headerlink" title="一、RabbitMQ的死信队列"></a>一、RabbitMQ的死信队列</h1><p><strong>TTL是什么？</strong></p>
 <ul>
 <li>TTL（Time To Live），即存活时间</li>
-<li>RabbitMQ支持两种方式设置TTL
-<ul>
-<li>单独对消息本身设置，每条消息的 TTL 可以不同。
-<ul>
+<li>RabbitMQ支持两种方式设置TTL<ul>
+<li>单独对消息本身设置，每条消息的 TTL 可以不同。<ul>
 <li>expiration 单位ms(毫秒)</li>
 </ul>
 </li>
-<li>通过队列属性设置，队列中所有消息都有相同的存活时间。
-<ul>
+<li>通过队列属性设置，队列中所有消息都有相同的存活时间。<ul>
 <li>x-message-ttl 单位ms(毫秒)</li>
 </ul>
 </li>
@@ -338,7 +334,7 @@
 </ul>
 <p><strong>消息在什么情况会成为死信（Dead Message）</strong></p>
 <ul>
-<li>消费者拒收消息**（ basic.reject/ basic.nack ）**，并且不再重新入队 <strong>requeue=false</strong></li>
+<li>消费者拒收消息<strong>（ basic.reject&#x2F; basic.nack ）</strong>，并且不再重新入队 <strong>requeue&#x3D;false</strong></li>
 <li>消息 TTL 超时</li>
 <li>队列达到最大长度</li>
 </ul>
@@ -354,17 +350,16 @@
 <ul>
 <li>注意：消息成为死信后，如果原队列绑定了死信交换机，则消息会被死信交换机重新路由到死信队列</li>
 </ul>
-<h1>二、RabbitMQ的“延迟队列”</h1>
-<p><strong>延迟队列是什么？</strong></p>
+<h1 id="二、RabbitMQ的“延迟队列”"><a href="#二、RabbitMQ的“延迟队列”" class="headerlink" title="二、RabbitMQ的“延迟队列”"></a>二、RabbitMQ的“延迟队列”</h1><p><strong>延迟队列是什么？</strong></p>
 <ul>
 <li>一种带有延迟功能的消息队列，Producer 将消息发送到消息队列 服务端，但并不期望这条消息立马投递，而是推迟到在当前时间点之后的某一个时间投递到 Consumer 进行消费，该消息即定时消息。</li>
-<li>注意：在 RabbitMQ 中不存在延迟队列，但可以通过设置消息的 TTL 和死信队列来模拟延迟队列。
-<ul>
+<li>注意：在 RabbitMQ 中不存在延迟队列，但可以通过设置消息的 TTL 和死信队列来模拟延迟队列。<ul>
 <li>消费者监听与死信交换机绑定的队列，而不要监听消息发送的队列。</li>
 </ul>
 </li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 设置属性，消息10秒钟过期</span><br>AMQP.BasicProperties properties = <span class="hljs-keyword">new</span> AMQP.BasicProperties.Builder()<br>.expiration(<span class="hljs-string">&quot;10000&quot;</span>) <span class="hljs-comment">// TTL</span><br><br><span class="hljs-comment">// 指定队列的死信交换机</span><br><span class="hljs-built_in">Map</span>&lt;<span class="hljs-built_in">String</span>,<span class="hljs-built_in">Object</span>&gt; <span class="hljs-built_in">arguments</span> = <span class="hljs-keyword">new</span> HashMap&lt;<span class="hljs-built_in">String</span>,<span class="hljs-built_in">Object</span>&gt;();<br><span class="hljs-built_in">arguments</span>.put(<span class="hljs-string">&quot;x-dead-letter-exchange&quot;</span>,<span class="hljs-string">&quot;DLX_EXCHANGE&quot;</span>);<br></code></pre></td></tr></table></figure>
+
 <p><strong>延迟队列的使用场景</strong></p>
 <ul>
 <li>通过消息触发一些定时任务，比如在某一固定时间点向用户发送提醒消息；</li>

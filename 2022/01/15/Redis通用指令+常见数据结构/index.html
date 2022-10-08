@@ -16,12 +16,12 @@
   <meta name="author" content="">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一.通用指令    指令 作用     EXISTS key [key …] 检查给定 key 是否存在   DEL key [key …] 删除给定的一个或多个 key   TYPE key 字符串的形式返回存储在 key 中的值的类型   TTL key 以秒为单位返回 key 的剩余过期时间用户客户端检查 key 还可以存在多久    二.常见数据结构 1. String类型   介绍：">
+    <meta name="description" content="一.通用指令   指令 作用    EXISTS key [key …] 检查给定 key 是否存在   DEL key [key …] 删除给定的一个或多个 key   TYPE key 字符串的形式返回存储在 key 中的值的类型   TTL key 以秒为单位返回 key 的剩余过期时间用户客户端检查 key 还可以存在多久   二.常见数据结构1. String类型 介绍：  存储字符串类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis通用指令+常见数据结构">
 <meta property="og:url" content="http://yoursite.com/2022/01/15/Redis%E9%80%9A%E7%94%A8%E6%8C%87%E4%BB%A4+%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="一.通用指令    指令 作用     EXISTS key [key …] 检查给定 key 是否存在   DEL key [key …] 删除给定的一个或多个 key   TYPE key 字符串的形式返回存储在 key 中的值的类型   TTL key 以秒为单位返回 key 的剩余过期时间用户客户端检查 key 还可以存在多久    二.常见数据结构 1. String类型   介绍：">
+<meta property="og:description" content="一.通用指令   指令 作用    EXISTS key [key …] 检查给定 key 是否存在   DEL key [key …] 删除给定的一个或多个 key   TYPE key 字符串的形式返回存储在 key 中的值的类型   TTL key 以秒为单位返回 key 的剩余过期时间用户客户端检查 key 还可以存在多久   二.常见数据结构1. String类型 介绍：  存储字符串类">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-01-15T05:39:45.781Z">
 <meta property="article:modified_time" content="2022-01-15T08:22:21.201Z">
@@ -314,44 +314,37 @@
             
               <div class="markdown-body">
                 
-                <h1>一.通用指令</h1>
-<table>
+                <h1 id="一-通用指令"><a href="#一-通用指令" class="headerlink" title="一.通用指令"></a>一.通用指令</h1><table>
 <thead>
 <tr>
-<th style="text-align:left">指令</th>
-<th style="text-align:left">作用</th>
+<th align="left">指令</th>
+<th align="left">作用</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:left">EXISTS key [key …]</td>
-<td style="text-align:left">检查给定 <code>key</code> 是否存在</td>
+<tbody><tr>
+<td align="left">EXISTS key [key …]</td>
+<td align="left">检查给定 <code>key</code> 是否存在</td>
 </tr>
 <tr>
-<td style="text-align:left">DEL key [key …]</td>
-<td style="text-align:left">删除给定的一个或多个 <code>key</code></td>
+<td align="left">DEL key [key …]</td>
+<td align="left">删除给定的一个或多个 <code>key</code></td>
 </tr>
 <tr>
-<td style="text-align:left">TYPE key</td>
-<td style="text-align:left">字符串的形式返回存储在 <code>key</code> 中的值的类型</td>
+<td align="left">TYPE key</td>
+<td align="left">字符串的形式返回存储在 <code>key</code> 中的值的类型</td>
 </tr>
 <tr>
-<td style="text-align:left">TTL key</td>
-<td style="text-align:left">以秒为单位返回 <code>key</code> 的剩余过期时间<br>用户客户端检查 <code>key</code> 还可以存在多久</td>
+<td align="left">TTL key</td>
+<td align="left">以秒为单位返回 <code>key</code> 的剩余过期时间<br>用户客户端检查 <code>key</code> 还可以存在多久</td>
 </tr>
-</tbody>
-</table>
-<h1>二.常见数据结构</h1>
-<h3 id="1-String类型">1. String类型</h3>
-<ul>
-<li>
-<p>介绍：</p>
+</tbody></table>
+<h1 id="二-常见数据结构"><a href="#二-常见数据结构" class="headerlink" title="二.常见数据结构"></a>二.常见数据结构</h1><h3 id="1-String类型"><a href="#1-String类型" class="headerlink" title="1. String类型"></a>1. String类型</h3><ul>
+<li><p>介绍：</p>
 <ul>
 <li>存储字符串类型的<code>key-value</code></li>
 </ul>
 </li>
-<li>
-<p>应用场景：</p>
+<li><p>应用场景：</p>
 <ul>
 <li>验证码</li>
 <li>计数器、发号器</li>
@@ -360,8 +353,7 @@
 <li>分布式锁</li>
 </ul>
 </li>
-<li>
-<p>常用指令</p>
+<li><p>常用指令</p>
 <table>
 <thead>
 <tr>
@@ -369,13 +361,12 @@
 <th>作用</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td>SET/GET key</td>
+<tbody><tr>
+<td>SET&#x2F;GET key</td>
 <td>设置和获取<code>key-value</code></td>
 </tr>
 <tr>
-<td>MSET/MGET key [key …]</td>
+<td>MSET&#x2F;MGET key [key …]</td>
 <td>批量设置和获取多个<code>key-value</code></td>
 </tr>
 <tr>
@@ -398,36 +389,30 @@
 <td>GETSET key value</td>
 <td>将键 <code>key</code> 的值设为<strong>新</strong> <code>value</code>，并返回<strong>旧</strong> <code>value</code></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 </li>
-<li>
-<p>注意</p>
+<li><p>注意</p>
 <ul>
-<li>Redis中String的值能存储的最大容量：<strong><code>512M</code></strong></li>
+<li>Redis中String的值能存储的最大容量：**<code>512M</code>**</li>
 <li>key命令规范：不能过长，冒号分隔，业务名:表名:ID</li>
 </ul>
 </li>
 </ul>
-<h3 id="2-List类型">2. List类型</h3>
-<ul>
-<li>
-<p>介绍：</p>
+<h3 id="2-List类型"><a href="#2-List类型" class="headerlink" title="2. List类型"></a>2. List类型</h3><ul>
+<li><p>介绍：</p>
 <ul>
 <li>字符串列表：按插入顺序排序</li>
 <li>双向链表：插入、删除时间复杂度为<code>O(1)</code>，查找为<code>O(n)</code></li>
 </ul>
 </li>
-<li>
-<p>应用场景：</p>
+<li><p>应用场景：</p>
 <ul>
 <li>简单队列</li>
 <li>最新评论列表：评论区第一页数据可以放在缓存中</li>
 <li>非实时排行榜：定时计算榜单</li>
 </ul>
 </li>
-<li>
-<p>常用指令</p>
+<li><p>常用指令</p>
 <table>
 <thead>
 <tr>
@@ -435,8 +420,7 @@
 <th>作用</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>LPUSH key element [element …]</td>
 <td>将一个或多个值插入到列表<code>key</code> 的头部</td>
 </tr>
@@ -470,13 +454,11 @@
 </tr>
 <tr>
 <td>LREM key count element</td>
-<td>从列表 key 中删除前 count 个值等于 <code>element</code> 的元素<br>count &gt; 0: 从头到尾删除值为 value 的元素<br> count &lt; 0: 从尾到头删除值为 value 的元素<br> count = 0: 移除所有值为 value 的元素</td>
+<td>从列表 key 中删除前 count 个值等于 <code>element</code> 的元素<br>count &gt; 0: 从头到尾删除值为 value 的元素<br> count &lt; 0: 从尾到头删除值为 value 的元素<br> count &#x3D; 0: 移除所有值为 value 的元素</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 </li>
-<li>
-<p>注意</p>
+<li><p>注意</p>
 <ul>
 <li>通常添加一个元素到头部（左边）或者尾部（右边）</li>
 <li>存储的都是String字符串类型</li>
@@ -485,24 +467,20 @@
 </ul>
 </li>
 </ul>
-<h3 id="3-Hash类型">3. Hash类型</h3>
-<ul>
-<li>
-<p>介绍：</p>
+<h3 id="3-Hash类型"><a href="#3-Hash类型" class="headerlink" title="3. Hash类型"></a>3. Hash类型</h3><ul>
+<li><p>介绍：</p>
 <ul>
 <li>是一个String类型的<code>field</code>和<code>value</code>的映射表，Hash特别适用于存储对象</li>
 </ul>
 </li>
-<li>
-<p>应用场景：</p>
+<li><p>应用场景：</p>
 <ul>
 <li>购物车</li>
 <li>用户个人信息</li>
 <li>商品详情</li>
 </ul>
 </li>
-<li>
-<p>常用指令</p>
+<li><p>常用指令</p>
 <table>
 <thead>
 <tr>
@@ -510,10 +488,9 @@
 <th>作用</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>HSET key field value [field value …]</td>
-<td>将哈希表 <code>key</code> 中的 <code>field</code> 域的值设置为 <code>value</code><br>从 Redis 4.0 起，HSET 可以一次设置一个或多个 <code>field</code>/<code>value</code> 对</td>
+<td>将哈希表 <code>key</code> 中的 <code>field</code> 域的值设置为 <code>value</code><br>从 Redis 4.0 起，HSET 可以一次设置一个或多个 <code>field</code>&#x2F;<code>value</code> 对</td>
 </tr>
 <tr>
 <td>HMSET key field value [field value …]</td>
@@ -543,26 +520,21 @@
 <td>HINCRBY key field increment</td>
 <td>为哈希表 <code>key</code> 中的 <code>field</code> 域的值加上增量 <code>increment</code></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 </li>
-<li>
-<p>注意</p>
+<li><p>注意</p>
 <ul>
 <li>一个Hash表最多可以存储$2^{32}$-1键值对</li>
 </ul>
 </li>
 </ul>
-<h3 id="4-Set类型">4. Set类型</h3>
-<ul>
-<li>
-<p>介绍：</p>
+<h3 id="4-Set类型"><a href="#4-Set类型" class="headerlink" title="4. Set类型"></a>4. Set类型</h3><ul>
+<li><p>介绍：</p>
 <ul>
 <li>Redis 的 Set 是 String 类型的无序集合。集合成员是唯一的，这就意味着集合中不能出现重复的数据。</li>
 </ul>
 </li>
-<li>
-<p>应用场景：</p>
+<li><p>应用场景：</p>
 <ul>
 <li>去重</li>
 <li>社交应用关注、粉丝、共同好友</li>
@@ -570,8 +542,7 @@
 <li>大数据中的用户画像标签集合</li>
 </ul>
 </li>
-<li>
-<p>常用指令</p>
+<li><p>常用指令</p>
 <table>
 <thead>
 <tr>
@@ -579,8 +550,7 @@
 <th>作用</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>SADD key member [member …]</td>
 <td>将一个或多个成员元素加入到集合中，已经存在于集合的成员元素将被忽略</td>
 </tr>
@@ -612,37 +582,31 @@
 <td>SUNION key [key …]</td>
 <td>返回所有给定集合的并集</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 </li>
-<li>
-<p>注意</p>
+<li><p>注意</p>
 <ul>
 <li>集合是通过哈希表实现的</li>
 <li>一个Set集合最多可以包含$2^{32}$-1个元素</li>
 </ul>
 </li>
 </ul>
-<h3 id="5-Sorted-Set类型">5. Sorted Set类型</h3>
-<ul>
-<li>
-<p>介绍：</p>
+<h3 id="5-Sorted-Set类型"><a href="#5-Sorted-Set类型" class="headerlink" title="5. Sorted Set类型"></a>5. Sorted Set类型</h3><ul>
+<li><p>介绍：</p>
 <ul>
 <li>Redis 的 Sorted Set 也是 String 类型的集合，且不允许重复的成员</li>
 <li>每个元素都会关联一个 double 类型的分数，通过分数来为集合中的成员进行从小到大的排序</li>
 <li>有序集合的成员是唯一的,但分数 ( score ) 却可以重复</li>
 </ul>
 </li>
-<li>
-<p>应用场景：</p>
+<li><p>应用场景：</p>
 <ul>
 <li>实时排行榜：商品热销榜、体育类应用热门球队、积分榜</li>
 <li>优先级任务、队列</li>
 <li>朋友圈文章点赞-取消：用户只能点赞或取消，统计一篇文章点赞了多少次，可以直接取里面有多少个成员</li>
 </ul>
 </li>
-<li>
-<p>常用指令</p>
+<li><p>常用指令</p>
 <table>
 <thead>
 <tr>
@@ -650,8 +614,7 @@
 <th>作用</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>ZADD key score member [score member …]</td>
 <td>向有序集合添加一个或多个成员，或者更新已存在成员的分数</td>
 </tr>
@@ -691,11 +654,9 @@
 <td>ZSCORE key member</td>
 <td>返回有序集中，成员的分数值</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 </li>
-<li>
-<p>注意</p>
+<li><p>注意</p>
 <ul>
 <li>底层使用 Ziplist压缩列表 和 “跳跃表” 两种存储结构</li>
 <li>如果重复添加相同的数据，score值会被覆盖，保留最后一次修改的结果</li>

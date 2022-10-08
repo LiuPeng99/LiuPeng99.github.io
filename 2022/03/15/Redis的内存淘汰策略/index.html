@@ -16,12 +16,12 @@
   <meta name="author" content="">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Redis的内存淘汰策略介绍： ​	redis在占用的内存超过指定的maxmemory之后，通过maxmemory_policy确定redis是否释放内存以及如何释放内存，提供了多种策略。   淘汰策略：  volatile-lru(least recently used)  最近最少使用算法，从设置了过期时间的键中选择空转时间最长的键值对清除掉；   volatile-lfu(least f">
+    <meta name="description" content="Redis的内存淘汰策略介绍：​	redis在占用的内存超过指定的maxmemory之后，通过maxmemory_policy确定redis是否释放内存以及如何释放内存，提供了多种策略。  淘汰策略： volatile-lru(least recently used) 最近最少使用算法，从设置了过期时间的键中选择空转时间最长的键值对清除掉；   volatile-lfu(least freque">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis的内存淘汰策略">
 <meta property="og:url" content="http://yoursite.com/2022/03/15/Redis%E7%9A%84%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="Redis的内存淘汰策略介绍： ​	redis在占用的内存超过指定的maxmemory之后，通过maxmemory_policy确定redis是否释放内存以及如何释放内存，提供了多种策略。   淘汰策略：  volatile-lru(least recently used)  最近最少使用算法，从设置了过期时间的键中选择空转时间最长的键值对清除掉；   volatile-lfu(least f">
+<meta property="og:description" content="Redis的内存淘汰策略介绍：​	redis在占用的内存超过指定的maxmemory之后，通过maxmemory_policy确定redis是否释放内存以及如何释放内存，提供了多种策略。  淘汰策略： volatile-lru(least recently used) 最近最少使用算法，从设置了过期时间的键中选择空转时间最长的键值对清除掉；   volatile-lfu(least freque">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-15T11:46:40.982Z">
 <meta property="article:modified_time" content="2022-03-15T11:47:00.068Z">
@@ -315,63 +315,50 @@
               <div class="markdown-body">
                 
                 <ul>
-<li>
-<h3 id="Redis的内存淘汰策略介绍：">Redis的内存淘汰策略介绍：</h3>
-<p>​	redis在占用的内存超过指定的maxmemory之后，通过maxmemory_policy确定redis是否释放内存以及如何释放内存，提供了多种策略。</p>
+<li><h3 id="Redis的内存淘汰策略介绍："><a href="#Redis的内存淘汰策略介绍：" class="headerlink" title="Redis的内存淘汰策略介绍："></a>Redis的内存淘汰策略介绍：</h3><p>​	redis在占用的内存超过指定的maxmemory之后，通过maxmemory_policy确定redis是否释放内存以及如何释放内存，提供了多种策略。</p>
 </li>
-<li>
-<h3 id="淘汰策略：">淘汰策略：</h3>
-<ul>
-<li>volatile-lru(least recently used)
-<ul>
+<li><h3 id="淘汰策略："><a href="#淘汰策略：" class="headerlink" title="淘汰策略："></a>淘汰策略：</h3><ul>
+<li>volatile-lru(least recently used)<ul>
 <li>最近最少使用算法，从设置了过期时间的键中选择空转时间最长的键值对清除掉；</li>
 </ul>
 </li>
-<li>volatile-lfu(least frequently used)
-<ul>
+<li>volatile-lfu(least frequently used)<ul>
 <li>最近使用频率最低算法，从设置了过期时间的键中选择某段时间之内使用频次最小的键值对清除掉；</li>
 </ul>
 </li>
-<li>volatile-ttl
-<ul>
+<li>volatile-ttl<ul>
 <li>从设置了过期时间的键中选择过期时间最早的键值对清除 (删除即将过期的）</li>
 </ul>
 </li>
-<li>volatile-random
-<ul>
+<li>volatile-random<ul>
 <li>从设置了过期时间的键中，随机选择键进行清除；</li>
 </ul>
 </li>
-<li>allkeys-lru
-<ul>
+<li>allkeys-lru<ul>
 <li>最近最少使用算法，从所有的键中选择空转时间最长的键值对清除；</li>
 </ul>
 </li>
-<li>allkeys-lfu
-<ul>
+<li>allkeys-lfu<ul>
 <li>最近使用频率最低算法，从所有的键中选择某段时间之内使用频次最少的键值对清除；</li>
 </ul>
 </li>
-<li>allkeys-random
-<ul>
+<li>allkeys-random<ul>
 <li>所有的键中，随机选择键进行删除；</li>
 </ul>
 </li>
-<li>noeviction
-<ul>
+<li>noeviction<ul>
 <li>不做任何的清理工作，在redis的内存超过限制之后，所有的写入操作都会返回错误；但是读操作都能正常的进行;</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>
-<h3 id="注意事项：">注意事项：</h3>
-<ul>
+<li><h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><ul>
 <li>config配置的时候key的下划线 _ 需要用中横线 -</li>
 </ul>
 </li>
 </ul>
 <figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">127.0.0.1:6379</span>&gt; config set maxmemory_policy volatile-lru<br>(error) ERR Unsupported CONFIG parameter: maxmemory_policy<br><br><span class="hljs-number">127.0.0.1:6379</span>&gt; config set maxmemory-policy volatile-lru<br>OK<br></code></pre></td></tr></table></figure>
+
 <p>​	最好为Redis指定一种有效的内存淘汰策略以配合maxmemory设置，避免在内存使用满后发生写入失败的情况。一般来说，推荐使用的策略是volatile-lru，并辨识Redis中保存的数据的重要性。对于那些重要的，绝对不能丢弃的数据（如配置类数据等），应不设置有效期，这样Redis就永远不会淘汰这些数据。对于那些相对不是那么重要的，并且能够热加载的数据（比如缓存最近登录的用户信息，当在Redis中找不到时，程序会去DB中读取），可以设置上有效期，这样在内存不够时Redis就会淘汰这部分数据。</p>
 
                 

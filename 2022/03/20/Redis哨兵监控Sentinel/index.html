@@ -16,12 +16,12 @@
   <meta name="author" content="">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费时费力，还会造成一段时间内服务不可用。 一、什么是Sentinel哨兵模式   Sentinel哨兵模式介绍：  哨兵是Redis的一种运行模式，它专注于对Redis实例（主节点、从节点）运行状态的监控，并能够在主节点发生故障时通过一系列的机制实现选主及主从切换，实现故障转移，确保整个Redis系统的可用性">
+    <meta name="description" content="在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费时费力，还会造成一段时间内服务不可用。 一、什么是Sentinel哨兵模式 Sentinel哨兵模式介绍：  哨兵是Redis的一种运行模式，它专注于对Redis实例（主节点、从节点）运行状态的监控，并能够在主节点发生故障时通过一系列的机制实现选主及主从切换，实现故障转移，确保整个Redis系统的可用性。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis哨兵监控Sentinel">
 <meta property="og:url" content="http://yoursite.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费时费力，还会造成一段时间内服务不可用。 一、什么是Sentinel哨兵模式   Sentinel哨兵模式介绍：  哨兵是Redis的一种运行模式，它专注于对Redis实例（主节点、从节点）运行状态的监控，并能够在主节点发生故障时通过一系列的机制实现选主及主从切换，实现故障转移，确保整个Redis系统的可用性">
+<meta property="og:description" content="在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费时费力，还会造成一段时间内服务不可用。 一、什么是Sentinel哨兵模式 Sentinel哨兵模式介绍：  哨兵是Redis的一种运行模式，它专注于对Redis实例（主节点、从节点）运行状态的监控，并能够在主节点发生故障时通过一系列的机制实现选主及主从切换，实现故障转移，确保整个Redis系统的可用性。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-1.png">
 <meta property="og:image" content="http://yoursite.com/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-2.png">
@@ -321,18 +321,15 @@
               <div class="markdown-body">
                 
                 <p>在Redis的主从模式中，当主服务器宕机后，需要手动把一台从服务器切换为主服务器，人工干预费时费力，还会造成一段时间内服务不可用。</p>
-<h2 id="一、什么是Sentinel哨兵模式">一、什么是Sentinel哨兵模式</h2>
-<ul>
-<li>
-<p>Sentinel哨兵模式介绍：</p>
+<h2 id="一、什么是Sentinel哨兵模式"><a href="#一、什么是Sentinel哨兵模式" class="headerlink" title="一、什么是Sentinel哨兵模式"></a>一、什么是Sentinel哨兵模式</h2><ul>
+<li><p>Sentinel哨兵模式介绍：</p>
 <ul>
 <li>哨兵是Redis的一种运行模式，它专注于对Redis实例（主节点、从节点）运行状态的监控，并能够在主节点发生故障时通过一系列的机制实现选主及主从切换，实现故障转移，确保整个Redis系统的可用性。</li>
 <li>哨兵通过发送命令给多个节点，等待Redis服务器响应，从而监控运行的多个Redis实例的运行情况。</li>
 <li>当哨兵监测到master宕机，会自动将slave切换成master，并通知其他的从服务器，修改配置文件切换主机。</li>
 </ul>
 </li>
-<li>
-<p>Sentinel哨兵的能力：</p>
+<li><p>Sentinel哨兵的能力：</p>
 <ul>
 <li><strong>监控（Monitoring）</strong>：持续监控Redis主节点、从节点是否处于预期的工作状态。</li>
 <li><strong>通知（Notification）</strong>：哨兵可以把Redis实例的运行故障信息通过API通知监控系统或者其他应用程序。</li>
@@ -343,19 +340,16 @@
 </ul>
 <p>一般是使用多个哨兵进行监控，各个哨兵之间还会进行监控，形成多哨兵模式</p>
 <p><img src="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-1.png" srcset="/img/loading.gif" lazyload alt="image-1"></p>
-<h2 id="二、多哨兵模式介绍：">二、多哨兵模式介绍：</h2>
-<ul>
-<li>主观下线（Subjectively Down， 简称 SDOWN）
-<ul>
+<h2 id="二、多哨兵模式介绍："><a href="#二、多哨兵模式介绍：" class="headerlink" title="二、多哨兵模式介绍："></a>二、多哨兵模式介绍：</h2><ul>
+<li>主观下线（Subjectively Down， 简称 SDOWN）<ul>
 <li>是单个 Sentinel 实例对服务器做出的下线判断，比如网络问题接收不到通知等</li>
 <li>如果一个服务器<strong>没有</strong>在 down-after-milliseconds 选项所指定的时间内，对向它发送 PING 命令的 Sentinel 返回一个有效回复（valid reply）， 那么 Sentinel 就会将这个服务器标记为主观下线。</li>
 </ul>
 </li>
 </ul>
-<p><img src="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-2.png" srcset="/img/loading.gif" lazyload alt></p>
+<p><img src="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-2.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
-<li>客观下线（Objectively Down， 简称 ODOWN）
-<ul>
+<li>客观下线（Objectively Down， 简称 ODOWN）<ul>
 <li>指的是多个 Sentinel 实例在对同一个服务器做出 SDOWN 判断， 并且通过 SENTINEL is-master-down-by-addr 命令互相交流之后， 得出的服务器下线判断</li>
 <li>一个 Sentinel 可以通过向另一个 Sentinel 发送 SENTINEL is-master-down-by-addr 命令来询问对方是否认为给定的服务器已下线</li>
 <li>客观下线条件只适用于<strong>主服务器</strong></li>
@@ -364,8 +358,7 @@
 </ul>
 <p><img src="/2022/03/20/Redis%E5%93%A8%E5%85%B5%E7%9B%91%E6%8E%A7Sentinel/image-3.png" srcset="/img/loading.gif" lazyload alt="image-3"></p>
 <ul>
-<li>
-<p>仲裁 quorum</p>
+<li><p>仲裁 quorum</p>
 <ul>
 <li>Sentinel 在给定的时间范围内， 从其他 Sentinel 那里接收到了【足够数量】的主服务器下线报告， 那么 Sentinel 就会将<strong>主服务器</strong>的状态从主观下线改变为客观下线</li>
 <li>这个【足够数量】就是配置文件里面的值，一般是Sentinel个数的一半加1，比如3个Sentinel则就设置为2</li>
@@ -373,8 +366,7 @@
 <li>当拥有认为主观下线的哨兵达到sentinel monitor所配置的数量时，就会发起一次投票，进行故障转移failover</li>
 </ul>
 </li>
-<li>
-<p>故障转移 failover</p>
+<li><p>故障转移 failover</p>
 <ul>
 <li>在已下线的Master主机下面挑选一个Slave将其转换为主服务器。</li>
 <li>让其余所有Slave服务器复制新的Master服务器。</li>
